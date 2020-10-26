@@ -26,7 +26,7 @@
                         <input type="button" class="btn btn-primary addcategory"  data-action="add"  data-toggle="modal" data-url="/admin/addchildcategory" data-target="#addcategorymodel" value="Add child category">
                     </div>
                     <div class="col-2">
-                        <input type="button" class="btn btn-secondary addcategory"  data-action="add"  data-toggle="modal" data-target="#addcategorymodel" value="Add Lower category">
+                        <input type="button" class="btn btn-secondary addcategory"  data-action="add" data-url="/admin/addnichecategory" data-toggle="modal" data-target="#addcategorymodel" value="Add Niche category">
                     </div>
 
                 </div>

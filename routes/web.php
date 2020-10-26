@@ -33,7 +33,9 @@ Route::prefix('admin')->middleware(['admin', 'verified'])->group(function () {
     Route::get('/category', '\App\Http\Controllers\CategoryController@index')->name('admin.manage.category');
     Route::get('/addparentcategory', '\App\Http\Controllers\CategoryController@addParentCategory');
     Route::get('/addchildcategory', '\App\Http\Controllers\CategoryController@addChildCategory');
+    Route::get('/addchildcategory', '\App\Http\Controllers\CategoryController@addNicheCategory');
     Route::post('/saveparentcategory', '\App\Http\Controllers\CategoryController@saveParentCategory');
+    Route::post('/savechildcategory', '\App\Http\Controllers\CategoryController@saveChildCategory');
 
 });
 
