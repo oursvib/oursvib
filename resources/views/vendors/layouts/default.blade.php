@@ -1,0 +1,5 @@
+@include('vendors.includes.head')
+@include('vendors.includes.navbar')
+@include('vendors.includes.sidebar')
+@yield('content')
+@include('vendors.includes.footer')

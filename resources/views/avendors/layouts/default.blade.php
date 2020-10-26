@@ -1,0 +1,5 @@
+@include('avendors.includes.head')
+@include('avendors.includes.navbar')
+@include('avendors.includes.sidebar')
+@yield('content')
+@include('avendors.includes.footer')
