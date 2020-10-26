@@ -36,7 +36,7 @@ class CategoryController extends Controller
     {
         $rootcategory = Category::with('subcategory')->get();
      //   echo '<pre>';print_r($rootcategory);exit;
-        return view('admin.pages.addchildcategorymodal')->with(compact('rootcategory'));
+        return view('admin.pages.addnichecategorymodal')->with(compact('rootcategory'));
     }
     public function saveParentCategory(Request $request)
     {

@@ -1,6 +1,6 @@
-<form action="javascript:void(0)" method="post" id="addchildcategory">
+<form action="javascript:void(0)" method="post" id="addnichecategory">
     <div class="modal-header">
-    <h4 class="modal-title">Add parent category</h4>
+    <h4 class="modal-title">Add Niche category</h4>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -16,8 +16,11 @@
                         </div>
                      </div>
 
-    <p>Parent category:</p>
-
+    <p>child category:</p>
+    <?php // echo '<pre>';
+    //print_r(json_encode($rootcategory));exit;?>
+{{$rootcategory}}
+    <?php exit;?>
     <select class="form-control" name="parent_id" id="parent_id">
             <option value="">Select</option>
             @foreach($rootcategory as $root)
@@ -28,9 +31,9 @@
             @endforeach
                 </optgroup>
         </select>
-        <p>Child category name:</p>
+        <p>Niche category name:</p>
     <p>
-        <input type="text" name="name" id="name" class="form-control"  placeholder="child category name">
+        <input type="text" name="name" id="name" class="form-control"  placeholder="Niche category name">
     </p>
 </div>
 <div class="modal-footer justify-content-between">

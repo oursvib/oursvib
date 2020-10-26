@@ -11,6 +11,18 @@ class Category extends Model
 
     public function subcategory()
     {
-        return $this->hasMany('App\Models\Subcategory','parent_id');
+        return $this->hasMany('App\Models\Subcategory', 'parent_id')->with('subchildcategory');
+    }
+
+    public function subchildcategory()
+    {
+        return $this->hasMany('App\Models\Subchildcategory','parent_id')->with('sublowerchild');
+        //return $this->hasMany('App\Models\Subchildcategory', 'parent_id')->with('subcategory');
+    }
+
+    public function sublowerchild()
+    {
+        return $this->hasManyThrough('App\Models\Sublowerchildcategory','App\Models\Subchildcategory','parent_id','parent_id','id','id');
+        //return $this->hasMany('App\Models\Subchildcategory', 'parent_id')->with('subcategory');
     }
 }
