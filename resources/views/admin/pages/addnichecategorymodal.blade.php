@@ -17,16 +17,13 @@
                      </div>
 
     <p>child category:</p>
-    <?php // echo '<pre>';
-    //print_r(json_encode($rootcategory));exit;?>
-{{$rootcategory}}
-    <?php exit;?>
+
     <select class="form-control" name="parent_id" id="parent_id">
             <option value="">Select</option>
             @foreach($rootcategory as $root)
                 <optgroup label="{{$root->name}}">
                 @if($root->subcategory)
-                    @include('admin.pages.childcategoryselect',['subcategories' => $root->subcategory])
+                    @include('admin.pages.childcategoryselectgroup',['subcategories' => $root->subcategory])
                 @endif
             @endforeach
                 </optgroup>
@@ -42,7 +39,7 @@
 </div>
 </form>
 <script>
-    $("#addchildcategory").validate({
+    $("#addnichecategory").validate({
         rules: {
             parent_id: {
                 required: true,
@@ -55,25 +52,25 @@
         messages: {
 
             parent_id: {
-                required: "Please select parent category",
+                required: "Please select child category",
             },
             name: {
-                required: "Please enter child category name",
-                minlength: "Parent category name should not exceed 100 character",
+                required: "Please enter niche category name",
+                minlength: "Niche category name should not exceed 100 character",
             },
         },
         submitHandler: function(form) {
             $.ajax({
-                url: "{{ url('/admin/savechildcategory')}}" ,
+                url: "{{ url('/admin/savenichecategory')}}" ,
                 type: "POST",
-                data: $('#addchildcategory').serialize(),
+                data: $('#addnichecategory').serialize(),
                 success: function( response ) {
                     $('#send_form').html('Submit');
                     $('#res_message').show();
                     $('#res_message').html(response.msg);
                     $('#msg_div').removeClass('d-none');
 
-                    $("#addchildcategory")[0].reset();
+                    $("#addnichecategory")[0].reset();
                     setTimeout(function(){
                         $('#res_message').hide();
                         $('#msg_div').hide();

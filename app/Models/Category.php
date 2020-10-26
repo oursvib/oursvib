@@ -23,6 +23,6 @@ class Category extends Model
     public function sublowerchild()
     {
         return $this->hasManyThrough('App\Models\Sublowerchildcategory','App\Models\Subchildcategory','parent_id','parent_id','id','id');
-        //return $this->hasMany('App\Models\Subchildcategory', 'parent_id')->with('subcategory');
+
     }
 }

@@ -36,6 +36,7 @@ Route::prefix('admin')->middleware(['admin', 'verified'])->group(function () {
     Route::get('/addnichecategory', '\App\Http\Controllers\CategoryController@addNicheCategory');
     Route::post('/saveparentcategory', '\App\Http\Controllers\CategoryController@saveParentCategory');
     Route::post('/savechildcategory', '\App\Http\Controllers\CategoryController@saveChildCategory');
+    Route::post('/savenichecategory', '\App\Http\Controllers\CategoryController@saveNicheCategory');
 
 });
 

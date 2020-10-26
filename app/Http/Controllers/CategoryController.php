@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Subcategory;
 use App\Models\Subchildcategory;
+use App\Models\Sublowerchildcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -35,7 +36,6 @@ class CategoryController extends Controller
     public function addNicheCategory()
     {
         $rootcategory = Category::with('subcategory')->get();
-     //   echo '<pre>';print_r($rootcategory);exit;
         return view('admin.pages.addnichecategorymodal')->with(compact('rootcategory'));
     }
     public function saveParentCategory(Request $request)
@@ -61,6 +61,21 @@ class CategoryController extends Controller
             'name'      => 'required',
         ]);
         $check = Subchildcategory::create($input);
+        $arr   = array('msg' => 'Something goes to wrong. Please try again later', 'status' => false);
+        if ($check) {
+            $arr = array('msg' => 'Successfully Form Submit', 'status' => true);
+        }
+        return response()->json($arr);
+    }
+
+    public function saveNicheCategory(Request $request)
+    {
+        $input = $request->all();
+        $request->validate([
+            'parent_id' => 'required',
+            'name'      => 'required',
+        ]);
+        $check = Sublowerchildcategory::create($input);
         $arr   = array('msg' => 'Something goes to wrong. Please try again later', 'status' => false);
         if ($check) {
             $arr = array('msg' => 'Successfully Form Submit', 'status' => true);
