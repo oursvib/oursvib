@@ -28,7 +28,7 @@ class HomeController extends Controller
         // return view('home');
         // echo Auth::user()->role ;exit;
         if (Auth::user()->role == '1') {
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('admin.manage.category');
         }
 
         if (Auth::user()->role == '2') {

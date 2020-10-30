@@ -38,6 +38,8 @@ Route::prefix('admin')->middleware(['admin', 'verified'])->group(function () {
     Route::post('/savechildcategory', '\App\Http\Controllers\CategoryController@saveChildCategory');
     Route::post('/savenichecategory', '\App\Http\Controllers\CategoryController@saveNicheCategory');
 
+    Route::get('/managelisting', '\App\Http\Controllers\ListingController@index')->name('admin.manage.listing');
+
 });
 
 Route::prefix('vendors')->middleware(['vendors', 'verified'])->group(function () {
