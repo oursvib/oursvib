@@ -28,7 +28,11 @@
 <script src="{{ asset('adminfile/js/demo.js')}}"></script>
 <script src="{{ asset('adminfile/plugins/jquery-validation/jquery.validate.js')}}"></script>
 <script src="{{ asset('adminfile/plugins/jquery-validation/additional-methods.js')}}"></script>
+<script src="{{ asset('adminfile/js/jquery.steps.js')}}"></script>
 <script src="{{ asset('adminfile/js/category.js')}}"></script>
+<script src="{{ asset('adminfile/js/listing.js')}}"></script>
+<script src="{{ asset('adminfile/plugins/select2/js/select2.js')}}"></script>
+
 <!-- page script -->
 </body>
 </html>

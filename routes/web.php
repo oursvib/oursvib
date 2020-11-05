@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('customer.pages.home');
 });
 Auth::routes(['verify' => true]);
 
@@ -22,6 +22,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('home', '\App\Http\Controllers\HomeController@index')->name('home');
+Route::post('validate_email', '\App\Http\Controllers\Auth\RegisterController@validateEmail')->name('validate.email');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('/adminlogin', '\App\Http\Controllers\AdminController@showLoginForm')->name('admin.login');
 Route::get('/vendorslogin', '\App\Http\Controllers\VendorsController@showLoginForm')->name('vendors.login');
@@ -39,6 +40,7 @@ Route::prefix('admin')->middleware(['admin', 'verified'])->group(function () {
     Route::post('/savenichecategory', '\App\Http\Controllers\CategoryController@saveNicheCategory');
 
     Route::get('/managelisting', '\App\Http\Controllers\ListingController@index')->name('admin.manage.listing');
+    Route::get('/addlisting', '\App\Http\Controllers\ListingController@addListing')->name('admin.listing.add');
 
 });
 

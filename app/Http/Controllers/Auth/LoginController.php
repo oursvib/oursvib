@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -36,5 +38,28 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        //redirect()->route('home');
+        if (Auth::user()->role == '1') {
+            //  return redirect()->route('admin.manage.category');
+            return response()->json(["redirectto"=>"/admin/category","status"=>"success"]);
+        }
+        if (Auth::user()->role == '2') {
+            //  return redirect()->route('admin.manage.category');
+            return response()->json(["redirectto"=>"/vendors","status"=>"success"]);
+        }
+
+        if (Auth::user()->role == '3') {
+            //   return redirect()->route('avendors.dashboard');
+            return response()->json(["redirectto"=>"/avendors","status"=>"success"]);
+        }
+
+        if (Auth::user()->role == '4') {
+            //  return redirect()->route('customer.dashboard');
+            return response()->json(["redirectto"=>"/customer","status"=>"success"]);
+        }
     }
 }

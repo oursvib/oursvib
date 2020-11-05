@@ -17,6 +17,8 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminfile/css/adminlte.min.css')}}">
     <link rel="stylesheet" href="{{ asset('adminfile/css/extra.css')}}">
+    <link rel="stylesheet" href="{{ asset('adminfile/css/jquery.steps.css')}}">
+    <link rel="stylesheet" href="{{ asset('adminfile/plugins/select2/css/select2.css')}}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>

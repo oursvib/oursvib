@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth','verified']);
+        $this->middleware(['auth', 'verified']);
     }
 
     /**
@@ -29,19 +29,24 @@ class HomeController extends Controller
         // echo Auth::user()->role ;exit;
         if (Auth::user()->role == '1') {
             return redirect()->route('admin.manage.category');
+            // return response()->json(["redirectto"=>"/admin/category","status"=>"success"]);
         }
 
         if (Auth::user()->role == '2') {
             return redirect()->route('vendors.dashboard');
+            // return response()->json(["redirectto"=>"/vendors","status"=>"success"]);
         }
 
         if (Auth::user()->role == '3') {
             return redirect()->route('avendors.dashboard');
+            //   return response()->json(["redirectto"=>"/avendors","status"=>"success"]);
         }
 
         if (Auth::user()->role == '4') {
             return redirect()->route('customer.dashboard');
+            //  return response()->json(["redirectto"=>"/customer","status"=>"success"]);
         }
 
     }
+
 }
