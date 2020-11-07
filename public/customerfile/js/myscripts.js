@@ -27,7 +27,13 @@ $("#login-form").validate({
     }
 });
 
-
+$("#role").change(function(){
+    if($(this).val()=='4'){
+        $("#company_name_div").hide();
+    }else{
+        $("#company_name_div").show();
+    }
+})
 $("#register-form").validate({
     rules: {
         role: {
@@ -68,20 +74,21 @@ $("#register-form").validate({
         }
     },
     submitHandler: function (form) {
-        event.preventDefault();
-        $.ajax({
-            url: "register",
-            type: "POST",
-            data: $("#register-form").serialize(),
-            dataType: "json",
-            success: function (data) {
-                if (data.status == "success") {
-                    window.location.href = data.redirectto
-                }
-            },
-            error: function (data) {
-                $("#errors").html(data.responseJSON.errors.email)
-            }
-        })
+        //event.preventDefault();
+       form.submit();
+        // $.ajax({
+        //     url: "register",
+        //     type: "POST",
+        //     data: $("#register-form").serialize(),
+        //     dataType: "json",
+        //     success: function (data) {
+        //         if (data.status == "success") {
+        //             window.location.href = data.redirectto
+        //         }
+        //     },
+        //     error: function (data) {
+        //         $("#errors").html(data.responseJSON.errors.email)
+        //     }
+        // })
     }
 })

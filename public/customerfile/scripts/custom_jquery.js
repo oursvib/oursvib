@@ -148,9 +148,9 @@
                 $('#amount').val(parseInt(propertyPricing));
             });
         }
-        $(document).on('change', function() {
-            $("#interest").val($("#interest").val().replace(/,/g, '.'));
-        });
+        // $(document).on('change', function() {
+        //     $("#interest").val($("#interest").val().replace(/,/g, '.'));
+        // });
 
         function mortgageCalc() {
             var amount = parseFloat($("#amount").val().replace(/[^0-9\.]+/g, "")),

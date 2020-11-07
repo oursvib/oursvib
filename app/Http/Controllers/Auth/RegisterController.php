@@ -81,7 +81,9 @@ class RegisterController extends Controller
         //print_r($request->all());exit;
         $user=User::where('email','=',$request['email'])->get();
         if($user->count()){
-            return '0';
+            return 'false';
+        }else{
+            return 'true';
         }
     }
 

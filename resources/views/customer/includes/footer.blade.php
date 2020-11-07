@@ -120,11 +120,12 @@
                                     </span>
                         @enderror
                     </div>
-                    <div class="checkbox margin-top-0">
-                        <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                        <label for="two-step"><span class="checkbox-icon"></span> Remember Me</label>
-                    </div>
-                    <a href="forgot_password.html" class="forgot-password">Forgot Password?</a>
+{{--                    <div class="checkbox margin-top-0">--}}
+{{--                        <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>--}}
+{{--                        <label for="two-step"><span class="checkbox-icon"></span> Remember Me</label>--}}
+{{--                    </div>--}}
+                    <a href="{{route('password.request')}}" class="forgot-password">Forgot Password?</a>
+                    <br>
 
                 <button class="button full-width utf-button-sliding-icon ripple-effect" type="submit" form="login-form">Log In <i class="icon-feather-chevrons-right"></i>
                 </button>
@@ -144,9 +145,9 @@
                     <h3>Create your Account!</h3>
                     <span>Already Have an Account? <a href="#" class="login-tab">Sign in!</a></span>
                 </div>
-                <form method="post" id="register-form">
+                <form method="post" id="register-form" action="{{url('register')}}">
                     <meta name="_token" content="{{ csrf_token() }}">
-
+                    @csrf
                     <div class="utf-no-border margin-bottom-20">
                         <select class="form-control" name="role" id="role">
                             <option value="">Select</option>
@@ -169,7 +170,7 @@
                     <div class="utf-no-border">
                         <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Repeat Password" required="">
                     </div>
-                    <div class="utf-no-border">
+                    <div class="utf-no-border" id="company_name_div">
                         <input type="text" name="company_name" id="company_name" class="form-control" placeholder="Company name" required="">
                     </div>
                     <div class="utf-no-border">
