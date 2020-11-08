@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Listing;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ListingController extends Controller
 {
@@ -20,7 +22,8 @@ class ListingController extends Controller
             ['role','=','2'],
             ['email_verified_at','<>','']
         ])->get();
-        $vendorss=User::where('role','4')->get();
-        return view('admin.pages.addlisting',compact('vendors','vendorss'));
+        $rootcategory=Category::all();
+        $listingtype= DB::table('listing_type')->get();
+        return view('admin.pages.addlisting',compact('vendors','rootcategory','listingtype'));
     }
 }

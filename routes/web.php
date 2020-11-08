@@ -43,7 +43,9 @@ Route::prefix('admin')->middleware(['admin', 'verified'])->group(function () {
     Route::get('/addlisting', '\App\Http\Controllers\ListingController@addListing')->name('admin.listing.add');
 
 });
-
+Route::post('getparentcategory','\App\Http\Controllers\HelperController@getParentCategory');
+Route::post('getchildcategory','\App\Http\Controllers\HelperController@getChildCategory');
+Route::post('getnichecategory','\App\Http\Controllers\HelperController@getNicheCategory');
 Route::prefix('vendors')->middleware(['vendors', 'verified'])->group(function () {
     Route::get('/', '\App\Http\Controllers\VendorsController@index')->name('vendors.dashboard');
 

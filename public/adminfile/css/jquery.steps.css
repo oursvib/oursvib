@@ -1,5 +1,5 @@
 ﻿/*
-    Common 
+    Common
 */
 
 .wizard,
@@ -139,7 +139,7 @@
 
 .wizard > .content
 {
-    background: #eee;
+    border: 1px solid #ccc;
     display: block;
     margin: 0.5em;
     min-height: 35em;

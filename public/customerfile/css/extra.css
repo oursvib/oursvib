@@ -1,5 +1,6 @@
 .error{
     color:#ff0000;
+    display: block;
 }
 #errors{
     margin:10px;

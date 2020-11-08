@@ -1,60 +1,55 @@
 @extends('admin.layouts.login')
 @section('content')
-    <body class="hold-transition login-page">
-    <div class="login-box">
-        <div class="login-logo">
-            <b>Oursvib Admin</b>
-        </div>
-        <!-- /.login-logo -->
-        <div class="card">
-            <div class="card-body login-card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
-
-                <form method="POST" action="{{route('login')}}">
-                    @csrf
-                    <div class="input-group mb-3">
-                        <input type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}" >
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-md-4">
+            <h1 class="text-center mb-4">Oursvib Admin</h1>
+            <div class="card">
+                <div class="card-body">
+                    <form method="POST" action="{{route('login')}}" id="login-form">
+                        @csrf
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-user"></i></span>
                             </div>
-                        </div>
-                        @error('email')
-                        <span class="error" role="alert">
+                            <input type="text" class="form-control"  name="email" placeholder="Email" value="{{ old('email') }}">
+
+                            @error('email')
+                            <span class="error" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                        @enderror
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="password" name="password" class="form-control" placeholder="Password">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
+                            @enderror
                         </div>
-                        @error('password')
-                        <span class="error" role="alert">
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-key"></i></span>
+                            </div>
+                            <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+                            @error('password')
+                            <span class="error" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                        @enderror
-                    </div>
-                    <div class="row">
-
-                        <!-- /.col -->
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                            @enderror
                         </div>
-                        <!-- /.col -->
-                    </div>
-                </form>
 
+{{--                        <div class="form-check mb-3">--}}
+{{--                            <label class="form-check-label">--}}
+{{--                                <input type="checkbox" name="remember" class="form-check-input">--}}
+{{--                                Remember Me--}}
+{{--                            </label>--}}
+{{--                        </div>--}}
 
-                <!-- /.social-auth-links -->
-
-
+                        <div class="row">
+                            <div class="col pr-2">
+                                <button type="submit" class="btn btn-block btn-primary">Login</button>
+                            </div>
+{{--                            <div class="col pl-2">--}}
+{{--                                <a class="btn btn-block btn-link" href="#">Forgot Password</a>--}}
+{{--                            </div>--}}
+                        </div>
+                    </form>
+                </div>
             </div>
-            <!-- /.login-card-body -->
         </div>
     </div>
-    </body>
 @stop

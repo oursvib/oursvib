@@ -1,91 +1,78 @@
 @extends('admin.layouts.default')
 @section('content')
 
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <div class="container-fluid">
-{{--                <div class="row mb-2">--}}
-{{--                    <div class="col-sm-6">--}}
-{{--                        <h1>Manage Category</h1>--}}
-{{--                    </div>--}}
-{{--                  @include('admin.includes.breadcrumb')--}}
-{{--                </div>--}}
-            </div><!-- /.container-fluid -->
-        </section>
-        <section>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-10">
-                        &nbsp;
-                    </div>
-                    <div class="col-2">
-                      <a href="{{route('admin.listing.add')}}" class="btn btn-primary">Add new listing</a>
-                    </div>
+    <div class="content p-4">
+        <h2 class="mb-4">Add listing</h2>
+        <div class="card mb-4">
+            <form>
+            <div class="card-body">
+                <div id="addlistingwizard">
+                    <h1> Step 1</h1>
+                    <div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>Select vendor</label>
 
-
-                </div>
-            </div>
-        </section>
-        <div class="row"><div>&nbsp;</div></div>
-        <!-- Main content -->
-        <section class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Add New Listing</h3>
+                                <select class="form-control select2" name="vendor_id" id="vendor_id">
+                                    <option value="">select</option>
+                                    @foreach($vendors as $vendor)
+                                        <option value="{{$vendor->id}}">{{$vendor->company_name}} - {{$vendor->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                              <div id="addlistingwizard">
-                                  <h1> Step 1</h1>
-                                  <div>
-                                      <div>Select vendor</div>
-                                      <div>
-                                          <select class="form-control select2" name="vendor_id" id="vendor_id">
-                                          @foreach($vendors as $vendor)
-                                              <option value="{{$vendor->id}}">{{$vendor->name}}</option>
-                                          @endforeach
-                                          </select>
-                                      </div>
-                                      <div>Select user</div>
-                                      <div>
-                                          <select class="select2" name="vendor_id" id="vendor_id1">
-                                              @foreach($vendorss as $vendors)
-                                                  <option value="{{$vendors->id}}">{{$vendors->name}}</option>
-                                              @endforeach
-                                          </select>
-                                      </div>
-                                  </div>
-                                  <h1> Step 2</h1>
-                                  <div>Second Content</div>
+                            <div class="col-md-4 mb-3">
+                                <label>Select root category</label>
 
-                              </div>
+                                <select class="form-control select2" name="root_category" id="root_category">
+                                    <option value="">select</option>
+                                    @foreach($rootcategory as $root)
+                                        <option value="{{$root->id}}"> {{$root->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                            <!-- /.card-body -->
+                            <div class="col-md-4 mb-3">
+                                <label>Select parent category</label>
+
+                                <select class="form-control select2" name="parent_category" id="parent_category">
+
+                                </select>
+                            </div>
                         </div>
-                        <!-- /.card -->
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>Select child category</label>
 
+                                <select class="form-control select2" name="child_category" id="child_category">
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label>Select niche category</label>
 
-                        <!-- /.card -->
+                                <select class="form-control select2" name="niche_category" id="niche_category">
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label>Listing type</label>
+
+                                <select class="form-control select2" name="listing_type" id="listing_type">
+                                    <option value="">select</option>
+                                    @foreach($listingtype as $ltype)
+                                        <option value="{{$ltype->id}}"> {{$ltype->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                    <!-- /.col -->
-                </div>
-                <!-- /.row -->
-            </div>
-            <!-- /.container-fluid -->
-        </section>
-        <!-- /.content -->
-    </div>
-    <div class="modal fade" id="addcategorymodel">
-        <div class="modal-dialog">
-            <div class="modal-content load_modal_view">
+                    <h1> Step 2</h1>
+                    <div>Second Content</div>
 
+                </div>
             </div>
-            <!-- /.modal-content -->
+            </form>
         </div>
-        <!-- /.modal-dialog -->
     </div>
+
 @stop
+
+
+
