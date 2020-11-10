@@ -2,10 +2,13 @@ $("#managelisting").DataTable({
     "responsive": true,
     "autoWidth": false,
 });
-
-$("#addlistingwizard").steps({
-    headerTag:"h1",
-    bodyTag: "div",
+tinymce.init({
+    selector:"#description"
+})
+var form=$("#addlistingwizard").show();
+form.steps({
+    headerTag:"h3",
+    bodyTag: "fieldset",
     transitionEffect: "slideLeft",
     onStepChanging: function (event, currentIndex, newIndex)
     {

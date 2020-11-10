@@ -24,6 +24,7 @@ class ListingController extends Controller
         ])->get();
         $rootcategory=Category::all();
         $listingtype= DB::table('listing_type')->get();
-        return view('admin.pages.addlisting',compact('vendors','rootcategory','listingtype'));
+        $billingtype= DB::table('billing_type')->get();
+        return view('admin.pages.addlisting',compact('vendors','rootcategory','listingtype','billingtype'));
     }
 }
