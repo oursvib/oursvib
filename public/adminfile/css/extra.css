@@ -5,3 +5,15 @@
     font-size: 80%;
     color: #dc3545;
 }
+.nearby{
+    float: left;
+}
+.select2{
+    width:100% !important;
+}
+.additembutton{
+    float: right;
+}
+.amenity{
+    padding-left: 35px;
+}

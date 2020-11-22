@@ -41,11 +41,16 @@ Route::prefix('admin')->middleware(['admin', 'verified'])->group(function () {
 
     Route::get('/managelisting', '\App\Http\Controllers\ListingController@index')->name('admin.manage.listing');
     Route::get('/addlisting', '\App\Http\Controllers\ListingController@addListing')->name('admin.listing.add');
+    Route::post('/savelisting', '\App\Http\Controllers\ListingController@saveListing')->name('savelisting');
+
+
 
 });
 Route::post('getparentcategory','\App\Http\Controllers\HelperController@getParentCategory');
 Route::post('getchildcategory','\App\Http\Controllers\HelperController@getChildCategory');
 Route::post('getnichecategory','\App\Http\Controllers\HelperController@getNicheCategory');
+Route::post('getstates','\App\Http\Controllers\HelperController@getStates');
+Route::post('getcities','\App\Http\Controllers\HelperController@getCities');
 Route::prefix('vendors')->middleware(['vendors', 'verified'])->group(function () {
     Route::get('/', '\App\Http\Controllers\VendorsController@index')->name('vendors.dashboard');
 

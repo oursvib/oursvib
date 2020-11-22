@@ -22,4 +22,13 @@ class HelperController extends Controller
         $childcategory=DB::table('sublowerchildcategories')->where('parent_id','=',$request->id)->get();
         return response()->json($childcategory);
     }
+
+    public function getStates(Request $request){
+        $states=DB::table('region')->where('countryId','=',$request->id)->get();
+        return response()->json($states);
+    }
+    public function getCities(Request $request){
+        $states=DB::table('cities')->where('regionId','=',$request->id)->get();
+        return response()->json($states);
+    }
 }

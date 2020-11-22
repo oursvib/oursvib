@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{asset('adminfile/css/fullcalendar.min.css')}}">
     <link rel="stylesheet" href="{{asset('adminfile/css/jquery.steps.css')}}">
     <link rel="stylesheet" href="{{asset('adminfile/css/select2.css')}}">
+    <link rel="stylesheet" href="{{asset('adminfile/css/bootstrap-datepicker3.css')}}">
     <link rel="stylesheet" href="{{asset('adminfile/css/extra.css')}}">
 
     <title>Oursvib</title>

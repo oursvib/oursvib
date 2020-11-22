@@ -3,8 +3,13 @@ $("#managelisting").DataTable({
     "autoWidth": false,
 });
 tinymce.init({
-    selector:"#description"
-})
+    selector:"#description,#team,#aboutus"
+});
+
+// $("#addlistingwizard").steps({
+//     headerTag:"h3",
+//     bodyTag: "fieldset",
+// });
 var form=$("#addlistingwizard").show();
 form.steps({
     headerTag:"h3",
@@ -18,50 +23,50 @@ form.steps({
             return true;
         }
         // Forbid next action on "Warning" step if the user is to young
-        if (newIndex === 3 && Number($("#age-2").val()) < 18)
-        {
-            return false;
-        }
+
         // Needed in some cases if the user went back (clean up)
         if (currentIndex < newIndex)
         {
             // To remove error styles
             form.find(".body:eq(" + newIndex + ") label.error").remove();
-            form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
+           form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
         }
-        form.validate().settings.ignore = ":disabled,:hidden";
+        form.validate().settings.ignore = ":disabled,:hidden:not(textarea)";
+        for (i=0; i < tinymce.editors.length; i++){
+            var content = tinymce.editors[i].getContent(); // get the content
+            console.log($('#'+tinymce.editors[i].id))
+            $('#'+tinymce.editors[i].id).val(content); // put it in the textarea
+        }
         return form.valid();
     },
     onStepChanged: function (event, currentIndex, priorIndex)
     {
         // Used to skip the "Warning" step if the user is old enough.
-        if (currentIndex === 2 && Number($("#age-2").val()) >= 18)
-        {
-            form.steps("next");
-        }
+
         // Used to skip the "Warning" step if the user is old enough and wants to the previous step.
-        if (currentIndex === 2 && priorIndex === 3)
-        {
-            form.steps("previous");
-        }
+
     },
     onFinishing: function (event, currentIndex)
     {
-        form.validate().settings.ignore = ":disabled";
+        form.validate().settings.ignore = ":disabled,:hidden:not(textarea)";
         return form.valid();
     },
     onFinished: function (event, currentIndex)
     {
-        alert("Submitted!");
+        $('#addlistingwizard').ajaxSubmit({url:"savelisting",type:"post"})
     }
 }).validate({
-    errorPlacement: function errorPlacement(error, element) { element.before(error); },
-    rules: {
-        confirm: {
-            equalTo: "#password-2"
+    errorPlacement: function errorPlacement(error, element) {
+        //element.insertAfter(error);
+        if(element.type=="textarea"){
+            error.appendTo(element.next());
+        }else{
+            error.appendTo(element.parent('div'))
         }
-    }
-});
+
+        },
+
+})
 
 $(document).ready(function() {
     $(".select2").select2();
@@ -79,7 +84,7 @@ $("#root_category").on('change',function(){
 
             $("#parent_category").append('<option>Select</option>');
             $.each(datas,function(data,category){
-                console.log(data)
+              //  console.log(data)
                 $("#parent_category").append('<option value="'+category.id+'">'+category.name+'</option>');
             });
         }
@@ -123,3 +128,71 @@ $("#child_category").on('change',function(){
         }
     })
 })
+
+$(".addnearby").click(function () {
+    var itemcount=$("#itemcountnew").val();
+    var itemcountnewadd=parseInt(itemcount)+1;
+    $("#itemcountnew").val(itemcountnewadd);
+    var itemcountnew=$("#itemcountnew").val();
+    var element='<div class="col-md-12 mainitem"><div class="col-md-5 nearby"><input type="text" name="nearby['+itemcountnew+'][location]" class="form-control" placeholder="location"></div><div class="col-md-5 nearby"><input type="text" name="nearby['+itemcountnew+'][distance]" class="form-control" placeholder="distance in KM"></div><div class="col-md-1 nearby"><input type="button" value="X" class="btn btn-danger removenearby"></div><br><br></div>'
+    $(".nearbyattraction").append(element);
+    //$("#mainitem").clone().attr('id','').appendTo(".nearbyattraction").find("input:text").val("");
+})
+$(document).on('click','.removenearby',function(){
+    $(this).parent('div').parent('div').remove();
+})
+$("#country").on('change',function(){
+    $.ajax({
+        url:"/getstates",
+        type:"post",
+        data:{
+            id:$(this).val(),
+            "_token": $('#csrf-token')[0].content
+        },
+        dataType:"json",
+        success:function(datas){
+
+            $("#state").append('<option>Select</option>');
+            $.each(datas,function(data,state){
+                $("#state").append('<option value="'+state.regionId+'">'+state.name+'</option>');
+            });
+        }
+    })
+});
+
+$("#state").on('change',function(){
+    $.ajax({
+        url:"/getcities",
+        type:"post",
+        data:{
+            id:$(this).val(),
+            "_token": $('#csrf-token')[0].content
+        },
+        dataType:"json",
+        success:function(datas){
+
+            $("#city").append('<option>Select</option>');
+            $.each(datas,function(data,state){
+                $("#city").append('<option value="'+state.regionId+'">'+state.name+'</option>');
+            });
+        }
+    })
+})
+
+$("#uploadFile").change(function(){
+
+    $('#image_preview').html("");
+
+    var total_file=document.getElementById("uploadFile").files.length;
+
+    for(var i=0;i<total_file;i++)
+
+    {
+
+        $('#image_preview').append("<img src='"+URL.createObjectURL(event.target.files[i])+"'>");
+
+    }
+
+});
+
+
