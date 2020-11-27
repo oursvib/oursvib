@@ -25,4 +25,8 @@ class Category extends Model
         return $this->hasManyThrough('App\Models\Sublowerchildcategory','App\Models\Subchildcategory','parent_id','parent_id','id','id');
 
     }
+
+    public function listing(){
+        return $this->belongsTo('App\Models\Listing','root_category','id');
+    }
 }

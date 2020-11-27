@@ -3,6 +3,9 @@
 
     <div class="content p-4">
         <h2 class="mb-4">Add listing</h2>
+
+            <div class="alert alert-danger" id="message" style="display:none"></div>
+
         <div class="card mb-4">
 
             <div class="card-body">

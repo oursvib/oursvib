@@ -12,32 +12,47 @@
         </div>
 
 
-
+        @if (Session::has('message'))
+            <div class="alert alert-info">{{ Session::get('message') }}</div>
+        @endif
         <div class="card mb-4">
             <div class="card-body">
                 <table id="managelisting" class="table table-bordered table-hover">
                     <thead>
                     <tr>
+                        <th>Listing name</th>
+                        <th>Vendor </th>
                         <th>Root category</th>
-                        <th>Parent Category</th>
-                        <th>Child category</th>
+                        <th>Parent category</th>
+                        <th>child category</th>
                         <th>Niche category</th>
+                        <th>Status</th>
+                        <th>Action</th>
 
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($listings as $category)
+                    @foreach($listings as $listing)
                         <tr>
-                            <td>{{$category->rootname}}</td>
-                            <td>@if($category->subcatname)
-                                    {{$category->subcatname}} @else
-                                    NA @endif</td>
-                            <td> @if($category->subchildname)
-                                    {{$category->subchildname}} @else
-                                    NA @endif</td>
-                            <td> @if($category->sublowercategory)
-                                    {{$category->sublowercategory}} @else
-                                    NA @endif</td>
+                            <td>{{$listing->title}}</td>
+                            <td>{{$listing['user']['company_name']}} </td>
+                            <td>{{$listing['rootCategory']['name']}} </td>
+                            <td>{{$listing['parentCategory']['name']}} </td>
+                            <td>{{$listing['childCategory']['name']}} </td>
+                            <td>{{$listing['nicheCategory']['name']}} </td>
+                            <td>@if($listing->status=='1')
+                                    Approved
+                                    @else
+                                    Pending approval
+                                    @endif
+                            </td>
+                            <td>
+
+                                <a href=""><i class="fa fa-eye"></i></a>
+                                <a href=""><i class="fa fa-edit"></i></a>
+                                <a href="#" onclick="deleteListing({{$listing->id}})"  ><i class="fa fa-trash"></i></a>
+                            </td>
+
                         </tr>
                     @endforeach
                     </tbody>
