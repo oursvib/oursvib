@@ -49,7 +49,7 @@
                             <td>
 
                                 <a href=""><i class="fa fa-eye"></i></a>
-                                <a href=""><i class="fa fa-edit"></i></a>
+                                <a href="editlisting?id={{$listing->id}}"><i class="fa fa-edit"></i></a>
                                 <a href="#" onclick="deleteListing({{$listing->id}})"  ><i class="fa fa-trash"></i></a>
                             </td>
 

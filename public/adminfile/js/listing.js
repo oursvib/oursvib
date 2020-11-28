@@ -97,7 +97,9 @@ $("#root_category").on('change',function(){
         },
         dataType:"json",
         success:function(datas){
-
+            $('#parent_category')
+                .find('option')
+                .remove()
             $("#parent_category").append('<option>Select</option>');
             $.each(datas,function(data,category){
               //  console.log(data)
@@ -117,7 +119,9 @@ $("#parent_category").on('change',function(){
         },
         dataType:"json",
         success:function(datas){
-
+            $('#child_category')
+                .find('option')
+                .remove()
             $("#child_category").append('<option>Select</option>');
             $.each(datas,function(data,category){
                 $("#child_category").append('<option value="'+category.id+'">'+category.name+'</option>');
@@ -136,7 +140,9 @@ $("#child_category").on('change',function(){
         },
         dataType:"json",
         success:function(datas){
-
+            $('#niche_category')
+                .find('option')
+                .remove()
             $("#niche_category").append('<option>Select</option>');
             $.each(datas,function(data,category){
                 $("#niche_category").append('<option value="'+category.id+'">'+category.name+'</option>');
@@ -167,7 +173,9 @@ $("#country").on('change',function(){
         },
         dataType:"json",
         success:function(datas){
-
+            $('#state')
+                .find('option')
+                .remove()
             $("#state").append('<option>Select</option>');
             $.each(datas,function(data,state){
                 $("#state").append('<option value="'+state.regionId+'">'+state.name+'</option>');
@@ -186,7 +194,9 @@ $("#state").on('change',function(){
         },
         dataType:"json",
         success:function(datas){
-
+            $('#city')
+                .find('option')
+                .remove()
             $("#city").append('<option>Select</option>');
             $.each(datas,function(data,state){
                 $("#city").append('<option value="'+state.regionId+'">'+state.name+'</option>');

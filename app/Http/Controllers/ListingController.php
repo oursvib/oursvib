@@ -194,4 +194,20 @@ class ListingController extends Controller
             return response()->json(['status'=>'fail','message'=>'Listing deleting failed.']);
         }
     }
+
+    public function editListing(Request $request){
+        echo $request['id'];
+
+        $vendors=User::where([
+            ['role','=','2'],
+            ['email_verified_at','<>','']
+        ])->get();
+        $rootcategory=Category::all();
+        $listingtype= DB::table('listing_type')->get();
+        $billingtype= DB::table('billing_type')->get();
+        $countries= DB::table('country')->get();
+        $months=array('1'=>"Jan",'2'=>'Feb','3'=>'Mar','4'=>'Apr','5'=>'May','6'=>'Jun','7'=>'Jul','8'=>'Aug','9'=>'Sep','10'=>'Oct','11'=>'Nov','12'=>'Dec');
+        $amenities= Amenity::with('subamenity')->where('parent_id','=','0')->get();
+        return view('admin.pages.editlisting',compact('vendors','rootcategory','listingtype','billingtype','countries','months','amenities'));
+    }
 }

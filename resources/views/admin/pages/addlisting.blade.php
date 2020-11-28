@@ -99,6 +99,71 @@
                             </div>
 
                         </div>
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <label>Unique Service</label>
+
+                                <input type="text"  name="unique_services"  id="unique_services" class="form-control"></input>
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <label>Stragetic Partners</label>
+
+                                <input type="text"  name="stragetic_patner"  id="stragetic_patner" class="form-control"></input>
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <label>Guest Experience</label>
+
+                                <input type="text"  name="guest_experience"  id="guest_experience" class="form-control"></input>
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <label>News Hightlights</label>
+
+                                <input type="text" name="news_highlight"  id="guest_experience" class="form-control"></input>
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <label>Green Innitiative</label>
+
+                                <input type="text" name="green_innitiative"  id="green_innitiative" class="form-control"></input>
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <label>Star Rating</label>
+
+                                <input type="number" name="star_rating"  id="star_rating" class="form-control" min="1" max="5"></input>
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <label>Be our CSR Partner</label>
+                                <select>
+                                    <option>Select</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <label>Be our Food Partner</label>
+
+                                <input type="number" name="star_rating"  id="star_rating" class="form-control" min="1" max="5"></input>
+                            </div>
+
+                        </div>
                     </fieldset>
                     <h3> Location & pricing</h3>
                     <fieldset>

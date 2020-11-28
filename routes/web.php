@@ -43,6 +43,7 @@ Route::prefix('admin')->middleware(['admin', 'verified'])->group(function () {
     Route::get('/addlisting', '\App\Http\Controllers\ListingController@addListing')->name('admin.listing.add');
     Route::post('/savelisting', '\App\Http\Controllers\ListingController@saveListing')->name('savelisting');
     Route::post('/deletelisting', '\App\Http\Controllers\ListingController@deleteListing')->name('deletelisting');
+    Route::get('/editlisting', '\App\Http\Controllers\ListingController@editListing')->name('editlisting');
 
 
 
