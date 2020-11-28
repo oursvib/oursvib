@@ -6,15 +6,15 @@ tinymce.init({
     selector:"#description,#team,#aboutus"
 });
 
-// $("#addlistingwizard").steps({
-//     headerTag:"h3",
-//     bodyTag: "fieldset",
-//     onFinished: function (event, currentIndex)
-//     {
-//         $('#addlistingwizard').ajaxSubmit({url:"savelisting",type:"post"})
-//     }
-// });
-var form=$("#addlistingwizard").show();
+$("#addlistingwizard").steps({
+    headerTag:"h3",
+    bodyTag: "fieldset",
+    onFinished: function (event, currentIndex)
+    {
+        $('#addlistingwizard').ajaxSubmit({url:"savelisting",type:"post"})
+    }
+});
+var form=$("#addlistingwizard1").show();
 form.steps({
     headerTag:"h3",
     bodyTag: "fieldset",

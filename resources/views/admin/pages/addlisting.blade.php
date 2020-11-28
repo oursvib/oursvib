@@ -99,6 +99,11 @@
                             </div>
 
                         </div>
+
+                    </fieldset>
+                    <h3> Location & pricing</h3>
+
+                    <fieldset>
                         <div class="form-row">
                             <div class="col-md-12">
                                 <label>Unique Service</label>
@@ -127,7 +132,7 @@
                             <div class="col-md-12">
                                 <label>News Hightlights</label>
 
-                                <input type="text" name="news_highlight"  id="guest_experience" class="form-control"></input>
+                                <input type="text" name="news_highlight"  id="news_highlight" class="form-control"></input>
                             </div>
 
                         </div>
@@ -148,25 +153,25 @@
 
                         </div>
                         <div class="form-row">
-                            <div class="col-md-12">
+                            <div class="col-md-6 mb-3">
                                 <label>Be our CSR Partner</label>
-                                <select>
+                                <select class="select2 required" name="csr_partner" id="csr_partner">
                                     <option>Select</option>
+                                    <option value="1"> Yes</option>
+                                    <option value="0">No</option>
                                 </select>
                             </div>
-
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-12">
+                            <div class="col-md-6 mb-3">
                                 <label>Be our Food Partner</label>
 
-                                <input type="number" name="star_rating"  id="star_rating" class="form-control" min="1" max="5"></input>
+                                <select class="select2 required" name="food_partner" id="food_partner">
+                                    <option>Select</option>
+                                    <option value="1"> Yes</option>
+                                    <option value="0">No</option>
+                                </select>
                             </div>
-
                         </div>
-                    </fieldset>
-                    <h3> Location & pricing</h3>
-                    <fieldset>
+
                         <div class="form-row">
                             <div class="col-md-12">
                                 <label>Address</label>

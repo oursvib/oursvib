@@ -16,17 +16,26 @@ class CreateListingCapacityTable extends Migration
         Schema::create('listing_capacity', function (Blueprint $table) {
             $table->id();
             $table->integer('listing_id');
-            $table->integer('area_by');
-            $table->integer('min_pax');
-            $table->integer('max_pax');
-            $table->integer('seating_pax');
-            $table->integer('standing_pax');
-            $table->integer('cooktail_pax');
-            $table->integer('classroom_pax');
-            $table->integer('theatre_pax');
-            $table->integer('banquet_pax');
-            $table->integer('conference_pax');
-            $table->integer('ushape_pax');
+            $table->integer('area_by')->nullable();
+            $table->integer('min_pax')->nullable();
+            $table->integer('max_pax')->nullable();
+            $table->integer('seating_pax')->nullable();
+            $table->integer('standing_pax')->nullable();
+            $table->integer('cooktail_pax')->nullable();
+            $table->integer('classroom_pax')->nullable();
+            $table->integer('theatre_pax')->nullable();
+            $table->integer('banquet_pax')->nullable();
+            $table->integer('conference_pax')->nullable();
+            $table->integer('ushape_pax')->nullable();
+            $table->integer('height')->nullable();
+            $table->integer('length')->nullable();
+            $table->integer('width')->nullable();
+            $table->integer('screen_size')->nullable();
+            $table->integer('panel_size')->nullable();
+            $table->integer('letter_height')->nullable();
+            $table->integer('best_impact')->nullable();
+            $table->integer('max_readable_distance')->nullable();
+            $table->integer('floor_signage_dimension')->nullable();
             $table->timestamps();
         });
     }
