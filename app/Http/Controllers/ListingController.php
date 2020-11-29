@@ -49,11 +49,11 @@ class ListingController extends Controller
 
 
     public function saveListing(Request $request){
-        //echo '<pre>';
-//        print_r($request->all());
+        echo '<pre>';
+        print_r($request->all());
 //        print_r($request->file('images'));
 //        print_r($request['amenities']);
-//exit;
+exit;
 
            $listingid= Listing::create([
                 'vendor_id'=>$request['vendor_id'],
@@ -67,11 +67,20 @@ class ListingController extends Controller
                 'description'=>$request['description'],
                 'about'=>$request['aboutus'],
                 'team'=>$request['team'],
+                'unique_services'=>$request['unique_services'],
+                'stragetic_partner'=>$request['stragetic_patner'],
+                'guest_experience'=>$request['guest_experience'],
+                'news_highlight'=>$request['news_highlight'],
+                'green_innitiative'=>$request['green_innitiative'],
+                'star_rating'=>$request['star_rating'],
+                'csr_partner'=>$request['csr_partner'],
+                'food_partner'=>$request['food_partner'],
                 'address'=>$request['address'],
                 'country'=>$request['country'],
                 'state'=>$request['state'],
                 'city'=>$request['city'],
                 'zipcode'=>$request['zipcode'],
+                'capacity_by'=$request['capacity_by'],
                 'video'=>$request['videolink'],
             ]);
            if($listingid->id){

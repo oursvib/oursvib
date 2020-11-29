@@ -34,7 +34,7 @@ class CreateListingsTable extends Migration
             $table->longText('star_rating');
             $table->longText('csr_partner');
             $table->longText('food_partner');
-           // $table->integer('class');
+            $table->integer('capacity_by');
             $table->longText('address');
             $table->integer('city');
             $table->integer('state');

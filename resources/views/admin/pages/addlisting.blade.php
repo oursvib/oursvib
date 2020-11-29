@@ -301,10 +301,17 @@
                         <h3>Capacity & amenities</h3>
                         <fieldset>
                             <div class="form-row">
+                                <div class="col-md-12">
+                                    <label></label>
+                                    <div class="col-md-6">
+                                        <input type="radio" id="capacity_by" name="capacity_by" value="1" style="display: inline-block" checked="checked"> By Area
+                                        <input type="radio" id="capacity_by" name="capacity_by" value="2" style="display: inline-block"> By Dimension
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row byarea">
                                 <div class="col-md-4">
-                                    <label>
-                                        Area by
-                                    </label>
+                                    <label>Area by</label>
                                     <div class="input-group col-xs-1">
 
                                         <input type="text" class="form-control required" name="area_by" id="area_by">
@@ -338,11 +345,10 @@
 
                                     </div>
                                 </div>
-
                             </div>
-                            <div class="form-row">&nbsp;</div>
-                            <h4>No of pax by different arrangements:</h4>
-                            <div class="form-row">
+
+                            <h4 class="byarea">No of pax by different arrangements:</h4>
+                            <div class="form-row byarea">
                                 <div class="col-md-6">
                                     <label>
                                         Seating
@@ -366,7 +372,7 @@
 
 
                             </div>
-                            <div class="form-row">
+                            <div class="form-row byarea">
                                 <div class="col-md-6">
                                     <label>
                                         Cooktail
@@ -390,7 +396,7 @@
 
 
                             </div>
-                            <div class="form-row">
+                            <div class="form-row byarea">
                                 <div class="col-md-6">
                                     <label>
                                         Theatre
@@ -414,7 +420,7 @@
 
 
                             </div>
-                            <div class="form-row">
+                            <div class="form-row byarea">
                                 <div class="col-md-6">
                                     <label>
                                         Conference
@@ -435,6 +441,113 @@
 
                                     </div>
                                 </div>
+
+
+                            </div>
+                            <h4 class="bydimension">Active Display area:</h4>
+                            <div class="form-row bydimension">
+                                <div class="col-md-4">
+                                    <label>
+                                       Height
+                                    </label>
+                                    <div class="input-group col-xs-1">
+
+                                        <input type="text" class="form-control required" name="height" id="height">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon1">Sq.ft</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>
+                                        Length
+                                    </label>
+                                    <div class="input-group col-xs-1">
+
+                                        <input type="text" class="form-control required" name="length" id="length">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon1">Sq.ft</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>
+                                        Width
+                                    </label>
+                                    <div class="input-group col-xs-1">
+
+                                        <input type="text" class="form-control required" name="width" id="width">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon1">Sq.ft</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="form-row bydimension">&nbsp;</div>
+                            <h4 class="bydimension">Display Distance & visibility :</h4>
+                            <div class="form-row bydimension">
+                                <div class="col-md-4">
+                                    <label>
+                                      Letter height
+                                    </label>
+                                    <div class="input-group col-xs-1">
+
+                                        <input type="text" class="form-control required" name="letter_height" id="letter_height">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon1">px</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>
+                                        Best impact
+                                    </label>
+                                    <div class="input-group col-xs-1">
+
+                                        <input type="text" class="form-control required" name="best_impact" id="best_impact">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon1">px</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>
+                                        Width
+                                    </label>
+                                    <div class="input-group col-xs-1">
+
+                                        <input type="text" class="form-control required" name="max_readable_distance" id="max_readable_distance">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon1">px</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="form-row bydimension">&nbsp;</div>
+                            <h4 class="bydimension">Floor Signage Dimension</h4>
+
+                            <div class="form-row bydimension">
+
+                                <div class="col-md-6">
+                                    <label>
+                                        By Square Feet
+                                    </label>
+                                    <div class="input-group col-xs-1">
+
+                                        <input type="text" class="form-control required" name="floor_signage_dimension" id="floor_signage_dimension">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon1">Sq.ft</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
 
 
                             </div>

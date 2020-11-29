@@ -6,15 +6,15 @@ tinymce.init({
     selector:"#description,#team,#aboutus"
 });
 
-$("#addlistingwizard").steps({
-    headerTag:"h3",
-    bodyTag: "fieldset",
-    onFinished: function (event, currentIndex)
-    {
-        $('#addlistingwizard').ajaxSubmit({url:"savelisting",type:"post"})
-    }
-});
-var form=$("#addlistingwizard1").show();
+// $("#addlistingwizard").steps({
+//     headerTag:"h3",
+//     bodyTag: "fieldset",
+//     onFinished: function (event, currentIndex)
+//     {
+//         $('#addlistingwizard').ajaxSubmit({url:"savelisting",type:"post"})
+//     }
+// });
+var form=$("#addlistingwizard").show();
 form.steps({
     headerTag:"h3",
     bodyTag: "fieldset",
@@ -243,4 +243,21 @@ function deleteListing(id){
         })
     }
 }
+
+$("input[name='capacity_by']").click(function(){
+   var capacityby=$("input[name='capacity_by']:checked").val();
+   if(capacityby=='1'){
+        $(".byarea").css('display','');
+        $(".bydimension").css('display','none');
+        $(".bydimension").find('input').val('');
+   }
+
+   if(capacityby=='2'){
+       $(".byarea").css('display','none');
+       $(".bydimension").css('display','flex');
+       $(".byarea").find('input').val('');
+   }
+
+
+});
 
