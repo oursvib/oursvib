@@ -80,7 +80,7 @@ exit;
                 'state'=>$request['state'],
                 'city'=>$request['city'],
                 'zipcode'=>$request['zipcode'],
-                'capacity_by'=$request['capacity_by'],
+                'capacity_by'=>$request['capacity_by'],
                 'video'=>$request['videolink'],
             ]);
            if($listingid->id){
