@@ -68,9 +68,14 @@ ALTER TABLE `listings` ADD `status` INT NOT NULL AFTER `listing_type`;
 
 ALTER TABLE `listings` ADD `unique_services` LONGTEXT NOT NULL AFTER `team`, ADD `stragetic_partner` LONGTEXT NOT NULL AFTER `unique_services`, ADD `guest_experience` LONGTEXT NOT NULL AFTER `stragetic_partner`, ADD `news_highlight` LONGTEXT NOT NULL AFTER `guest_experience`, ADD `green_innitiative` LONGTEXT NOT NULL AFTER `news_highlight`, ADD `star_rating` LONGTEXT NOT NULL AFTER `green_innitiative`, ADD `csr_partner` LONGTEXT NOT NULL AFTER `star_rating`, ADD `food_partner` LONGTEXT NOT NULL AFTER `csr_partner`; 
 
+ALTER TABLE `listings` ADD `unique_services` LONGTEXT NOT NULL AFTER `team`, ADD `stragetic_partner` LONGTEXT NOT NULL AFTER `unique_services`, ADD `guest_experience` LONGTEXT NOT NULL AFTER `stragetic_partner`, ADD `news_highlight` LONGTEXT NOT NULL AFTER `guest_experience`, ADD `green_innitiative` LONGTEXT NOT NULL AFTER `news_highlight`, ADD `star_rating` LONGTEXT NOT NULL AFTER `green_innitiative`, ADD `csr_partner` INT NOT NULL AFTER `star_rating`, ADD `food_partner` INT NOT NULL AFTER `csr_partner`, ADD `capacity_by` INT NOT NULL AFTER `food_partner`;
+
 
 
 ALTER TABLE `listing_capacity` ADD `height` VARCHAR(255) NOT NULL AFTER `ushape_pax`, ADD `length` VARCHAR(255) NOT NULL AFTER `height`, ADD `width` VARCHAR(255) NOT NULL AFTER `length`, ADD `screen_size` VARCHAR(255) NOT NULL AFTER `width`, ADD `panel_size` VARCHAR(255) NOT NULL AFTER `screen_size`, ADD `letter_height` VARCHAR(255) NOT NULL AFTER `panel_size`, ADD `best_impact` VARCHAR(255) NOT NULL AFTER `letter_height`, ADD `max_readable_distance` VARCHAR(255) NOT NULL AFTER `best_impact`, ADD `floor_signage_dimension` VARCHAR(255) NOT NULL AFTER `max_readable_distance`; 
+
+
+ALTER TABLE `listing_capacity` ADD `height` VARCHAR(255) NOT NULL AFTER `ushape_pax`, ADD `length` VARCHAR(255) NOT NULL AFTER `height`, ADD `width` VARCHAR(255) NOT NULL AFTER `length`, ADD `screen_size` VARCHAR(255) NOT NULL AFTER `width`, ADD `panel_size` VARCHAR(255) NOT NULL AFTER `screen_size`, ADD `letter_height` VARCHAR(255) NOT NULL AFTER `panel_size`, ADD `best_impact` VARCHAR(255) NOT NULL AFTER `letter_height`, ADD `max_readable_distance` VARCHAR(255) NOT NULL AFTER `best_impact`, ADD `floor_signage_dimension` VARCHAR(255) NOT NULL AFTER `max_readable_distance`;
 
 INSERT INTO `oursvib`.`billing_type` (`name`) VALUES ('Hourly');
 INSERT INTO `oursvib`.`billing_type` (`name`) VALUES ('Daily');

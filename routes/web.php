@@ -45,8 +45,6 @@ Route::prefix('admin')->middleware(['admin', 'verified'])->group(function () {
     Route::post('/deletelisting', '\App\Http\Controllers\ListingController@deleteListing')->name('deletelisting');
     Route::get('/editlisting', '\App\Http\Controllers\ListingController@editListing')->name('editlisting');
 
-
-
 });
 Route::post('getparentcategory','\App\Http\Controllers\HelperController@getParentCategory');
 Route::post('getchildcategory','\App\Http\Controllers\HelperController@getChildCategory');
