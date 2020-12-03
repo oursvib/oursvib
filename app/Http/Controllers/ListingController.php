@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activity;
 use App\Models\Amenity;
 use App\Models\Category;
 use App\Models\Listing;
@@ -36,6 +37,9 @@ class ListingController extends Controller
         $countries= DB::table('country')->get();
         $months=array('1'=>"Jan",'2'=>'Feb','3'=>'Mar','4'=>'Apr','5'=>'May','6'=>'Jun','7'=>'Jul','8'=>'Aug','9'=>'Sep','10'=>'Oct','11'=>'Nov','12'=>'Dec');
         $amenities= Amenity::with('subamenity')->where('parent_id','=','0')->get();
+        $activity= Activity::with('subactivity')->where('parent_id','=','0')->get();
+      //  print_r($activity);
+        print_r(json_encode($activity));exit;
         return view('admin.pages.addlisting',compact('vendors','rootcategory','listingtype','billingtype','countries','months','amenities'));
     }
 
@@ -50,58 +54,7 @@ class ListingController extends Controller
 
     public function saveListing(Request $request){
         echo '<pre>';
-        foreach ($request->file('images') as $key => $value) {
-            $s3 = \Storage::disk('s3');
-            $filenamewithextension = $value->getClientOriginalName();
-
-            //get filename without extension
-            $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
-
-            //get file extension
-            $extension = $value->getClientOriginalExtension();
-
-            //filename to store
-            $filenametostore = $filename.'_'.time().'.'.$extension;
-
-            //thumbnail name
-            $thumbnail = 'thumbnail_'.$filename.'_'.time().'.'.$extension;
-
-            //large thumbnail name
-            $largethumbnail = 'large_'.$filename.'_'.time().'.'.$extension;
-
-            //Upload File
-            $value->storeAs('public/listing_images', $filenametostore);
-            $value->storeAs('public/listing_images/thumbnail', $thumbnail);
-            $value->storeAs('public/listing_images/thumbnail', $largethumbnail);
-
-            //create small thumbnail
-            $thumbnailpath = public_path('storage/listing_images/thumbnail/'.$thumbnail);
-            $this->createThumbnail($thumbnailpath, 160, 160);
-
-            //create large thumbnail
-            $largethumbnailpath = public_path('storage/listing_images/thumbnail/'.$largethumbnail);
-            $originalpath = public_path('storage/listing_images/'.$filenametostore);
-
-            $this->createThumbnail($largethumbnailpath, 900, 500);
-            $s3filePathlargeimage = '/large_image/' . $largethumbnail;
-            $s3filePaththumbnailimage = '/thumbnail/' . $thumbnail;
-            $s3filePathorigiinalimage = '/original/' . $filenametostore;
-
-            $s3->put($s3filePathlargeimage, file_get_contents($largethumbnailpath), 'public');
-            $s3->put($s3filePaththumbnailimage, file_get_contents($thumbnailpath), 'public');
-            $s3->put($s3filePathorigiinalimage, file_get_contents($originalpath), 'public');
-
-            Listingimage::create([
-                'listing_id'=>$listingid->id,
-                'listing_images'=>$filenametostore
-            ]);
-
-            unlink($largethumbnailpath);
-            unlink($thumbnailpath);
-            unlink($originalpath);
-        }
-        exit;
-        print_r($request->all());
+        print_r($request->all()); exit;
 //        print_r($request->file('images'));
 //        print_r($request['amenities']);
 exit;

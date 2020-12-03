@@ -39,11 +39,9 @@ class CreateListingsTable extends Migration
             $table->integer('city');
             $table->integer('state');
             $table->integer('country');
-           // $table->string('town');
             $table->string('zipcode');
-          //  $table->longText('amenities');
-          //  $table->longText('images');
             $table->longText('video');
+            $table->longText('supporting_document');
             $table->timestamps();
         });
     }

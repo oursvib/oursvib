@@ -566,6 +566,12 @@
                             </div>
 
                         </fieldset>
+                        <h3>Activites</h3>
+                        <fieldset>
+                            <div class="form-row">
+
+                            </div>
+                        </fieldset>
                         <h3>Images & media</h3>
                         <fieldset>
                             <div class="form-row">
@@ -576,6 +582,12 @@
                             </div>
                             <div class="form-row">
                                 <div id="image_preview"></div>
+                            </div>
+                            <div class="form-row">
+                                <label>
+                                    Listing document
+                                </label>
+                                <input type="file" name="" id="supporting_document" class="form-control" multiple>
                             </div>
                             <div class="form-row">
                                 <label>
