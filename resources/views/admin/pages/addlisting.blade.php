@@ -569,7 +569,15 @@
                         <h3>Activites</h3>
                         <fieldset>
                             <div class="form-row">
-
+                                @foreach($activities as $activity)
+                                    <div class="col-md-12">
+                                        <h5>{{$activity->name}}:</h5>
+                                        @if($activity->subactivity)
+                                            @include('admin.pages.subactivity',['subactivity' => $activity->subactivity])
+                                        @endif
+                                    </div>
+                                    <div>&nbsp;</div>
+                                @endforeach
                             </div>
                         </fieldset>
                         <h3>Images & media</h3>

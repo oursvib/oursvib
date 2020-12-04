@@ -37,10 +37,10 @@ class ListingController extends Controller
         $countries= DB::table('country')->get();
         $months=array('1'=>"Jan",'2'=>'Feb','3'=>'Mar','4'=>'Apr','5'=>'May','6'=>'Jun','7'=>'Jul','8'=>'Aug','9'=>'Sep','10'=>'Oct','11'=>'Nov','12'=>'Dec');
         $amenities= Amenity::with('subamenity')->where('parent_id','=','0')->get();
-        $activity= Activity::with('subactivity')->where('parent_id','=','0')->get();
-      //  print_r($activity);
-        print_r(json_encode($activity));exit;
-        return view('admin.pages.addlisting',compact('vendors','rootcategory','listingtype','billingtype','countries','months','amenities'));
+        $activities= Activity::with('subactivity')->where('parent_id','=','0')->get();
+       //  print_r($activity);
+        //print_r(json_encode($activity));exit;
+        return view('admin.pages.addlisting',compact('vendors','rootcategory','listingtype','billingtype','countries','months','amenities','activities'));
     }
 
     public function createThumbnail($path, $width, $height)
