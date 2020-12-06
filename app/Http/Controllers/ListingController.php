@@ -6,6 +6,8 @@ use App\Models\Activity;
 use App\Models\Amenity;
 use App\Models\Category;
 use App\Models\Listing;
+use App\Models\Listingactivity;
+use App\Models\Listingadditional;
 use App\Models\Listingamenity;
 use App\Models\Listingcapacity;
 use App\Models\Listingimage;
@@ -38,9 +40,10 @@ class ListingController extends Controller
         $months=array('1'=>"Jan",'2'=>'Feb','3'=>'Mar','4'=>'Apr','5'=>'May','6'=>'Jun','7'=>'Jul','8'=>'Aug','9'=>'Sep','10'=>'Oct','11'=>'Nov','12'=>'Dec');
         $amenities= Amenity::with('subamenity')->where('parent_id','=','0')->get();
         $activities= Activity::with('subactivity')->where('parent_id','=','0')->get();
+        $additionalfees=DB::table('additonal_fee')->get();
        //  print_r($activity);
         //print_r(json_encode($activity));exit;
-        return view('admin.pages.addlisting',compact('vendors','rootcategory','listingtype','billingtype','countries','months','amenities','activities'));
+        return view('admin.pages.addlisting',compact('vendors','rootcategory','listingtype','billingtype','countries','months','amenities','activities','additionalfees'));
     }
 
     public function createThumbnail($path, $width, $height)
@@ -53,11 +56,11 @@ class ListingController extends Controller
 
 
     public function saveListing(Request $request){
-        echo '<pre>';
-        print_r($request->all()); exit;
+       // echo '<pre>';
+       // print_r($request->all()); exit;
 //        print_r($request->file('images'));
 //        print_r($request['amenities']);
-exit;
+//exit;
 
            $listingid= Listing::create([
                 'vendor_id'=>$request['vendor_id'],
@@ -132,6 +135,25 @@ exit;
                    ]);
                }
 
+               //for additional fee
+               foreach ($request['additional_fee'] as $additionalfee){
+                   Listingadditional::create([
+                       'listing_id'=>$listingid->id,
+                       'additional_id'=>$additionalfee['additional_id'],
+                       'type'=>$additionalfee['type'],
+                       'amount'=>$additionalfee['amount']
+                   ]);
+               }
+
+               //for activites
+               for($i=0;$i<count($request['activity']);$i++){
+                   Listingactivity::create([
+                       'listing_id'=>$listingid->id,
+                       'activity_id'=>$request['activity'][$i]
+                   ]);
+               }
+
+
                //for images
                foreach ($request->file('images') as $key => $value) {
                    $s3 = \Storage::disk('s3');
@@ -182,6 +204,32 @@ exit;
                    unlink($largethumbnailpath);
                    unlink($thumbnailpath);
                    unlink($originalpath);
+               }
+
+               if($request->file('supporting_document')){
+                   $s3 = \Storage::disk('s3');
+                   $filenamewithextension = $request->file('supporting_document')->getClientOriginalName();
+
+                   //get filename without extension
+                   $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+
+                   //get file extension
+                   $extension = $request->file('supporting_document')->getClientOriginalExtension();
+
+                   //filename to store
+                   $filenametostore = $filename.'_'.time().'.'.$extension;
+                   $originalpath = public_path('storage/supporting_documents/'.$filenametostore);
+                   $request->file('supporting_document')->storeAs('public/supporting_documents', $filenametostore);
+                   $s3filesupportingdocuments = '/supporting_documents/' . $filenametostore;
+                   $s3->put($s3filesupportingdocuments, file_get_contents($originalpath), 'public');
+
+                   if(DB::table('listings')
+                       ->where('id', $listingid->id)
+                       ->update(['supporting_document' => $filenametostore])){
+                       unlink($originalpath);
+                   }
+
+
                }
            }
 

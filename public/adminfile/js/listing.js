@@ -6,15 +6,15 @@ tinymce.init({
     selector:"#description,#team,#aboutus"
 });
 
-$("#addlistingwizard").steps({
-    headerTag:"h3",
-    bodyTag: "fieldset",
-    onFinished: function (event, currentIndex)
-    {
-        $('#addlistingwizard').ajaxSubmit({url:"savelisting",type:"post"})
-    }
-});
-var form=$("#addlistingwizard1").show();
+// $("#addlistingwizard").steps({
+//     headerTag:"h3",
+//     bodyTag: "fieldset",
+//     onFinished: function (event, currentIndex)
+//     {
+//         $('#addlistingwizard').ajaxSubmit({url:"savelisting",type:"post"})
+//     }
+// });
+var form=$("#addlistingwizard").show();
 form.steps({
     headerTag:"h3",
     bodyTag: "fieldset",
@@ -261,3 +261,11 @@ $("input[name='capacity_by']").click(function(){
 
 });
 
+function showAdditionalAmount(e){
+var id=$(e).attr('id');
+if($(e).val()=="2") {
+    $(".amount_" + id).css('display', 'flex');
+}else{
+    $(".amount_"+id).css('display','none');
+}
+}

@@ -12,6 +12,7 @@
                 <div>
                     <form id="addlistingwizard" action="#" enctype="multipart/form-data">
                         @csrf
+
                     <h3> General information</h3>
                     <fieldset>
                         <div class="form-row">
@@ -108,7 +109,7 @@
                             <div class="col-md-12">
                                 <label>Unique Service</label>
 
-                                <input type="text"  name="unique_services"  id="unique_services" class="form-control"></input>
+                                <input type="text"  name="unique_services"  id="unique_services" class="form-control required"></input>
                             </div>
 
                         </div>
@@ -116,7 +117,7 @@
                             <div class="col-md-12">
                                 <label>Stragetic Partners</label>
 
-                                <input type="text"  name="stragetic_patner"  id="stragetic_patner" class="form-control"></input>
+                                <input type="text"  name="stragetic_patner"  id="stragetic_patner" class="form-control required"></input>
                             </div>
 
                         </div>
@@ -124,7 +125,7 @@
                             <div class="col-md-12">
                                 <label>Guest Experience</label>
 
-                                <input type="text"  name="guest_experience"  id="guest_experience" class="form-control"></input>
+                                <input type="text"  name="guest_experience"  id="guest_experience" class="form-control required"></input>
                             </div>
 
                         </div>
@@ -132,7 +133,7 @@
                             <div class="col-md-12">
                                 <label>News Hightlights</label>
 
-                                <input type="text" name="news_highlight"  id="news_highlight" class="form-control"></input>
+                                <input type="text" name="news_highlight"  id="news_highlight" class="form-control required"></input>
                             </div>
 
                         </div>
@@ -140,7 +141,7 @@
                             <div class="col-md-12">
                                 <label>Green Innitiative</label>
 
-                                <input type="text" name="green_innitiative"  id="green_innitiative" class="form-control"></input>
+                                <input type="text" name="green_innitiative"  id="green_innitiative" class="form-control required"></input>
                             </div>
 
                         </div>
@@ -148,7 +149,7 @@
                             <div class="col-md-12">
                                 <label>Star Rating</label>
 
-                                <input type="number" name="star_rating"  id="star_rating" class="form-control" min="1" max="5"></input>
+                                <input type="number" name="star_rating"  id="star_rating" class="form-control" required min="1" max="5"></input>
                             </div>
 
                         </div>
@@ -296,7 +297,7 @@
 
                             </div>
                         </div>
-
+                    </fieldset>
                     </fieldset>
                         <h3>Capacity & amenities</h3>
                         <fieldset>
@@ -566,6 +567,7 @@
                             </div>
 
                         </fieldset>
+
                         <h3>Activites</h3>
                         <fieldset>
                             <div class="form-row">
@@ -579,6 +581,39 @@
                                     <div>&nbsp;</div>
                                 @endforeach
                             </div>
+                        </fieldset>
+                        <h3>Additional fee</h3>
+                        <fieldset>
+                            <div class="form-row">
+                                @foreach($additionalfees as $addfee)
+                                    <div class="col-md-4" style="border: 1px dashed #000;border-radius: 5px;padding:2px;margin: 6px;max-width:32%;">
+                                        <div class="col-md-12">
+                                            <label>{{$addfee->name}}</label>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="col-md-6" style="float: left">
+                                                <input type="hidden" name="additional_fee[{{$addfee->id}}][additional_id]" value="{{$addfee->id}}">
+                                                <select class="select2" name="additional_fee[{{$addfee->id}}][type]" id="{{$addfee->id}}" onchange="showAdditionalAmount(this)" >
+                                                    <option value="0">No</option>
+                                                    <option value="1">Yes,free</option>
+                                                    <option value="2">Yes,paid</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 amount_{{$addfee->id}}" style="float: left;display:none;">
+                                                <div class="input-group">
+
+                                                    <div class="input-group-prepend" cl>
+                                                        <span class="input-group-text" id="basic-addon1">RM</span>
+                                                    </div>
+                                                    <input type="text" class="form-control required"  name="additional_fee[{{$addfee->id}}][amount]" id="amount_{{$addfee->id}}">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            @endforeach
+
                         </fieldset>
                         <h3>Images & media</h3>
                         <fieldset>
@@ -595,7 +630,7 @@
                                 <label>
                                     Listing document
                                 </label>
-                                <input type="file" name="" id="supporting_document" class="form-control" multiple>
+                                <input type="file" name="supporting_document" id="supporting_document" class="form-control" multiple>
                             </div>
                             <div class="form-row">
                                 <label>

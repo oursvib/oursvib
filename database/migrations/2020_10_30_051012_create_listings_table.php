@@ -41,7 +41,7 @@ class CreateListingsTable extends Migration
             $table->integer('country');
             $table->string('zipcode');
             $table->longText('video');
-            $table->longText('supporting_document');
+            $table->longText('supporting_document')->nullable();
             $table->timestamps();
         });
     }

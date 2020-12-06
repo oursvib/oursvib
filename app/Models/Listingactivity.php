@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Listingactivity extends Model
 {
     use HasFactory;
-    protected $table='listing_amenity';
+    protected $table='listing_activity';
     protected $fillable=['listing_id','activity_id'];
 }
