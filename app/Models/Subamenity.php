@@ -12,4 +12,5 @@ class Subamenity extends Model
     public function amenity(){
         return $this->belongsTo('App\Models\Amenity','id');
     }
+
 }

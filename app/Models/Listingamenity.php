@@ -11,4 +11,7 @@ class Listingamenity extends Model
     protected $table='listing_amenity';
     protected $fillable=['listing_id','amenity_id'];
 
+    public function listing(){
+        return $this->belongsTo('App\Models\Listing','id','listing_id');
+    }
 }

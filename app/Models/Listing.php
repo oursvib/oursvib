@@ -23,7 +23,32 @@ class Listing extends Model
     public function nicheCategory(){
        return $this->hasOne('App\Models\Sublowerchildcategory','id','niche_category');
     }
+
     public function user(){
         return $this->hasOne('App\Models\User','id','vendor_id');
+    }
+
+    public function listingnearby(){
+        return $this->hasMany('App\Models\Listingnearby','listing_id','id');
+    }
+
+    public function listingprice(){
+        return $this->hasOne('App\Models\Listingprice','listing_id','id');
+    }
+
+    public function listingcapacity(){
+        return $this->hasOne('App\Models\Listingcapacity','listing_id','id');
+    }
+
+    public function listingactivity(){
+        return $this->hasMany('App\Models\Listingactivity','listing_id','id');
+    }
+
+    public function listingamenity(){
+        return $this->hasMany('App\Models\Listingamenity','listing_id','id');
+    }
+
+    public function listingadditional(){
+        return $this->hasMany('App\Models\Listingadditional','listing_id','id');
     }
 }
