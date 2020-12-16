@@ -113,7 +113,7 @@ form1.steps({
     onFinished: function (event, currentIndex)
     {
         $('#editlistingwizard').ajaxSubmit({
-            "url":"savelisting",
+            "url":"updatelisting",
             "type":"post",
             "dataType":"json",
             "success":function(response){

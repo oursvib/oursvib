@@ -51,4 +51,8 @@ class Listing extends Model
     public function listingadditional(){
         return $this->hasMany('App\Models\Listingadditional','listing_id','id');
     }
+
+    public function listingimages(){
+        return $this->hasMany('App\Models\Listingimage','listing_id','id');
+    }
 }

@@ -17,6 +17,7 @@
                     <fieldset>
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
+                                <input type="hidden" name="listing_id" id="listing_id" value="{{$listinginfo->id}}">
                                 <label>Select vendor</label>
 
                                 <select class="form-control select2 required" name="vendor_id" id="vendor_id">
@@ -220,7 +221,7 @@
                             <div class="col-md-12 nearbyattraction">
 <br>
                                 <label>Strategic location and nearby </label><input type="button" value="Add item" class="btn btn-primary additembutton addnearby" />
-                                <input type="hidden" name="itemcountnew" id="itemcountnew" value="<?php echo count($listinginfo->listingnearby) - 1?>">
+                                <input type="hidden" name="itemcountnew" id="itemcountnew" value="<?php echo count($listinginfo->listingnearby) - 1 ?>">
                                 @foreach($listinginfo->listingnearby as $key=>$nearby)
                                     <div class="col-md-12" class="mainitem">
 
@@ -312,6 +313,7 @@
                                         <div class="col-md-12">
                                             <div class="col-md-6" style="float: left">
                                                 <input type="hidden" name="additional_fee[{{$addfee->id}}][additional_id]" value="{{$addfee->id}}">
+                                                <input type="hidden" name="additional_fee[{{$addfee->id}}][listing_additional_id]" value="{{$listinginfo->listingadditional->where('additional_id',$addfee->id)->pluck("id")->first()}}">
                                                 <select class="select2" name="additional_fee[{{$addfee->id}}][type]" id="{{$addfee->id}}" onchange="showAdditionalAmount(this)" >
                                                     <option value="0" @if($listinginfo->listingadditional->where('additional_id',$addfee->id)->pluck("type")->first()=='0') selected="selected" @endif >No</option>
                                                     <option value="1"  @if($listinginfo->listingadditional->where('additional_id',$addfee->id)->pluck("type")->first()=='1') selected="selected" @endif  >Yes,free</option>
@@ -637,7 +639,7 @@
 
                         <h3>Activites</h3>
                         <fieldset>
-                            <div class="form-row">                            
+                            <div class="form-row">
                                 @foreach($activities as $activity)
                                     <div class="col-md-12">
                                         <h5>{{$activity->name}}:</h5>
@@ -656,22 +658,35 @@
                                 <label>
                                     Listing images
                                 </label>
-                                <input type="file" name="images[]" id="uploadFile" class="form-control required" multiple>
+                                <input type="file" name="images[]" id="uploadFile" class="form-control" multiple>
                             </div>
                             <div class="form-row">
-                                <div id="image_preview"></div>
+                                <div id="image_preview">
+                                    @foreach($listinginfo->listingimages as $listingimages)
+                                        <img src="https://oursvib.s3.amazonaws.com/thumbnail/thumbnail_{{$listingimages->listing_images}}" height='160px' width='160px' style='margin:10px;'>
+                                    @endforeach
+                                </div>
                             </div>
                             <div class="form-row">
                                 <label>
                                     Listing document
                                 </label>
-                                <input type="file" name="supporting_document" id="supporting_document" class="form-control" multiple>
+                                <input type="file" name="supporting_document" id="supporting_document" class="form-control">
+                                @if($listinginfo->supporting_document)
+                                    <a href="https://oursvib.s3.amazonaws.com/supporting_documents/{{$listinginfo->supporting_document}}" target="_blank">{{$listinginfo->supporting_document}}</a>
+                                @endif
                             </div>
                             <div class="form-row">
                                 <label>
                                     Video link
                                 </label>
-                                <input type="text" name="videolink" id="videolink"  class="form-control required">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">https://youtu.be/</span>
+                                    </div>
+                                <input type="text" name="videolink" id="videolink"  class="form-control required" value="{{$listinginfo->video}}">
+
+                                </div>
                             </div>
                         </fieldset>
                     </form>
