@@ -18,7 +18,7 @@
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
                                 <label>Select vendor</label>
-
+{{$vendors}}
                                 <select class="form-control select2 required" name="vendor_id" id="vendor_id">
                                     <option value="">select</option>
                                     @foreach($vendors as $vendor)

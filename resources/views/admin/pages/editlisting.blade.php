@@ -628,7 +628,7 @@
                                     <div class="col-md-6">
                                     <h5>{{$amenity->name}}</h5>
                                     @if($amenity->subamenity)
-                                        @include('admin.pages.subamenity',['subamenity' => $amenity->subamenity])
+                                        @include('admin.pages.subamenityedit',['subamenity' => $amenity->subamenity])
                                     @endif
                                     </div>
                                 @endforeach
@@ -644,7 +644,7 @@
                                     <div class="col-md-12">
                                         <h5>{{$activity->name}}:</h5>
                                         @if($activity->subactivity)
-                                            @include('admin.pages.subactivity',['subactivity' => $activity->subactivity])
+                                            @include('admin.pages.subactivityedit',['subactivity' => $activity->subactivity])
                                         @endif
                                     </div>
                                     <div>&nbsp;</div>

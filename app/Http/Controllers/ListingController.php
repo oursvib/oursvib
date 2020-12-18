@@ -33,6 +33,7 @@ class ListingController extends Controller
             ['role','=','2'],
             ['email_verified_at','<>','']
         ])->get();
+        //print_r($vendors);exit;
         $rootcategory=Category::all();
         $listingtype= DB::table('listing_type')->get();
         $billingtype= DB::table('billing_type')->get();
