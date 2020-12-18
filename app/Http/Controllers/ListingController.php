@@ -281,7 +281,7 @@ class ListingController extends Controller
 
     public function updateListing(Request $request){
          echo '<pre>';
-        print_r($request->all()); exit;
+        //print_r($request->all()); exit;
         print_r($request->file('images'));
         print_r($request['amenities']);
 
@@ -314,48 +314,42 @@ class ListingController extends Controller
                 'zipcode'=>$request->zipcode,
                 'video'=>$request->videolink,
             ]);
+
+            foreach ($request['nearby'] as $nearby){
+                if($nearby['nearbyid']==0){
+                    Listingnearby::create([
+                        'listing_id'=>$listing->id,
+                        'nearby'=>$nearby['location'],
+                        'distance'=>$nearby['distance']
+                    ]);
+                }else{
+                    Listingnearby::where('id',$nearby['nearbyid'])->update([
+                        'listing_id'=>$listing->id,
+                        'nearby'=>$nearby['location'],
+                        'distance'=>$nearby['distance']
+                    ]);
+                }
+
+            }
+
+            foreach ($request['additional_fee'] as $additionalfee){
+                Listingadditional::where('id',$additionalfee['listing_additional_id'])->update([
+                    'listing_id'=>$listing->id,
+                    'additional_id'=>$additionalfee['additional_id'],
+                    'type'=>$additionalfee['type'],
+                    'amount'=>$additionalfee['amount']
+                ]);
+            }
+            exit;
         }else{
             echo 'test';
         }
         exit;
-        $listingid= Listing::create([
-            'vendor_id'=>$request['vendor_id'],
-            'root_category'=>$request['root_category'],
-            'parent_category'=>$request['parent_category'],
-            'child_category'=>$request['child_category'],
-            'niche_category'=>$request['niche_category'],
-            'listing_type'=>$request['listing_type'],
-            'status'=>'2',
-            'title'=>$request['title'],
-            'description'=>$request['description'],
-            'about'=>$request['aboutus'],
-            'team'=>$request['team'],
-            'unique_services'=>$request['unique_services'],
-            'stragetic_partner'=>$request['stragetic_patner'],
-            'guest_experience'=>$request['guest_experience'],
-            'news_highlight'=>$request['news_highlight'],
-            'green_innitiative'=>$request['green_innitiative'],
-            'star_rating'=>$request['star_rating'],
-            'csr_partner'=>$request['csr_partner'],
-            'food_partner'=>$request['food_partner'],
-            'address'=>$request['address'],
-            'country'=>$request['country'],
-            'state'=>$request['state'],
-            'city'=>$request['city'],
-            'zipcode'=>$request['zipcode'],
-            'capacity_by'=>$request['capacity_by'],
-            'video'=>$request['videolink'],
-        ]);
+
         if($listingid->id){
 
             //for nearby locations
-            foreach ($request['nearby'] as $nearby){
-                Listingnearby::create([
-                    'listing_id'=>$listingid->id,
-                    'nearby'=>$nearby['location'],
-                    'distance'=>$nearby['distance']
-                ]);
-            }
+
 
             //for pricing
             Listingprice::create([
@@ -392,14 +386,7 @@ class ListingController extends Controller
             }
 
             //for additional fee
-            foreach ($request['additional_fee'] as $additionalfee){
-                Listingadditional::create([
-                    'listing_id'=>$listingid->id,
-                    'additional_id'=>$additionalfee['additional_id'],
-                    'type'=>$additionalfee['type'],
-                    'amount'=>$additionalfee['amount']
-                ]);
-            }
+
 
             //for activites
             for($i=0;$i<count($request['activity']);$i++){
