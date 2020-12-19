@@ -18,7 +18,6 @@
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
                                 <label>Select vendor</label>
-{{$vendors}}
                                 <select class="form-control select2 required" name="vendor_id" id="vendor_id">
                                     <option value="">select</option>
                                     @foreach($vendors as $vendor)
@@ -215,11 +214,11 @@
                                 </input>
                             </div>
                         </div>
+                        <h4>Strategic location and nearby </h4>
                         <div class="form-row">
-
+                            <div class="col-md-12"><input type="button" value="Add item" class="btn btn-primary additembutton addnearby" /></div>
                             <div class="col-md-12 nearbyattraction">
 <br>
-                                <label>Strategic location and nearby </label><input type="button" value="Add item" class="btn btn-primary additembutton addnearby" />
                                 <input type="hidden" name="itemcountnew" id="itemcountnew" value="0">
                                 <div class="col-md-12" class="mainitem">
 
@@ -237,11 +236,15 @@
 
                         </div>
                         <div class="form-row">&nbsp;</div>
-                        <div class="form-row">
-                            <div class="col-md-2 mb-3">
+                        <h4>Pricing</h4>
+                        <input type="hidden" name="pricecountnew" id="pricecountnew" value="0">
+                        <div class="col-md-12">   <input type="button" value="Add item" class="btn btn-primary additembutton addpricing" /></div>
+                        <div class="form-row mainprice">
+                            <div class="col-md-12">
+                            <div class="col-md-2 mb-3 pricing">
                                 <label>Billing type</label>
 
-                                <select class="form-control select2 required" name="billing_type" id="billing_type">
+                                <select class="form-control select2 required" name="billing_type[]" id="billing_type">
                                     <option value="">select</option>
                                     @foreach($billingtype as $billing)
                                         <option value="{{$billing->id}}">{{$billing->name}}</option>
@@ -249,7 +252,7 @@
                                 </select>
                             </div>
 
-                            <div class="col-md-2 mb-3">
+                            <div class="col-md-2 mb-3 pricing">
                                 <label>Peak season start</label>
 
                                 <div class="col-xs-1">
@@ -262,7 +265,7 @@
                                 </div>
 
                             </div>
-                            <div class="col-md-2 mb-3">
+                            <div class="col-md-2 mb-3 pricing">
                                 <label>Peak season end</label>
 
 
@@ -275,7 +278,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-3 mb-3">
+                            <div class="col-md-3 mb-3 pricing">
                                 <label>Normal price</label>
                                 <div class="input-group col-xs-1">
                                     <div class="input-group-prepend">
@@ -286,7 +289,7 @@
 
                             </div>
 
-                            <div class="col-md-3 mb-3">
+                            <div class="col-md-3 mb-3 pricing" >
                                 <label>Peak season price</label>
                                 <div class="input-group col-xs-1">
                                     <div class="input-group-prepend">
@@ -295,6 +298,7 @@
                                     <input type="text" class="form-control required" name="peakprice" id="peakprice">
                                 </div>
 
+                            </div>
                             </div>
                         </div>
                     </fieldset>

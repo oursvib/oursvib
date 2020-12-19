@@ -18,69 +18,7 @@ tinymce.init({
 $(document).ready(function() {
     $(".select2").select2();
 });
-$("#root_category").on('change',function(){
-    $.ajax({
-        url:"/getparentcategory",
-        type:"post",
-        data:{
-            id:$(this).val(),
-            "_token": $('#csrf-token')[0].content
-        },
-        dataType:"json",
-        success:function(datas){
-            $('#parent_category')
-                .find('option')
-                .remove()
-            $("#parent_category").append('<option>Select</option>');
-            $.each(datas,function(data,category){
-              //  console.log(data)
-                $("#parent_category").append('<option value="'+category.id+'">'+category.name+'</option>');
-            });
-        }
-    })
-})
 
-$("#parent_category").on('change',function(){
-    $.ajax({
-        url:"/getchildcategory",
-        type:"post",
-        data:{
-            id:$(this).val(),
-            "_token": $('#csrf-token')[0].content
-        },
-        dataType:"json",
-        success:function(datas){
-            $('#child_category')
-                .find('option')
-                .remove()
-            $("#child_category").append('<option>Select</option>');
-            $.each(datas,function(data,category){
-                $("#child_category").append('<option value="'+category.id+'">'+category.name+'</option>');
-            });
-        }
-    })
-})
-
-$("#child_category").on('change',function(){
-    $.ajax({
-        url:"/getnichecategory",
-        type:"post",
-        data:{
-            id:$(this).val(),
-            "_token": $('#csrf-token')[0].content
-        },
-        dataType:"json",
-        success:function(datas){
-            $('#niche_category')
-                .find('option')
-                .remove()
-            $("#niche_category").append('<option>Select</option>');
-            $.each(datas,function(data,category){
-                $("#niche_category").append('<option value="'+category.id+'">'+category.name+'</option>');
-            });
-        }
-    })
-})
 
 
 $(document).on('click','.removenearby',function(){
@@ -128,21 +66,7 @@ $("#state").on('change',function(){
     })
 })
 
-$("#uploadFile").change(function(){
 
-    $('#image_preview').html("");
-
-    var total_file=document.getElementById("uploadFile").files.length;
-
-    for(var i=0;i<total_file;i++)
-
-    {
-
-        $('#image_preview').append("<img src='"+URL.createObjectURL(event.target.files[i])+"' height='160px' width='160px' style='margin:10px;'>");
-
-    }
-
-});
 
 function deleteListing(id){
 

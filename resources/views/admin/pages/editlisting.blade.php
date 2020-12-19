@@ -247,7 +247,7 @@
                                 <select class="form-control select2 required" name="billing_type" id="billing_type">
                                     <option value="">select</option>
                                     @foreach($billingtype as $billing)
-                                        <option value="{{$billing->id}}"  @if($billing->id==$listinginfo->listingprice->billing_type) selected="selected" @endif>{{$billing->name}}</option>
+                                        <option value="{{$billing->id}}"  @if($billing->id==$listinginfo->listingprice->where('id',$billinginfo->id)->pluck('billing_type')->first()) selected="selected" @endif>{{$billing->name}}</option>
                                     @endforeach
                                 </select>
                             </div>

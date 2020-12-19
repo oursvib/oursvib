@@ -5,7 +5,7 @@
     font-size: 80%;
     color: #dc3545;
 }
-.nearby{
+.nearby,.pricing{
     float: left;
 }
 .select2{

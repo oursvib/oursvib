@@ -28,12 +28,7 @@ class ListingController extends Controller
     }
 
     public function addListing(){
-    //    $vendors=User::where('role','2')->where('email_verified_at',)->get();
-        $vendors=User::where([
-            ['role','=','2'],
-            ['email_verified_at','<>','']
-        ])->get();
-        //print_r($vendors);exit;
+        $vendors=User::where('role','2')->whereNotNull('email_verified_at')->get();
         $rootcategory=Category::all();
         $listingtype= DB::table('listing_type')->get();
         $billingtype= DB::table('billing_type')->get();
@@ -126,6 +121,15 @@ class ListingController extends Controller
                     'banquet_pax'=>$request['banquet_pax'],
                     'conference_pax'=>$request['conference_pax'],
                     'ushape_pax'=>$request['ushape_pax'],
+                    'height'=>$request['height'],
+                    'length'=>$request['length'],
+                    'width'=>$request['width'],
+                    'screen_size'=>$request['screen_size'],
+                    'panel_size'=>$request['panel_size'],
+                    'letter_height'=>$request['letter_height'],
+                    'best_impact'=>$request['best_impact'],
+                    'max_readable_distance'=>$request['max_readable_distance'],
+                    'floor_signage_dimension'=>$request['floor_signage_dimension'],
                 ]);
 
                 //for amentities
@@ -259,11 +263,7 @@ class ListingController extends Controller
 
     public function editListing(Request $request){
        // echo $request['id'];
-
-        $vendors=User::where([
-            ['role','=','2'],
-            ['email_verified_at','<>','']
-        ])->get();
+        $vendors=User::where('role','2')->whereNotNull('email_verified_at')->get();
        // $listinginfo=Listing::findorfail($request['id']);
         $listinginfo=Listing::with('listingnearby','listingprice','listingcapacity','listingactivity','listingamenity','listingadditional','listingimages')->findorfail($request['id']);
         $rootcategory=Category::all();
@@ -281,10 +281,10 @@ class ListingController extends Controller
     }
 
     public function updateListing(Request $request){
-         echo '<pre>';
-        //print_r($request->all()); exit;
-        print_r($request->file('images'));
-        print_r($request['amenities']);
+        //   echo '<pre>';
+       // print_r($request->all()); exit;
+       // print_r($request->file('images'));
+       // print_r($request['amenities']);
 
         $listing=Listing::find($request->listing_id);
         if($listing){
@@ -316,6 +316,7 @@ class ListingController extends Controller
                 'video'=>$request->videolink,
             ]);
 
+            //near by
             foreach ($request['nearby'] as $nearby){
                 if($nearby['nearbyid']==0){
                     Listingnearby::create([
@@ -333,6 +334,7 @@ class ListingController extends Controller
 
             }
 
+            //listing additional
             foreach ($request['additional_fee'] as $additionalfee){
                 Listingadditional::where('id',$additionalfee['listing_additional_id'])->update([
                     'listing_id'=>$listing->id,
@@ -341,30 +343,9 @@ class ListingController extends Controller
                     'amount'=>$additionalfee['amount']
                 ]);
             }
-            exit;
-        }else{
-            echo 'test';
-        }
-        exit;
 
-        if($listingid->id){
-
-            //for nearby locations
-
-
-            //for pricing
-            Listingprice::create([
-                'listing_id'=>$listingid->id,
-                'billing_type'=>$request['billing_type'],
-                'peak_start'=>$request['peakstart'],
-                'peak_end'=>$request['peakend'],
-                'normal_price'=>$request['normalprice'],
-                'peak_price'=>$request['peakprice']
-            ]);
-
-            //for capacity
-            Listingcapacity::create([
-                'listing_id'=>$listingid->id,
+            //capacity
+            Listingcapacity::where('listing_id',$listing->id)->update([
                 'area_by'=>$request['area_by'],
                 'min_pax'=>$request['min_pax'],
                 'max_pax'=>$request['max_pax'],
@@ -376,80 +357,102 @@ class ListingController extends Controller
                 'banquet_pax'=>$request['banquet_pax'],
                 'conference_pax'=>$request['conference_pax'],
                 'ushape_pax'=>$request['ushape_pax'],
+                'height'=>$request['height'],
+                'length'=>$request['length'],
+                'width'=>$request['width'],
+                'screen_size'=>$request['screen_size'],
+                'panel_size'=>$request['panel_size'],
+                'letter_height'=>$request['letter_height'],
+                'best_impact'=>$request['best_impact'],
+                'max_readable_distance'=>$request['max_readable_distance'],
+                'floor_signage_dimension'=>$request['floor_signage_dimension'],
             ]);
 
-            //for amentities
-            for($i=0;$i<count($request['amenities']);$i++){
-                Listingamenity::create([
-                    'listing_id'=>$listingid->id,
-                    'amenity_id'=>$request['amenities'][$i]
-                ]);
-            }
+            //listing amenity delete and insert
+                Listingamenity::where('listing_id',$listing->id)->delete();
+                for($i=0;$i<count($request['amenities']);$i++){
+                    Listingamenity::create([
+                        'listing_id'=>$listing->id,
+                        'amenity_id'=>$request['amenities'][$i]
+                    ]);
+                }
 
-            //for additional fee
 
-
-            //for activites
+            //listing activity delete and insert
+            Listingactivity::where('listing_id',$listing->id)->delete();
             for($i=0;$i<count($request['activity']);$i++){
                 Listingactivity::create([
-                    'listing_id'=>$listingid->id,
+                    'listing_id'=>$listing->id,
                     'activity_id'=>$request['activity'][$i]
                 ]);
             }
 
 
+            //listing price
+            Listingprice::where('listing_id',$listing->id)->update([
+                'billing_type'=>$request['billing_type'],
+                'peak_start'=>$request['peakstart'],
+                'peak_end'=>$request['peakend'],
+                'normal_price'=>$request['normalprice'],
+                'peak_price'=>$request['peakprice']
+            ]);
+
+            //listing image
             //for images
-            foreach ($request->file('images') as $key => $value) {
-                $s3 = \Storage::disk('s3');
-                $filenamewithextension = $value->getClientOriginalName();
+            if($request->file('images')) {
+                Listingimage::where('listing_id',$listing->id)->delete();
+                foreach ($request->file('images') as $key => $value) {
+                    $s3 = \Storage::disk('s3');
+                    $filenamewithextension = $value->getClientOriginalName();
 
-                //get filename without extension
-                $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+                    //get filename without extension
+                    $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
 
-                //get file extension
-                $extension = $value->getClientOriginalExtension();
+                    //get file extension
+                    $extension = $value->getClientOriginalExtension();
 
-                //filename to store
-                $filenametostore = $filename.'_'.time().'.'.$extension;
+                    //filename to store
+                    $filenametostore = $filename . '_' . time() . '.' . $extension;
 
-                //thumbnail name
-                $thumbnail = 'thumbnail_'.$filename.'_'.time().'.'.$extension;
+                    //thumbnail name
+                    $thumbnail = 'thumbnail_' . $filename . '_' . time() . '.' . $extension;
 
-                //large thumbnail name
-                $largethumbnail = 'large_'.$filename.'_'.time().'.'.$extension;
+                    //large thumbnail name
+                    $largethumbnail = 'large_' . $filename . '_' . time() . '.' . $extension;
 
-                //Upload File
-                $value->storeAs('public/listing_images', $filenametostore);
-                $value->storeAs('public/listing_images/thumbnail', $thumbnail);
-                $value->storeAs('public/listing_images/thumbnail', $largethumbnail);
+                    //Upload File
+                    $value->storeAs('public/listing_images', $filenametostore);
+                    $value->storeAs('public/listing_images/thumbnail', $thumbnail);
+                    $value->storeAs('public/listing_images/thumbnail', $largethumbnail);
 
-                //create small thumbnail
-                $thumbnailpath = public_path('storage/listing_images/thumbnail/'.$thumbnail);
-                $this->createThumbnail($thumbnailpath, 160, 160);
+                    //create small thumbnail
+                    $thumbnailpath = public_path('storage/listing_images/thumbnail/' . $thumbnail);
+                    $this->createThumbnail($thumbnailpath, 160, 160);
 
-                //create large thumbnail
-                $largethumbnailpath = public_path('storage/listing_images/thumbnail/'.$largethumbnail);
-                $originalpath = public_path('storage/listing_images/'.$filenametostore);
+                    //create large thumbnail
+                    $largethumbnailpath = public_path('storage/listing_images/thumbnail/' . $largethumbnail);
+                    $originalpath = public_path('storage/listing_images/' . $filenametostore);
 
-                $this->createThumbnail($largethumbnailpath, 900, 500);
-                $s3filePathlargeimage = '/large_image/' . $largethumbnail;
-                $s3filePaththumbnailimage = '/thumbnail/' . $thumbnail;
-                $s3filePathorigiinalimage = '/original/' . $filenametostore;
+                    $this->createThumbnail($largethumbnailpath, 900, 500);
+                    $s3filePathlargeimage = '/large_image/' . $largethumbnail;
+                    $s3filePaththumbnailimage = '/thumbnail/' . $thumbnail;
+                    $s3filePathorigiinalimage = '/original/' . $filenametostore;
 
-                $s3->put($s3filePathlargeimage, file_get_contents($largethumbnailpath), 'public');
-                $s3->put($s3filePaththumbnailimage, file_get_contents($thumbnailpath), 'public');
-                $s3->put($s3filePathorigiinalimage, file_get_contents($originalpath), 'public');
+                    $s3->put($s3filePathlargeimage, file_get_contents($largethumbnailpath), 'public');
+                    $s3->put($s3filePaththumbnailimage, file_get_contents($thumbnailpath), 'public');
+                    $s3->put($s3filePathorigiinalimage, file_get_contents($originalpath), 'public');
 
-                Listingimage::create([
-                    'listing_id'=>$listingid->id,
-                    'listing_images'=>$filenametostore
-                ]);
+                    Listingimage::create([
+                        'listing_id' => $listing->id,
+                        'listing_images' => $filenametostore
+                    ]);
 
-                unlink($largethumbnailpath);
-                unlink($thumbnailpath);
-                unlink($originalpath);
+                    unlink($largethumbnailpath);
+                    unlink($thumbnailpath);
+                    unlink($originalpath);
+                }
             }
-
+            //listing document
             if($request->file('supporting_document')){
                 $s3 = \Storage::disk('s3');
                 $filenamewithextension = $request->file('supporting_document')->getClientOriginalName();
@@ -468,22 +471,20 @@ class ListingController extends Controller
                 $s3->put($s3filesupportingdocuments, file_get_contents($originalpath), 'public');
 
                 if(DB::table('listings')
-                    ->where('id', $listingid->id)
+                    ->where('id', $listing->id)
                     ->update(['supporting_document' => $filenametostore])){
                     unlink($originalpath);
                 }
 
 
             }
-        }
+            if($listing->id){
+                Session::flash('message','New listing updated successfully.');
+                return response()->json(['status'=>'success','message'=>'New listing added successfully.']);
 
-        if($listingid->id){
-            Session::flash('message','New listing added successfully.');
-            return response()->json(['status'=>'success','message'=>'New listing added successfully.']);
-
+            }
         }else{
-            //Session::flash('message','New listing addition failed.');
-            return response()->json(['status'=>'fail','message'=>'New listing addition failed.']);
+            return response()->json(['status'=>'fail','message'=>'New listing updation failed.']);
         }
 
     }

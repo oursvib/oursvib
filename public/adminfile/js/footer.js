@@ -1,4 +1,12 @@
-var form=$("#addlistingwizard").show();
+$("#addlistingwizard").steps({
+    headerTag:"h3",
+    bodyTag: "fieldset",
+    onFinished: function (event, currentIndex)
+    {
+        $('#addlistingwizard').ajaxSubmit({url:"savelisting",type:"post"})
+    }
+});
+var form=$("#addlistingwizard1").show();
 form.steps({
     headerTag:"h3",
     bodyTag: "fieldset",
@@ -112,6 +120,8 @@ form1.steps({
     },
     onFinished: function (event, currentIndex)
     {
+        form1.steps({ headerTag:"",
+            bodyTag: "",enableFinishButton: false});
         $('#editlistingwizard').ajaxSubmit({
             "url":"updatelisting",
             "type":"post",
@@ -149,6 +159,17 @@ $(".addnearby").click(function () {
     //$("#mainitem").clone().attr('id','').appendTo(".nearbyattraction").find("input:text").val("");
 })
 
+$(".addpricing").click(function () {
+    var pricecount=$("#pricecountnew").val();
+    var pricecountnewadd=parseInt(pricecount)+1;
+    $("#pricecountnew").val(pricecountnewadd);
+    var pricecountnew=$("#pricecountnew").val();
+    var element='<div class="col-md-12"><div class="col-md-2 mb-3 pricing"><select class="form-control select2 required" name="price['+pricecountnew+'][billing_type]" id="billing_type_'+pricecountnew+'"><option value="">select</option><option value="1">Hourly</option><option value="2">12 hour</option><option value="3">24 hour</option><option value="4">Daily</option> </select></div><div class="col-md-2 mb-3 pricing"><div class="col-xs-1"> <select class="form-control required" name="price['+pricecountnew+'][peakstart]" id="peakstart_'+pricecountnew+'"><option value="">From</option><option value="1">Jan</option><option value="2">Feb</option><option value="3">Mar</option><option value="4">Apr</option><option value="5">May</option><option value="6">Jun</option><option value="7">Jul</option><option value="8">Aug</option><option value="9">Sep</option><option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option> </select></div></div><div class="col-md-2 mb-3 pricing"> <div class="col-xs-1"> <select class="form-control required" name="price['+pricecountnew+'][peakend]" id="peakend_'+pricecountnew+'"><option value="">To</option><option value="1">Jan</option><option value="2">Feb</option><option value="3">Mar</option><option value="4">Apr</option><option value="5">May</option><option value="6">Jun</option><option value="7">Jul</option><option value="8">Aug</option><option value="9">Sep</option><option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option> </select></div></div><div class="col-md-3 mb-3 pricing"> <div class="input-group col-xs-1"><div class="input-group-prepend"> <span class="input-group-text" id="basic-addon1">RM</span></div> <input type="text" class="form-control required" name="price['+pricecountnew+'][normalprice]" id="normalprice_'+pricecountnew+'"></div></div><div class="col-md-3 mb-3 pricing"> <div class="input-group col-xs-1"><div class="input-group-prepend"> <span class="input-group-text" id="basic-addon1">RM</span></div> <input type="text" class="form-control required" name="price['+pricecountnew+'][peakprice]" id="peakprice_'+pricecountnew+'"></div></div></div>';
+    $(".mainprice").append(element);
+    $("#billing_type_"+pricecountnew).select2();
+    //$("#mainitem").clone().attr('id','').appendTo(".nearbyattraction").find("input:text").val("");
+})
+
 $("input[name='capacity_by']").click(function(){
     var capacityby=$("input[name='capacity_by']:checked").val();
     if(capacityby=='1'){
@@ -163,5 +184,85 @@ $("input[name='capacity_by']").click(function(){
         $(".byarea").find('input').val('');
     }
 
+
+});
+$("#root_category").on('change',function(){
+    $.ajax({
+        url:"/getparentcategory",
+        type:"post",
+        data:{
+            id:$(this).val(),
+            "_token": $('#csrf-token')[0].content
+        },
+        dataType:"json",
+        success:function(datas){
+            $('#parent_category')
+                .find('option')
+                .remove()
+            $("#parent_category").append('<option>Select</option>');
+            $.each(datas,function(data,category){
+                //  console.log(data)
+                $("#parent_category").append('<option value="'+category.id+'">'+category.name+'</option>');
+            });
+        }
+    })
+})
+
+$("#parent_category").on('change',function(){
+    $.ajax({
+        url:"/getchildcategory",
+        type:"post",
+        data:{
+            id:$(this).val(),
+            "_token": $('#csrf-token')[0].content
+        },
+        dataType:"json",
+        success:function(datas){
+            $('#child_category')
+                .find('option')
+                .remove()
+            $("#child_category").append('<option>Select</option>');
+            $.each(datas,function(data,category){
+                $("#child_category").append('<option value="'+category.id+'">'+category.name+'</option>');
+            });
+        }
+    })
+})
+
+$("#child_category").on('change',function(){
+    $.ajax({
+        url:"/getnichecategory",
+        type:"post",
+        data:{
+            id:$(this).val(),
+            "_token": $('#csrf-token')[0].content
+        },
+        dataType:"json",
+        success:function(datas){
+            $('#niche_category')
+                .find('option')
+                .remove()
+            $("#niche_category").append('<option>Select</option>');
+            $.each(datas,function(data,category){
+                $("#niche_category").append('<option value="'+category.id+'">'+category.name+'</option>');
+            });
+        }
+    })
+})
+
+
+$("#uploadFile").change(function(){
+
+    $('#image_preview').html("");
+
+    var total_file=document.getElementById("uploadFile").files.length;
+
+    for(var i=0;i<total_file;i++)
+
+    {
+
+        $('#image_preview').append("<img src='"+URL.createObjectURL(event.target.files[i])+"' height='160px' width='160px' style='margin:10px;'>");
+
+    }
 
 });

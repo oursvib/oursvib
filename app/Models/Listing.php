@@ -33,7 +33,7 @@ class Listing extends Model
     }
 
     public function listingprice(){
-        return $this->hasOne('App\Models\Listingprice','listing_id','id');
+        return $this->hasMany('App\Models\Listingprice','listing_id','id');
     }
 
     public function listingcapacity(){
