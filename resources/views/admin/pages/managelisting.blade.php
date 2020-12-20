@@ -51,6 +51,11 @@
                                 <a href=""><i class="fa fa-eye"></i></a>
                                 <a href="editlisting?id={{$listing->id}}"><i class="fa fa-edit"></i></a>
                                 <a href="#" onclick="deleteListing({{$listing->id}})"  ><i class="fa fa-trash"></i></a>
+                                @if($listing->status=='1')
+                                <a href="#" onclick="unapproveListing({{$listing->id}})"  ><i class="fa fa-times-circle"></i></a>
+                                @else
+                                <a href="#" onclick="approveListing({{$listing->id}})"  ><i class="fa fa-check"></i></a>
+                                @endif
                             </td>
 
                         </tr>
@@ -63,4 +68,3 @@
     </div>
 
 @stop
-

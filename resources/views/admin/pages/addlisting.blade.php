@@ -244,7 +244,7 @@
                             <div class="col-md-2 mb-3 pricing">
                                 <label>Billing type</label>
 
-                                <select class="form-control select2 required" name="billing_type[]" id="billing_type">
+                                <select class="form-control select2 required" name="price[0][billing_type]" id="billing_type_0">
                                     <option value="">select</option>
                                     @foreach($billingtype as $billing)
                                         <option value="{{$billing->id}}">{{$billing->name}}</option>
@@ -256,7 +256,7 @@
                                 <label>Peak season start</label>
 
                                 <div class="col-xs-1">
-                                    <select class="form-control required" name="peakstart" id="peakstart">
+                                    <select class="form-control required peakstart"  name="price[0][peakstart]" id="peakstart_0">
                                         <option value="">From</option>
                                         @foreach($months as $key=>$month)
                                             <option value="{{$key}}">{{$month}}</option>
@@ -270,7 +270,7 @@
 
 
                                 <div class="col-xs-1">
-                                    <select class="form-control required" name="peakend" id="peakend">
+                                    <select class="form-control required peakend" name="price[0][peakend]" id="peakend_0">
                                         <option value="">To</option>
                                         @foreach($months as $key=>$month)
                                             <option value="{{$key}}">{{$month}}</option>
@@ -278,24 +278,24 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-3 mb-3 pricing">
+                            <div class="col-md-2 mb-3 pricing">
                                 <label>Normal price</label>
                                 <div class="input-group col-xs-1">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">RM</span>
                                     </div>
-                                    <input type="text" class="form-control required" name="normalprice" id="normalprice">
+                                    <input type="text" class="form-control required" name="price[0][normalprice]" id="normalprice_0">
                                 </div>
 
                             </div>
 
-                            <div class="col-md-3 mb-3 pricing" >
+                            <div class="col-md-2 mb-3 pricing" >
                                 <label>Peak season price</label>
                                 <div class="input-group col-xs-1">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">RM</span>
                                     </div>
-                                    <input type="text" class="form-control required" name="peakprice" id="peakprice">
+                                    <input type="text" class="form-control required" name="price[0][peakprice]" id="peakprice_0">
                                 </div>
 
                             </div>
@@ -651,6 +651,3 @@
     </div>
 
 @stop
-
-
-

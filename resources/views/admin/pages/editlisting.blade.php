@@ -216,11 +216,11 @@
                                 </input>
                             </div>
                         </div>
+                        <h4>Strategic location and nearby </h4>
                         <div class="form-row">
-
+  <div class="col-md-12"><input type="button" value="Add item" class="btn btn-primary additembutton addnearby" /></div>
                             <div class="col-md-12 nearbyattraction">
-<br>
-                                <label>Strategic location and nearby </label><input type="button" value="Add item" class="btn btn-primary additembutton addnearby" />
+
                                 <input type="hidden" name="itemcountnew" id="itemcountnew" value="<?php echo count($listinginfo->listingnearby) - 1 ?>">
                                 @foreach($listinginfo->listingnearby as $key=>$nearby)
                                     <div class="col-md-12" class="mainitem">
@@ -231,7 +231,9 @@
                                     </div>
                                     <div class="col-md-5 nearby">
                                         <input type="text"  name="nearby[{{$key}}][distance]"  class="form-control" placeholder="distance in KM" value="{{$nearby->distance}}"></div>
+                                        @if($key!=0)
                                         <div class="col-md-1 nearby"><input type="button" value="X" class="btn btn-danger removenearby"></div>
+                                        @endif
                                     <br><br>
                                     </div>
                                 @endforeach
@@ -240,66 +242,99 @@
 
                         </div>
                         <div class="form-row">&nbsp;</div>
+                          <h4>Pricing</h4>
+                            <input type="hidden" name="pricecountnew" id="pricecountnew" value="<?php echo count($listinginfo->listingprice) - 1 ?>">
+                        <div class="col-md-12">   <input type="button" value="Add item" class="btn btn-primary additembutton addpricing" /></div>
                         <div class="form-row">
-                            <div class="col-md-2 mb-3">
+                        <div class="col-md-12">
+                            <div class="col-md-2 mb-3 pricing">
                                 <label>Billing type</label>
+                            </div>
+                            <div class="col-md-2 mb-3 pricing">
+                                <label>Peak season start</label>
+                            </div>
+                            <div class="col-md-2 mb-3 pricing">
+                                <label>Peak season end</label>
+                            </div>
+                            <div class="col-md-2 mb-3 pricing">
+                                <label>Normal price</label>
+                            </div>
+                            <div class="col-md-2 mb-3 pricing">
+                                <label>Peak season price</label>
+                            </div>
+                            <div class="col-md-2 mb-3 pricing">
+                                <label>&nbsp;</label>
+                            </div>
 
-                                <select class="form-control select2 required" name="billing_type" id="billing_type">
+                        </div></div>
+                        @foreach($listinginfo->listingprice as $keya=>$listingprice)
+                        <div class="form-row mainprice">
+                            <div class="col-md-12">
+                            <div class="col-md-2 mb-3 pricing">
+                                <input type="hidden" name="price[{{$keya}}][pricing_id]" value="{{$listingprice->id}}">
+                                <select class="form-control select2 required" name="price[{{$keya}}][billing_type]" id="billing_type_{{$key}}">
                                     <option value="">select</option>
                                     @foreach($billingtype as $billing)
-                                        <option value="{{$billing->id}}"  @if($billing->id==$listinginfo->listingprice->where('id',$billinginfo->id)->pluck('billing_type')->first()) selected="selected" @endif>{{$billing->name}}</option>
+                                        <option value="{{$billing->id}}"
+                                            @if($billing->id==$listingprice->billing_type) selected="selected" @endif >{{$billing->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
 
-                            <div class="col-md-2 mb-3">
-                                <label>Peak season start</label>
+                            <div class="col-md-2 mb-3 pricing">
+
 
                                 <div class="col-xs-1">
-                                    <select class="form-control required" name="peakstart" id="peakstart">
+                                    <select class="form-control required peakstart"  name="price[{{$keya}}][peakstart]" id="peakstart_{{$key}}">
                                         <option value="">From</option>
                                         @foreach($months as $key=>$month)
-                                            <option value="{{$key}}"   @if($key==$listinginfo->listingprice->peak_start) selected="selected" @endif>{{$month}}</option>
+                                            <option value="{{$key}}"  @if($key==$listingprice->peak_start) selected="selected" @endif >{{$month}}</option>
                                         @endforeach
                                     </select>
                                 </div>
 
                             </div>
-                            <div class="col-md-2 mb-3">
-                                <label>Peak season end</label>
+                            <div class="col-md-2 mb-3 pricing">
 
 
                                 <div class="col-xs-1">
-                                    <select class="form-control required" name="peakend" id="peakend">
+                                    <select class="form-control required peakend" name="price[{{$keya}}][peakend]" id="peakend_{{$key}}">
                                         <option value="">To</option>
                                         @foreach($months as $key=>$month)
-                                            <option value="{{$key}}" @if($key==$listinginfo->listingprice->peak_end) selected="selected" @endif>{{$month}}</option>
+                                            <option value="{{$key}}"  @if($key==$listingprice->peak_end) selected="selected" @endif>{{$month}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-3 mb-3">
-                                <label>Normal price</label>
+                            <div class="col-md-2 mb-3 pricing">
+
                                 <div class="input-group col-xs-1">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">RM</span>
                                     </div>
-                                    <input type="text" class="form-control required" name="normalprice" id="normalprice" value="{{$listinginfo->listingprice->normal_price}}">
+                                    <input type="text" class="form-control required" name="price[{{$keya}}][normalprice]" id="normalprice_{{$key}}" value="{{$listingprice->normal_price}}">
                                 </div>
 
                             </div>
 
-                            <div class="col-md-3 mb-3">
-                                <label>Peak season price</label>
+                            <div class="col-md-2 mb-3 pricing" >
+
                                 <div class="input-group col-xs-1">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">RM</span>
                                     </div>
-                                    <input type="text" class="form-control required" name="peakprice" id="peakprice" value="{{$listinginfo->listingprice->peak_price}}">
+                                    <input type="text" class="form-control required" name="price[{{$keya}}][peakprice]" id="peakprice_{{$key}}" value="{{$listingprice->peak_price}}">
                                 </div>
 
+                            </div>
+                            @if($keya!=0)
+                            <div class="col-md-2 mb-3 pricing">
+                                <input type="button" value="X" class="btn btn-danger removepricing">
+                            </div>
+                            @endif
                             </div>
                         </div>
+                        @endforeach
                     </fieldset>
                         <h3>Additional fee</h3>
                         <fieldset>
