@@ -39,15 +39,6 @@ function deleteListing(id) {
     }
 }
 
-function showAdditionalAmount(e) {
-    var id = $(e).attr('id');
-    if ($(e).val() == "2") {
-        $(".amount_" + id).css('display', 'flex');
-    } else {
-        $(".amount_" + id).css('display', 'none');
-    }
-}
-
 function unapproveListing(id) {
     if (confirm("Are you sure to want to suspend this listing?")) {
         $.ajax({

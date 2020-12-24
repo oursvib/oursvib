@@ -302,8 +302,44 @@
                             </div>
                         </div>
                     </fieldset>
-                    </fieldset>
-                        <h3>Capacity & amenities</h3>
+
+
+
+
+                        <h3>Additional fee</h3>
+                        <fieldset>
+                            <div class="form-row">
+                                @foreach($additionalfees as $addfee)
+                                    <div class="col-md-4" style="border: 1px dashed #000;border-radius: 5px;padding:2px;margin: 6px;max-width:32%;">
+                                        <div class="col-md-12">
+                                            <label>{{$addfee->name}}</label>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="col-md-6" style="float: left">
+                                                <input type="hidden" name="additional_fee[{{$addfee->id}}][additional_id]" value="{{$addfee->id}}">
+                                                <select class="select2" name="additional_fee[{{$addfee->id}}][type]" id="{{$addfee->id}}" onchange="showAdditionalAmount(this)" >
+                                                    <option value="0">No</option>
+                                                    <option value="1">Yes,free</option>
+                                                    <option value="2">Yes,paid</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 amount_{{$addfee->id}}" style="float: left;display:none;">
+                                                <div class="input-group">
+
+                                                    <div class="input-group-prepend" cl>
+                                                        <span class="input-group-text" id="basic-addon1">RM</span>
+                                                    </div>
+                                                    <input type="text" class="form-control required"  name="additional_fee[{{$addfee->id}}][amount]" id="amount_{{$addfee->id}}">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            @endforeach
+
+                        </fieldset>
+                          <h3>Capacity & amenities</h3>
                         <fieldset>
                             <div class="form-row">
                                 <div class="col-md-12">
@@ -556,6 +592,38 @@
 
 
                             </div>
+                            <h4 class="byledlcd">LED/LCD display</h4>
+
+                            <div class="form-row byledlcd">
+
+                                <div class="col-md-6">
+                                    <label>
+                                        Screen size
+                                    </label>
+                                    <div class="input-group col-xs-1">
+
+                                        <input type="text" class="form-control required" name="screen_size" id="screen_size" >
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon1">px</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>
+                                        Panel size
+                                    </label>
+                                    <div class="input-group col-xs-1">
+
+                                        <input type="text" class="form-control required" name="panel_size" id="panel_size" >
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon1">px</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
                             <div class="form-row">&nbsp;</div>
                             <h4>Amenities:</h4>
                             <div class="form-row">
@@ -571,8 +639,7 @@
                             </div>
 
                         </fieldset>
-
-                        <h3>Activites</h3>
+                           <h3>Activites</h3>
                         <fieldset>
                             <div class="form-row">
                                 @foreach($activities as $activity)
@@ -585,39 +652,6 @@
                                     <div>&nbsp;</div>
                                 @endforeach
                             </div>
-                        </fieldset>
-                        <h3>Additional fee</h3>
-                        <fieldset>
-                            <div class="form-row">
-                                @foreach($additionalfees as $addfee)
-                                    <div class="col-md-4" style="border: 1px dashed #000;border-radius: 5px;padding:2px;margin: 6px;max-width:32%;">
-                                        <div class="col-md-12">
-                                            <label>{{$addfee->name}}</label>
-                                        </div>
-
-                                        <div class="col-md-12">
-                                            <div class="col-md-6" style="float: left">
-                                                <input type="hidden" name="additional_fee[{{$addfee->id}}][additional_id]" value="{{$addfee->id}}">
-                                                <select class="select2" name="additional_fee[{{$addfee->id}}][type]" id="{{$addfee->id}}" onchange="showAdditionalAmount(this)" >
-                                                    <option value="0">No</option>
-                                                    <option value="1">Yes,free</option>
-                                                    <option value="2">Yes,paid</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6 amount_{{$addfee->id}}" style="float: left;display:none;">
-                                                <div class="input-group">
-
-                                                    <div class="input-group-prepend" cl>
-                                                        <span class="input-group-text" id="basic-addon1">RM</span>
-                                                    </div>
-                                                    <input type="text" class="form-control required"  name="additional_fee[{{$addfee->id}}][amount]" id="amount_{{$addfee->id}}">
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                            @endforeach
-
                         </fieldset>
                         <h3>Images & media</h3>
                         <fieldset>
@@ -640,7 +674,13 @@
                                 <label>
                                     Video link
                                 </label>
+                                  <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">https://youtu.be/</span>
+                                    </div>
                                 <input type="text" name="videolink" id="videolink"  class="form-control required">
+
+                                </div>
                             </div>
                         </fieldset>
                     </form>

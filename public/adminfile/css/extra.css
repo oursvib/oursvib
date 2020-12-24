@@ -1,22 +1,25 @@
-.error{
+.error {
     display: block;
     width: 100%;
     margin-top: .25rem;
     font-size: 80%;
     color: #dc3545;
 }
-.nearby,.pricing{
+.nearby, .pricing {
     float: left;
 }
-.select2{
-    width:100% !important;
+.select2 {
+    width: 100% !important;
 }
-.additembutton{
+.additembutton {
     float: right;
 }
-.amenity{
+.amenity {
     padding-left: 35px;
 }
-.bydimension{
+.bydimension {
+    display: none;
+}
+.byledlcd {
     display: none;
 }

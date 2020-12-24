@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\newListing;
 use App\Models\Activity;
 use App\Models\Amenity;
 use App\Models\Category;
@@ -16,6 +17,7 @@ use App\Models\Listingprice;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Image;
 use Session;
 
@@ -242,6 +244,15 @@ class ListingController extends Controller
         }
 
         if ($listingid->id) {
+            $adminemail = env('ADMIN_EMAIL', 'karthick.oursvib+admin@gmail.com');
+            //Mail::to(adminemail)->send(new newListing($insertdata));
+            $listinginfo=Listing::with('user')->findOrFail($listingid->id);
+
+            Mail::to($adminemail)->send(new newListing($listinginfo));
+//            Mail::send('vendor.mail.html.default', $listinginfo, function($message) use($listinginfo) {
+//                $message->to($adminemail);
+//                $message->subject('New Listing Added!');
+//            });
             Session::flash('message', 'New listing added successfully.');
             return response()->json(['status' => 'success', 'message' => 'New listing added successfully.']);
 

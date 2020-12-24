@@ -623,9 +623,9 @@
 
 
                             </div>
-                            <h4 class="bydimension">LED/LCD display</h4>
+                            <h4 class="byledlcd">LED/LCD display</h4>
 
-                            <div class="form-row bydimension">
+                            <div class="form-row byledlcd">
 
                                 <div class="col-md-6">
                                     <label>

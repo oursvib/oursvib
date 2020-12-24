@@ -271,3 +271,18 @@ $("body").on('change', '.peakstart', function() {
 $("body").on('change', '.peakend', function() {
     $(".peakend").val($(this).val())
 })
+
+function showAdditionalAmount(e) {
+    var id = $(e).attr('id');
+    if ($(e).val() == "2") {
+        $(".amount_" + id).css('display', 'flex');
+    } else {
+        $(".amount_" + id).css('display', 'none');
+    }
+    if ((id == '5' || id == "6") && ($("#5").val() == '1' || $("#5").val() == '2' || $("#6").val() == '1' || $("#6").val() == '2')) {
+        $(".byledlcd").css("display", "flex");
+    } else {
+        $(".byledlcd").css("display", "none");
+        $("#screen_size,#panel_size").val('');
+    }
+}
