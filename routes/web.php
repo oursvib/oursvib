@@ -45,6 +45,8 @@ Route::prefix('admin')->middleware(['admin', 'verified'])->group(function () {
     Route::post('/deletelisting', '\App\Http\Controllers\ListingController@deleteListing')->name('deletelisting');
     Route::get('/editlisting', '\App\Http\Controllers\ListingController@editListing')->name('editlisting');
     Route::post('/updatelisting', '\App\Http\Controllers\ListingController@updateListing')->name('updatelisting');
+    Route::post('/approvelisting', '\App\Http\Controllers\ListingController@approveListing')->name('approvelisting');
+    Route::post('/unapprovelisting', '\App\Http\Controllers\ListingController@unapproveListing')->name('unapprovelisting');
 
 });
 Route::post('getparentcategory', '\App\Http\Controllers\HelperController@getParentCategory');
@@ -52,8 +54,15 @@ Route::post('getchildcategory', '\App\Http\Controllers\HelperController@getChild
 Route::post('getnichecategory', '\App\Http\Controllers\HelperController@getNicheCategory');
 Route::post('getstates', '\App\Http\Controllers\HelperController@getStates');
 Route::post('getcities', '\App\Http\Controllers\HelperController@getCities');
+
+
+
 Route::prefix('vendors')->middleware(['vendors', 'verified'])->group(function () {
     Route::get('/', '\App\Http\Controllers\VendorsController@index')->name('vendors.dashboard');
+    Route::get('/addlisting', '\App\Http\Controllers\VendorsController@addListing')->name('vendors.listing.add');
+    Route::post('/savelisting', '\App\Http\Controllers\VendorsController@saveListing')->name('savelisting');
+    Route::get('/editlisting', '\App\Http\Controllers\VendorsController@editListing')->name('vendors.editlisting');
+    Route::post('/updatelisting', '\App\Http\Controllers\VendorsController@updateListing')->name('updatelisting');
 
 });
 
@@ -63,3 +72,7 @@ Route::prefix('avendors')->middleware(['avendors', 'verified'])->group(function 
 });
 
 Route::get('/customer', '\App\Http\Controllers\CustomerController@index')->name('customer')->middleware('customer');
+
+Route::get('/email', function(){
+    return view('email.newlisting');
+})->name('email');

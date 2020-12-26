@@ -26,12 +26,12 @@
                         <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                             <tr>
                                 <td style="color: #153643; font-family: Arial, sans-serif;">
-                                        <h1 style="font-size: 24px; margin: 0;">New Listing Posted</h1>
+                                    <p>Hi {{ucfirst($details->user->name)}}</p>
                                 </td>
                             </tr>
                             <tr>
                                 <td style="color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 24px; padding: 20px 0 30px 0;">
-                                    <p style="margin: 0;">A new listing with <strong>{{$details->title}}</strong> posted by the <strong>{{$details->user->company_name}}</strong>. Please review and approve the listing to make it public.</p>
+                                    <p style="margin: 0;">Your listed with Title: <strong>{{$details->title}}</strong> approved by Oursvib admin.Please visit your dashboard.</p>
                                 </td>
                             </tr>
 

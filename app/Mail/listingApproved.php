@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class newListing extends Mailable
+class listingApproved extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -29,6 +29,7 @@ class newListing extends Mailable
      */
     public function build()
     {
-        return $this->subject('Oursvib - New Listing Posted')->view('email.newlisting');
+
+        return $this->subject('Oursvib - Listing Approved')->view('email.listingapproved');
     }
 }

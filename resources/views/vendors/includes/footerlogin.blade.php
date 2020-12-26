@@ -1,36 +1,10 @@
+<script src="{{asset('vendorsfile/js/jquery.min.js')}}"></script>
+<script src="{{asset('vendorsfile/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('vendorsfile/js/bootadmin.js')}}"></script>
+<script src="{{asset('vendorsfile/js/jquery.validate.js')}}"></script>
+<script src="{{asset('vendorsfile/js/additional-methods.js')}}"></script>
+<script src="{{asset('vendorsfile/js/datatables.min.js')}}"></script>
+<script src="{{asset('vendorsfile/js/extra.js')}}"></script>
 
-<!-- ./wrapper -->
-
-<!-- jQuery -->
-<script src="{{ asset('vendorsfile/plugins/jquery/jquery.min.js')}}"></script>
-<!-- Bootstrap 4 -->
-<script src="{{ asset('vendorsfile/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<!-- DataTables -->
-<script src="{{ asset('vendorsfile/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{ asset('vendorsfile/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-<script src="{{ asset('vendorsfile/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-<script src="{{ asset('vendorsfile/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('vendorsfile/js/adminlte.min.js')}}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{ asset('vendorsfile/js/demo.js')}}"></script>
-<!-- page script -->
-<script>
-    $(function () {
-        $("#example1").DataTable({
-            "responsive": true,
-            "autoWidth": false,
-        });
-        $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-        });
-    });
-</script>
 </body>
 </html>

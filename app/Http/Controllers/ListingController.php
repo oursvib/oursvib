@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\listingApproved;
+use App\Mail\listingUnapproved;
 use App\Mail\newListing;
 use App\Models\Activity;
 use App\Models\Amenity;
@@ -489,12 +491,42 @@ class ListingController extends Controller
 
             }
             if ($listing->id) {
-                Session::flash('message', 'New listing updated successfully.');
-                return response()->json(['status' => 'success', 'message' => 'New listing added successfully.']);
+                Session::flash('message', 'Listing updated successfully.');
+                return response()->json(['status' => 'success', 'message' => 'Listing added successfully.']);
 
             }
         } else {
-            return response()->json(['status' => 'fail', 'message' => 'New listing updation failed.']);
+            return response()->json(['status' => 'fail', 'message' => 'Listing updation failed.']);
+        }
+
+    }
+
+    public function approveListing(Request $request){
+        $listingid=$request['listingid'];
+        if(Listing::with('user')->findOrFail($listingid)){
+            Listing::where('id',$listingid)->update(['status'=>'1']);
+            $listinginfo=Listing::with('user')->findOrFail($listingid);
+            Mail::to($listinginfo->user->email)->send(new listingApproved($listinginfo));
+            Session::flash('message', 'Listing approved.');
+            return response()->json(['status' => 'success', 'message' => 'Listing approved.']);
+        }else{
+            Session::flash('message', 'Listing not found.');
+            return response()->json(['status' => 'error', 'message' => 'Listing not found.']);
+        }
+
+    }
+
+    public function unapproveListing(Request $request){
+        $listingid=$request['listingid'];
+        if(Listing::with('user')->findOrFail($listingid)){
+            Listing::where('id',$listingid)->update(['status'=>'2']);
+            $listinginfo=Listing::with('user')->findOrFail($listingid);
+            Mail::to($listinginfo->user->email)->send(new listingUnapproved($listinginfo));
+            Session::flash('message', 'Listing suspended.');
+            return response()->json(['status' => 'success', 'message' => 'Listing suspended.']);
+        }else{
+            Session::flash('message', 'Listing not found.');
+            return response()->json(['status' => 'error', 'message' => 'Listing not found.']);
         }
 
     }
