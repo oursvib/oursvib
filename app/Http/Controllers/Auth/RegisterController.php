@@ -74,12 +74,24 @@ class RegisterController extends Controller
             'role' => $data['role'],
             'company_name' => $data['company_name'],
             'phone_number' => $data['phone_number'],
+            'status_id'=>'1'
         ]);
     }
 
     public function validateEmail(Request $request){
         //print_r($request->all());exit;
         $user=User::where('email','=',$request['email'])->get();
+        if($user->count()){
+            return 'false';
+        }else{
+            return 'true';
+        }
+    }
+
+
+    public function validateEmailEdit(Request $request){
+        //print_r($request->all());exit;
+        $user=User::where('email','=',$request['email'])->wherenotin('id',$request['id'])->get();
         if($user->count()){
             return 'false';
         }else{

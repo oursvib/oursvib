@@ -40,6 +40,13 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function credentials(Request $request)
+    {
+        $credentials = $request->only($this->username(), 'password');
+        $credentials = array_add($credentials, 'status_id', '1');
+        return $credentials;
+    }
+
     protected function authenticated(Request $request, $user)
     {
         //redirect()->route('home');
