@@ -53,7 +53,7 @@
                     url: "/validate_email_edit",
                     type: "post",
                     data: {
-                        _token:  $('meta[name="_token"]').attr('content'),
+                        "_token": $('#csrf-token')[0].content,
                          id:$("#userid").val()
                     },
 
@@ -86,20 +86,20 @@
         },
         submitHandler: function(form) {
             $.ajax({
-                url: "{{ url('/admin/updateuser')}}" ,
+                url: "{{url('/admin/updateuser')}}" ,
                 type: "POST",
                 data: $('#edituser').serialize(),
                 success: function( response ) {
-                    $('#send_form').html('Submit');
+                  //  $('#send_form').html('Submit');
                     $('#res_message').show();
                     $('#res_message').html(response.msg);
                     $('#msg_div').removeClass('d-none');
 
-                    $("#addparentcategory")[0].reset();
+                    $("#edituser")[0].reset();
                     setTimeout(function(){
                         $('#res_message').hide();
                         $('#msg_div').hide();
-                        $("#addcategorymodel").modal('hide');
+                        $("#manageusermodal").modal('hide');
                     },5000);
                 }
             });

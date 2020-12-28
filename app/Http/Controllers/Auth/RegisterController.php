@@ -87,16 +87,4 @@ class RegisterController extends Controller
             return 'true';
         }
     }
-
-
-    public function validateEmailEdit(Request $request){
-        //print_r($request->all());exit;
-        $user=User::where('email','=',$request['email'])->wherenotin('id',$request['id'])->get();
-        if($user->count()){
-            return 'false';
-        }else{
-            return 'true';
-        }
-    }
-
 }

@@ -57,4 +57,38 @@ class UserController extends Controller
         $user = User::findorfail($userid);
         return view('admin.pages.edituser')->with(compact('user'));
     }
+
+    public function validateEmailEdit(Request $request){
+
+        $user=User::where('email','=',$request['email'])->where('id','<>',$request['id'])->get();
+        if($user->count()){
+            return 'false';
+        }else{
+            return 'true';
+        }
+    }
+
+    public function updateUser(Request $request)
+    {
+        $userid = $request['userid'];
+        $user = User::findorfail($userid);
+        if ($user->role == '2' || $user->role == '3') {
+            User::where('id', $userid)->update([
+                'name' => $request['name'],
+                'email' => $request['email'],
+                'company_name' => $request['company_name'],
+                'phone_number' => $request['phone_number'],
+            ]);
+            Session::flash('message', 'User details updated successfully.');
+            return response()->json(['status' => 'success', 'message' => 'User details updated successfully.']);
+        }else{
+            User::where('id', $userid)->update([
+                'name' => $request['name'],
+                'email' => $request['email'],
+                'phone_number' => $request['phone_number'],
+            ]);
+            Session::flash('message', 'User details updated successfully.');
+            return response()->json(['status' => 'success', 'message' => 'User details updated successfully.']);
+        }
+    }
 }
