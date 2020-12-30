@@ -92,7 +92,7 @@
                 success: function( response ) {
                   //  $('#send_form').html('Submit');
                     $('#res_message').show();
-                    $('#res_message').html(response.msg);
+                    $('#res_message').html(response.message);
                     $('#msg_div').removeClass('d-none');
 
                     $("#edituser")[0].reset();
@@ -100,7 +100,9 @@
                         $('#res_message').hide();
                         $('#msg_div').hide();
                         $("#manageusermodal").modal('hide');
-                    },5000);
+                        window.location.reload();
+                    },2000);
+
                 }
             });
         }

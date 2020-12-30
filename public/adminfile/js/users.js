@@ -13,7 +13,23 @@ $('.manageuser').on('click', function () {
             $('#manageusermodal').on('shown.bs.modal', function () {
                 $('#manageusermodal .load_modal_view').html(data);
             });
+            $('#edituser').on('hidden.bs.modal', function () {
+                $('#edituser .modal-body').data('');
+            });
+        });
+    }
 
+    if (this_action == 'add') {
+
+        $.get(this_url, function (data) {
+
+            $('#manageusermodal').modal();
+            $('#manageusermodal').on('shown.bs.modal', function () {
+                $('#manageusermodal .load_modal_view').html(data);
+            });
+            $('#adduser').on('hidden.bs.modal', function () {
+                $('#adduser .modal-body').data('');
+            });
         });
     }
 });

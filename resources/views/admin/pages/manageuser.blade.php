@@ -19,6 +19,7 @@
                         <th>Email </th>
                         <th>User type</th>
                         <th>Company name</th>
+                        <th>Phone number</th>
                         <th>Created on</th>
                         <th>Email verified</th>
                         <th>Status</th>
@@ -49,7 +50,8 @@
                                     NA
                                 @endif
                             </td>
-                            <td>{{$user->created_at}} </td>
+                            <td>{{$user->phone_number}} </td>
+                            <td>{{date('y-m-d',strtotime($user->created_at))}} </td>
 
                             <td>
                                 @if($user->email_verified_at)

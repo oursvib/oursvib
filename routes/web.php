@@ -24,6 +24,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('home', '\App\Http\Controllers\HomeController@index')->name('home');
 Route::post('validate_email', '\App\Http\Controllers\Auth\RegisterController@validateEmail')->name('validate.email');
 Route::post('validate_email_edit', '\App\Http\Controllers\UserController@validateEmailEdit')->name('validate.email.edit');
+Route::post('validate_email_add', '\App\Http\Controllers\UserController@validateEmailAdd')->name('validate.email.add');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('/adminlogin', '\App\Http\Controllers\AdminController@showLoginForm')->name('admin.login');
 Route::get('/vendorslogin', '\App\Http\Controllers\VendorsController@showLoginForm')->name('vendors.login');
@@ -54,7 +55,9 @@ Route::prefix('admin')->middleware(['admin', 'verified'])->group(function () {
     Route::post('/suspenduser', '\App\Http\Controllers\UserController@suspendUser')->name('admin.suspend.user');
     Route::post('/activateuser', '\App\Http\Controllers\UserController@activateUser')->name('admin.delete.user');
     Route::get('/edituser', '\App\Http\Controllers\UserController@editUser')->name('admin.edit.user');
+    Route::get('/adduser', '\App\Http\Controllers\UserController@addUser')->name('admin.add.user');
     Route::post('/updateuser', '\App\Http\Controllers\UserController@updateUser')->name('admin.update.user');
+    Route::post('/saveuser', '\App\Http\Controllers\UserController@saveUser')->name('admin.save.user');
 });
 Route::post('getparentcategory', '\App\Http\Controllers\HelperController@getParentCategory');
 Route::post('getchildcategory', '\App\Http\Controllers\HelperController@getChildCategory');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Session;
 class UserController extends Controller
 {
@@ -58,9 +59,24 @@ class UserController extends Controller
         return view('admin.pages.edituser')->with(compact('user'));
     }
 
+    public function adduser(Request $request){
+
+        return view('admin.pages.adduser');
+    }
+
     public function validateEmailEdit(Request $request){
 
         $user=User::where('email','=',$request['email'])->where('id','<>',$request['id'])->get();
+        if($user->count()){
+            return 'false';
+        }else{
+            return 'true';
+        }
+    }
+
+    public function validateEmailAdd(Request $request){
+
+        $user=User::where('email','=',$request['email'])->get();
         if($user->count()){
             return 'false';
         }else{
@@ -79,7 +95,7 @@ class UserController extends Controller
                 'company_name' => $request['company_name'],
                 'phone_number' => $request['phone_number'],
             ]);
-            Session::flash('message', 'User details updated successfully.');
+          //  Session::flash('message', 'User details updated successfully.');
             return response()->json(['status' => 'success', 'message' => 'User details updated successfully.']);
         }else{
             User::where('id', $userid)->update([
@@ -87,8 +103,26 @@ class UserController extends Controller
                 'email' => $request['email'],
                 'phone_number' => $request['phone_number'],
             ]);
-            Session::flash('message', 'User details updated successfully.');
+            //Session::flash('message', 'User details updated successfully.');
             return response()->json(['status' => 'success', 'message' => 'User details updated successfully.']);
+        }
+    }
+
+
+    public function saveUser(Request $request){
+        $user=User::create([
+            'role' => $request['role'],
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password'=> Hash::make($request['password']),
+            'company_name' => $request['company_name'],
+            'phone_number' => $request['phone_number'],
+            'status_id'=>'1'
+        ]);
+        if($user->sendEmailVerificationNotification()){
+            return response()->json(['status' => 'success', 'message' => 'User created successfully.']);
+        }else{
+            return response()->json(['status' => 'success', 'message' => 'User creation failed.']);
         }
     }
 }
