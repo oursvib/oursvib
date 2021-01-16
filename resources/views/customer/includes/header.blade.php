@@ -16,21 +16,7 @@
                         </button>
                     </div>
                     <!-- Main Navigation -->
-                    <nav id="navigation" class="style-1">
-                        <ul id="responsive">
-                            <li><a class="current" href="#">Home</a>
-
-                            </li>
-                            <li><a href="#">Listings</a>
-                                <ul>
-                                    <li><a href="#">Listing Layout</a></li>
-
-
-                                </ul>
-                            </li>
-
-                        </ul>
-                    </nav>
+                    @include('customer/includes/menu')
                     <div class="clearfix"></div>
                 </div>
                 <!-- Left Side Content / End -->

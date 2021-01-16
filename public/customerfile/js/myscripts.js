@@ -91,4 +91,21 @@ $("#register-form").validate({
         //     }
         // })
     }
-})
+});
+
+$("#countrylist").on('change',function(){
+    var countryid=$(this).val();
+    $.ajax({
+        "url":"setcountry",
+        "data":{countryid:countryid, _token:  $('meta[name="_token"]').attr('content')},
+        "type":"POST",
+        "dataType":"json",
+        "success":function(data){
+            if(data.status=="success"){
+                window.location.reload();
+            }else{
+                window.location.reload();
+            }
+        }
+    })
+});

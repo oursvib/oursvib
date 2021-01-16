@@ -13,15 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/', function () {
-    return view('customer.pages.home');
-});
+
+Route::get('/', '\App\Http\Controllers\LandingController@index');
+
 Auth::routes(['verify' => true]);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('home', '\App\Http\Controllers\HomeController@index')->name('home');
+Route::post('setcountry', '\App\Http\Controllers\LandingController@setCountry')->name('setcountry');
 Route::post('validate_email', '\App\Http\Controllers\Auth\RegisterController@validateEmail')->name('validate.email');
 Route::post('validate_email_edit', '\App\Http\Controllers\UserController@validateEmailEdit')->name('validate.email.edit');
 Route::post('validate_email_add', '\App\Http\Controllers\UserController@validateEmailAdd')->name('validate.email.add');

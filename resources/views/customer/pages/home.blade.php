@@ -1,7 +1,7 @@
 @extends('customer.layouts.default')
 @section('content')
     <!-- Banner -->
-    <div class="parallax" data-background="https://www.oursvib.com/public/site/img/revsliderimgs/1-1.jpg"  >
+    <div class="parallax" data-background="{{asset("customerfile/images/1-1.jpg")}}"  >
 
         <div class="container">
             <div class="row">
@@ -14,21 +14,19 @@
                             <!-- Property Type -->
                             <div class="col-md-2">
                                 <select data-placeholder="Property Type" class="utf-chosen-select-single-item" style="display: none;">
-                                    <option value="" disabled="" selected="">Type of Booking</option>
-                                    <option value="Instant Booking">Instant Booking</option>
-                                    <option value="Instant Booking Package">Instant Booking Package</option>
-                                    <option value="Rental">Rental</option>
-                                    <option value="Lease">Lease</option>
+{{--                                    <option value="" disabled="" selected="">Type of Booking</option>--}}
+                                    <option value="Instant Booking" selected="selected">Instant Booking</option>
+
                                 </select>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="utf-main-search-input-item">
                                     <input type="text" name="selectdates" class="form-control " value="01/01/2018 - 01/15/2018" />
 
                                 </div>
                             </div>
                             <!-- Status -->
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <select data-placeholder="Any Status" class="utf-chosen-select-single-item" style="display: none;">
                                     <option value="" disabled="" selected="">Filter by city/Town</option>
                                     <option value="" disabled="">Malaysia
@@ -77,11 +75,16 @@
                                     <option value="Bishan">Bishan</option>
                                 </select>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-2">
 
                                 <div class="utf-main-search-input-item">
-                                    <input class="form-control-lg" type="number" value="1" data-decimals="0" min="0" max="2000000" step="1"/>
-                                    <button class="button"><i class="fa fa-search"></i> Search</button>
+                                    <input class="form-control-lg" type="number" value="25" data-decimals="0" min="25" max="2000000" step="25"/>
+
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="utf-main-search-input-item">
+                                <button class="button"><i class="fa fa-search"></i> Search</button>
                                 </div>
                             </div>
 
