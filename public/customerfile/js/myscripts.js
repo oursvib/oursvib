@@ -109,3 +109,27 @@ $("#countrylist").on('change',function(){
         }
     })
 });
+
+$("#states").on('change', function() {
+    $.ajax({
+        url: "/getcities",
+        type: "post",
+        data: {
+            id: $(this).val(),
+            "_token": $('meta[name="_token"]').attr('content')
+        },
+        dataType: "json",
+        success: function(datas) {
+            $('#city').find('option').remove();
+             var htmldata='<select name="city" id="city" data-placeholder="Any Status" >';
+            htmldata +='<option>Select</option>';
+            $.each(datas, function(data, state) {
+               htmldata+='<option value="' + state.cityId + '">' + state.name + '</option>';
+            });
+        
+            $("#citylistdiv").html(htmldata);
+            $("#city").chosen({disable_search_threshold: 100,
+                width: "100%"});
+        }
+    });
+});

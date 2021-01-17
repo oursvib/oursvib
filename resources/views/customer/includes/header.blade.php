@@ -1,37 +1,41 @@
-<!-- Header Container -->
-<header id="header-container">
-    <!-- Header -->
-    <div id="header" class="">
-        <div class="container">
-            <div class="row">
-                <!-- Left Side Content -->
-                <div class="left-side">
-                    <div id="logo">
-                        <a href="index.php">
-                            <img src="{{asset('customerfile/images/logo.png')}}" alt="">
-                        </a>
-                    </div>
-                    <div class="mmenu-trigger">
-                        <button class="hamburger hamburger--collapse" type="button"> <span class="hamburger-box"> <span class="hamburger-inner"></span> </span>
-                        </button>
-                    </div>
-                    <!-- Main Navigation -->
-                    @include('customer/includes/menu')
-                    <div class="clearfix"></div>
-                </div>
-                <!-- Left Side Content / End -->
-
-                <!-- Right Side Content / End -->
-                <div class="right-side">
-                    <div class="header-widget">
-                        <a href="#utf-signin-dialog-block" class="popup-with-zoom-anim log-in-button sign-in"><i class="icon-line-awesome-user"></i> <span>Signin / Signup</span></a>
-                    </div>
-                </div>
-                <!-- Right Side Content / End -->
+ <!--Loader-->
+    <div class="vfx-loader">
+        <div class="loader-wrapper">
+            <div class="loader-content">
+                <div class="loader-dot dot-1"></div>
+                <div class="loader-dot dot-2"></div>
+                <div class="loader-dot dot-3"></div>
+                <div class="loader-dot dot-4"></div>
+                <div class="loader-dot dot-5"></div>
+                <div class="loader-dot dot-6"></div>
+                <div class="loader-dot dot-7"></div>
+                <div class="loader-dot dot-8"></div>
+                <div class="loader-dot dot-center"></div>
             </div>
         </div>
     </div>
-    <!-- Header / End -->
-</header>
-<div class="clearfix"></div>
-<!-- Header Container / End -->
+    <!-- Loader end -->
+
+<!-- Header Container -->
+        <header id="header-container">
+            <!-- Header -->
+            <div id="header" class="">
+                <div class="container">
+				<div class="row">
+                    <!-- Left Side Content -->
+                    <div class="left-side">
+                        <div id="logo">
+                            <a href="{{URL::to('/')}}">
+                                <img src="{{asset('customerfile/images/logo.png')}}" alt="">
+                            </a>
+                        </div>
+                     
+                         @include('customer/includes/menu')
+                </div>
+                </div>
+            </div>
+            <!-- Header / End -->
+        </header>
+        <div class="clearfix"></div>
+        <!-- Header Container / End -->
+

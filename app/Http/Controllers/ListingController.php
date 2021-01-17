@@ -48,11 +48,15 @@ class ListingController extends Controller
         return view('admin.pages.addlisting', compact('vendors', 'rootcategory', 'listingtype', 'billingtype', 'countries', 'months', 'amenities', 'activities', 'additionalfees'));
     }
 
-    public function createThumbnail($path, $width, $height)
+    public function createThumbnail($path, $width, $height,$hint='soft')
     {
-        $img = Image::make($path)->resize($width, $height, function ($constraint) {
-            $constraint->aspectRatio();
-        });
+        if($hint=="soft") {
+            $img = Image::make($path)->resize($width, $height, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+        }else{
+            $img = Image::make($path)->resize($width, $height);
+        }
         $img->save($path);
     }
 
@@ -183,6 +187,7 @@ class ListingController extends Controller
 
                 //thumbnail name
                 $thumbnail = 'thumbnail_' . $filename . '_' . time() . '.' . $extension;
+                $mediumthumbnail = 'medium_' . $filename . '_' . time() . '.' . $extension;
 
                 //large thumbnail name
                 $largethumbnail = 'large_' . $filename . '_' . time() . '.' . $extension;
@@ -191,23 +196,31 @@ class ListingController extends Controller
                 $value->storeAs('public/listing_images', $filenametostore);
                 $value->storeAs('public/listing_images/thumbnail', $thumbnail);
                 $value->storeAs('public/listing_images/thumbnail', $largethumbnail);
+                $value->storeAs('public/listing_images/thumbnail', $mediumthumbnail);
 
                 //create small thumbnail
                 $thumbnailpath = public_path('storage/listing_images/thumbnail/' . $thumbnail);
-                $this->createThumbnail($thumbnailpath, 160, 160);
+
+                $this->createThumbnail($thumbnailpath, 268, 205);
 
                 //create large thumbnail
                 $largethumbnailpath = public_path('storage/listing_images/thumbnail/' . $largethumbnail);
                 $originalpath       = public_path('storage/listing_images/' . $filenametostore);
 
                 $this->createThumbnail($largethumbnailpath, 900, 500);
+
+                $mediumpath = public_path('storage/listing_images/thumbnail/' . $mediumthumbnail);
+                $this->createThumbnail($mediumpath, 520, 397,'hard');
+
                 $s3filePathlargeimage     = '/large_image/' . $largethumbnail;
                 $s3filePaththumbnailimage = '/thumbnail/' . $thumbnail;
                 $s3filePathorigiinalimage = '/original/' . $filenametostore;
+                $s3filePathmediumimage = '/medium_image/' . $mediumthumbnail;
 
                 $s3->put($s3filePathlargeimage, file_get_contents($largethumbnailpath), 'public');
                 $s3->put($s3filePaththumbnailimage, file_get_contents($thumbnailpath), 'public');
                 $s3->put($s3filePathorigiinalimage, file_get_contents($originalpath), 'public');
+                $s3->put($s3filePathmediumimage, file_get_contents($mediumpath), 'public');
 
                 Listingimage::create([
                     'listing_id'     => $listingid->id,
@@ -217,6 +230,7 @@ class ListingController extends Controller
                 unlink($largethumbnailpath);
                 unlink($thumbnailpath);
                 unlink($originalpath);
+                unlink($mediumpath);
             }
 
             if ($request->file('supporting_document')) {
@@ -429,7 +443,7 @@ class ListingController extends Controller
 
                     //thumbnail name
                     $thumbnail = 'thumbnail_' . $filename . '_' . time() . '.' . $extension;
-
+                    $mediumthumbnail = 'medium_' . $filename . '_' . time() . '.' . $extension;
                     //large thumbnail name
                     $largethumbnail = 'large_' . $filename . '_' . time() . '.' . $extension;
 
@@ -437,23 +451,29 @@ class ListingController extends Controller
                     $value->storeAs('public/listing_images', $filenametostore);
                     $value->storeAs('public/listing_images/thumbnail', $thumbnail);
                     $value->storeAs('public/listing_images/thumbnail', $largethumbnail);
-
+                    $value->storeAs('public/listing_images/thumbnail', $mediumthumbnail);
                     //create small thumbnail
                     $thumbnailpath = public_path('storage/listing_images/thumbnail/' . $thumbnail);
-                    $this->createThumbnail($thumbnailpath, 160, 160);
+                    $this->createThumbnail($thumbnailpath, 268, 205);
 
                     //create large thumbnail
                     $largethumbnailpath = public_path('storage/listing_images/thumbnail/' . $largethumbnail);
                     $originalpath       = public_path('storage/listing_images/' . $filenametostore);
 
                     $this->createThumbnail($largethumbnailpath, 900, 500);
+
+                    $mediumpath = public_path('storage/listing_images/thumbnail/' . $mediumthumbnail);
+                    $this->createThumbnail($mediumpath, 520, 397,'hard');
+
                     $s3filePathlargeimage     = '/large_image/' . $largethumbnail;
                     $s3filePaththumbnailimage = '/thumbnail/' . $thumbnail;
                     $s3filePathorigiinalimage = '/original/' . $filenametostore;
+                    $s3filePathmediumimage = '/medium_image/' . $mediumthumbnail;
 
                     $s3->put($s3filePathlargeimage, file_get_contents($largethumbnailpath), 'public');
                     $s3->put($s3filePaththumbnailimage, file_get_contents($thumbnailpath), 'public');
                     $s3->put($s3filePathorigiinalimage, file_get_contents($originalpath), 'public');
+                    $s3->put($s3filePathmediumimage, file_get_contents($mediumpath), 'public');
 
                     Listingimage::create([
                         'listing_id'     => $listing->id,
@@ -463,6 +483,7 @@ class ListingController extends Controller
                     unlink($largethumbnailpath);
                     unlink($thumbnailpath);
                     unlink($originalpath);
+                    unlink($mediumpath);
                 }
             }
             //listing document

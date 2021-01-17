@@ -248,7 +248,7 @@ $("#state").on('change', function() {
             });
         }
     })
-})
+});
 $("#uploadFile").change(function() {
     $('#image_preview').html("");
     var total_file = document.getElementById("uploadFile").files.length;

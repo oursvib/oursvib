@@ -148,9 +148,9 @@
                 $('#amount').val(parseInt(propertyPricing));
             });
         }
-        // $(document).on('change', function() {
-        //     $("#interest").val($("#interest").val().replace(/,/g, '.'));
-        // });
+        $(document).on('change', function() {
+            $("#interest").val($("#interest").val().replace(/,/g, '.'));
+        });
 
         function mortgageCalc() {
             var amount = parseFloat($("#amount").val().replace(/[^0-9\.]+/g, "")),
@@ -390,7 +390,7 @@
             e.preventDefault();
             $('.show-more').toggleClass('visible');
         });
-        var pxShow = 600;
+        var pxShow = 800;
         var fadeInTime = 300;
         var fadeOutTime = 300;
         var scrollSpeed = 500;
@@ -407,36 +407,35 @@
             }, scrollSpeed);
             return false;
         });
-        $('.carouselListing-01').owlCarousel({
+        $('.homeslidercarousel').owlCarousel({
             autoPlay: true,
-            navigation: true,
+            navigation: false,
             slideSpeed: 600,
 			centerMode: true,
-			slidesToShow: 5,
+			slidesToShow: 1,
             slidesToScroll: 1,
 			dots: false,
-            arrows: true,
+            arrows: false,
             nav: false,
-            rewind: true,
+            rewind: false,
             autoplayHoverPause: true,
             adaptiveHeight: true,
-			items: 6,
-            itemsDesktop: [1239, 6],
-            itemsTablet: [991, 2],
+			items: 1,
+            itemsDesktop: [1239, 1],
+            itemsTablet: [991, 1],
             itemsMobile: [767, 1]
         });
-
-        $('.carouselListing-02').owlCarousel({
+        $('.detailpageslidercarousel').owlCarousel({
             autoPlay: true,
-            navigation: true,
+            navigation: false,
             slideSpeed: 600,
 			centerMode: true,
-			slidesToShow: 5,
+			slidesToShow: 1,
             slidesToScroll: 1,
-			dots: true,
-            arrows: true,
-            nav: true,
-            rewind: true,
+			dots: false,
+            arrows: false,
+            nav: false,
+            rewind: false,
             autoplayHoverPause: true,
             adaptiveHeight: true,
 			items: 4,
@@ -444,8 +443,7 @@
             itemsTablet: [991, 2],
             itemsMobile: [767, 1]
         });
-
-        $('.carouselListing-03').owlCarousel({
+        $('.carousel').owlCarousel({
             autoPlay: true,
             navigation: true,
             slideSpeed: 600,
@@ -460,25 +458,6 @@
             adaptiveHeight: true,
 			items: 5,
             itemsDesktop: [1239, 5],
-            itemsTablet: [991, 2],
-            itemsMobile: [767, 1]
-        });
-
-        $('.carousel').owlCarousel({
-            autoPlay: true,
-            navigation: true,
-            slideSpeed: 600,
-			centerMode: true,
-			slidesToShow: 5,
-            slidesToScroll: 1,
-			dots: true,
-            arrows: true,
-            nav: true,
-            rewind: true,
-            autoplayHoverPause: true,
-            adaptiveHeight: true,
-			items: 3,
-            itemsDesktop: [1239, 3],
             itemsTablet: [991, 2],
             itemsMobile: [767, 1]
         });
@@ -568,14 +547,15 @@
                 }
             }]
         });
-        $('.fullwidth-property-slider').slick({
+        
+        $('.detailpageproperty-slider').slick({
             centerMode: true,
             centerPadding: '10%',
             slidesToShow: 1,
             responsive: [{
                 breakpoint: 1367,
                 settings: {
-                    centerPadding: '5%'
+                    centerPadding: '15%'
                 }
             }, {
                 breakpoint: 993,
@@ -584,6 +564,7 @@
                 }
             }]
         });
+        $(".fullwidth-property-slider").not('.slick-initialized').slick();
         $('.fullwidth-home-slider').slick({
             centerMode: true,
             centerPadding: '0',
@@ -606,8 +587,7 @@
             type: 'image',
             delegate: 'a.mfp-gallery',
             fixedContentPos: true,
-            fixedBgPos: true,
-            overflowY: 'auto',
+            fixedBgPos: true, 
             closeBtnInside: false,
             preloader: true,
             removalDelay: 0,
@@ -643,7 +623,7 @@
             preloader: false,
             fixedContentPos: false
         });
-
+        
 		/*----------------------------------------------------*/
         /*  Tabs
         /*----------------------------------------------------*/
@@ -676,12 +656,6 @@
             $(".utf-popup-tab-content-item").hide();
             $("#register.utf-popup-tab-content-item").show();
             $("body").find('.utf-popup-tabs-nav-item a[href="#register"]').parent("li").click();
-        });
-        $('.login-tab').on('click', function(event) {
-            event.preventDefault();
-            $(".utf-popup-tab-content-item").hide();
-            $("#login.utf-popup-tab-content-item").show();
-            $("body").find('.utf-popup-tabs-nav-item a[href="#login"]').parent("li").click();
         });
 
         $('.utf-popup-tabs-nav-item').each(function() {
