@@ -93,9 +93,9 @@
 			<div class="utf-listing-item">
             <div class="utf-listing-content">
               <div class="utf-listing-title">
-                <h4><a href="#">Venues</a></h4>
+                <h4><a href="{{URL('viewlistingbycategory',['venue'])}}">Venues</a></h4>
 				<img src="{{asset('customerfile/images/popular-location-01.jpg')}}" alt="" style="height: auto;">
-				<a href="#">See more venues</a>
+				<a href="{{URL('viewlistingbycategory',['venue'])}}">See more venues</a>
 			  </div>
 			  </div>
 			  </div>
@@ -104,9 +104,9 @@
 			<div class="utf-listing-item">
             <div class="utf-listing-content">
               <div class="utf-listing-title">
-                <h4><a href="#">Space</a></h4>
+                <h4><a href="{{URL('viewlistingbycategory',['space'])}}">Space</a></h4>
 				<img src="{{asset('customerfile/images/popular-location-03.jpg')}}" alt="" style="height: auto;">
-				<a href="#">See more Space</a>
+				<a href="{{URL('viewlistingbycategory',['space'])}}">See more Space</a>
 			  </div>
 			  </div>
 			  </div>
@@ -115,9 +115,9 @@
 			<div class="utf-listing-item">
             <div class="utf-listing-content">
               <div class="utf-listing-title">
-                <h4><a href="#">Happenings</a></h4>
+                <h4><a href="{{URL('viewlistingbycategory',['happenings'])}}">Happenings</a></h4>
 				<img src="{{asset('customerfile/images/popular-location-02.jpg')}}" alt="" style="height: auto;">
-				<a href="#">See more happenings</a>
+				<a href="{{URL('viewlistingbycategory',['happenings'])}}">See more happenings</a>
 			  </div>
 			  </div>
 			  </div>
@@ -126,9 +126,9 @@
 			<div class="utf-listing-item">
             <div class="utf-listing-content">
               <div class="utf-listing-title">
-                <h4><a href="#">Shop by Category</a></h4>
+                <h4><a href="{{URL('viewlistingbycategory',['services'])}}">Services</a></h4>
 				<img src="{{asset('customerfile/images/popular-location-05.jpg')}}" alt="" style="height: auto;">
-				<a href="#">Shop now</a>
+				<a href="{{URL('viewlistingbycategory',['services'])}}">See more Services</a>
 			  </div>
 			  </div>
 			  </div>
@@ -151,14 +151,15 @@
                 <div class="white_bg">
                     <div class="carousel owl-carousel">
                         <!-- Listing Item -->
+
                         <?php foreach($recentlisting as $recent){?>
                                 <div class="owl-item">
                                     <div class="utf-carousel-item-area">
                                         <div class="utf-listing-item compact">
-                                            <a href="#" class="utf-smt-listing-img-container">
+                                            <a href="{{URL('viewlisting', [$recent->id])}}" class="utf-smt-listing-img-container">
 
                                                 <div class="utf-listing-img-content-item">
-                                                    <span class="utf-listing-compact-title-item">Renovated luxury listing<i>$18,000/mo</i></span>
+                                                    <span class="utf-listing-compact-title-item"> {{$recent->title}}<i>Starts from RM {{$recent->listingprice->where('listing_id',$recent->id)->min('normal_price')}}</i></span>
                                                 </div>
                                                 <img src="https://oursvib.s3.amazonaws.com/medium_image/medium_{{$recent->listingimages->where('listing_id',$recent->id)->pluck('listing_images')->first()}}" width="268" height="205">
 
@@ -198,69 +199,22 @@
                         <p class="utf-slogan-text">Lorem Ipsum is simply dummy text printing and type setting industry Lorem Ipsum been industry standard dummy text ever since when unknown printer took a galley.</p>
                     </div>
                 </div>
+                <?php foreach($statewise as $s=>$state){?>
                 <div class="col-md-4 col-sm-6">
-                    <a href="listings-list-with-sidebar.html" class="img-box">
+                    <a href="{{URL('viewlistingstate', [$state->state])}}" class="img-box">
                         <div class="utf-listing-badges-item"> <span class="featured">Featured</span>
                         </div>
-                        <img src="images/popular-location-01.jpg" alt="">
+                        <img src="{{asset('customerfile/images/popular-location-'.sprintf("%02d",$s+1).'.jpg')}}" alt="">
                         <div class="utf-cat-img-box-content visible">
-                            <h4>Afghanistan</h4>
-                            <span>14 Properties</span>
+                            <h4> {{ucwords($state->name)}}</h4>
+                            <span>{{$state->total}} listings</span>
                         </div>
                     </a>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="listings-list-with-sidebar.html" class="img-box">
-                        <img src="images/popular-location-02.jpg" alt="">
-                        <div class="utf-cat-img-box-content visible">
-                            <h4>Australia</h4>
-                            <span>24 Properties</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-5 col-sm-6">
-                    <a href="listings-list-with-sidebar.html" class="img-box">
-                        <div class="utf-listing-badges-item"> <span class="featured">Featured</span>
-                        </div>
-                        <img src="images/popular-location-03.jpg" alt="">
-                        <div class="utf-cat-img-box-content visible">
-                            <h4>Bangladesh</h4>
-                            <span>12 Properties</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-5 col-sm-6">
-                    <a href="listings-list-with-sidebar.html" class="img-box">
-                        <div class="utf-listing-badges-item"> <span class="featured">Featured</span>
-                        </div>
-                        <img src="images/popular-location-04.jpg" alt="">
-                        <div class="utf-cat-img-box-content visible">
-                            <h4>Miami</h4>
-                            <span>9 Properties</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <a href="listings-list-with-sidebar.html" class="img-box">
-                        <img src="images/popular-location-05.jpg" alt="">
-                        <div class="utf-cat-img-box-content visible">
-                            <h4>Belize</h4>
-                            <span>14 Properties</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="listings-list-with-sidebar.html" class="img-box">
-                        <img src="images/popular-location-06.jpg" alt="">
-                        <div class="utf-cat-img-box-content visible">
-                            <h4>Cambodia</h4>
-                            <span>24 Properties</span>
-                        </div>
-                    </a>
-                </div>
+                <?php } ?>
             </div>
             <div class="utf-centered-button margin-top-10">
-                <a href="all-categorie.html" class="button">View All Categories</a>
+                <a href="{{URL('viewlistingcountry', [$country[0]->countryId])}}" class="button">View all listing in {{ucwords($country[0]->name)}}</a>
             </div>
         </div>
         <!-- Container / End -->
@@ -286,7 +240,7 @@
                                                         text of the printing and type setting industry galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
                                                         remaining essentially unchanged.</div>
                                                     <div class="testimonial-author">
-                                                        <img src="images/happy-client-01.jpg" alt="">
+                                                        <img src="{{asset('customerfile/images/happy-client-01.jpg')}}" alt="">
                                                         <h4>John Williams <span>Real Estate Agent</span></h4>
                                                     </div>
                                                 </div>
@@ -303,7 +257,7 @@
                                                         text of the printing and type setting industry galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
                                                         remaining essentially unchanged.</div>
                                                     <div class="testimonial-author">
-                                                        <img src="images/happy-client-03.jpg" alt="">
+                                                        <img src="{{asset('customerfile/images/happy-client-02.jpg')}}" alt="">
                                                         <h4>John Williams <span>Real Estate Agent</span></h4>
                                                     </div>
                                                 </div>
@@ -320,7 +274,7 @@
                                                         text of the printing and type setting industry galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
                                                         remaining essentially unchanged.</div>
                                                     <div class="testimonial-author">
-                                                        <img src="images/happy-client-02.jpg" alt="">
+                                                        <img src="{{asset('customerfile/images/happy-client-03.jpg')}}" alt="">
                                                         <h4>John Williams <span>Real Estate Agent</span></h4>
                                                     </div>
                                                 </div>
@@ -337,7 +291,7 @@
                                                         text of the printing and type setting industry galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
                                                         remaining essentially unchanged.</div>
                                                     <div class="testimonial-author">
-                                                        <img src="images/happy-client-01.jpg" alt="">
+                                                        <img src="{{asset('customerfile/images/happy-client-03.jpg')}}" alt="">
                                                         <h4>John Williams <span>Real Estate Agent</span></h4>
                                                     </div>
                                                 </div>
@@ -354,7 +308,7 @@
                                                         text of the printing and type setting industry galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
                                                         remaining essentially unchanged.</div>
                                                     <div class="testimonial-author">
-                                                        <img src="images/happy-client-02.jpg" alt="">
+                                                        <img src="{{asset('customerfile/images/happy-client-02.jpg')}}" alt="">
                                                         <h4>John Williams <span>Real Estate Agent</span></h4>
                                                     </div>
                                                 </div>
