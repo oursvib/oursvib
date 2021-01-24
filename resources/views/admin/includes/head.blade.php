@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{asset('adminfile/css/select2.css')}}">
     <link rel="stylesheet" href="{{asset('adminfile/css/bootstrap-datepicker3.css')}}">
     <link rel="stylesheet" href="{{asset('adminfile/css/extra.css')}}">
-
+    <link rel="stylesheet" href="{{asset('/adminfile/css/fullcalender.css')}}">
     <script src="{{asset('adminfile/js/jquery.min.js')}}"></script>
     <script src="{{asset('adminfile/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('adminfile/js/bootadmin.js')}}"></script>
@@ -26,7 +26,8 @@
     <script src="{{asset('adminfile/js/bootstrap-datepicker.js')}}"></script>
     <script src="{{asset('adminfile/js/jquery.form.min.js')}}"></script>
     <script src="https://cdn.tiny.cloud/1/0v034ksr51j1gcv33vajwyhpotiqf5zpoyruomyc9en8en2s/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
+    <script type="text/javascript" src="{{asset('adminfile/js/theme-chooser.js')}}"></script>
+    <script type="text/javascript" src="{{asset('adminfile/js/fullcalender.js')}}"></script>
     <script src="{{asset('adminfile/js/listing.js')}}"></script>
     <script src="{{asset('adminfile/js/editlisting.js')}}"></script>
     <title>Oursvib</title>

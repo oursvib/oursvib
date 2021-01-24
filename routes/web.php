@@ -59,6 +59,9 @@ Route::prefix('admin')->middleware(['admin', 'verified'])->group(function () {
     Route::get('/adduser', '\App\Http\Controllers\UserController@addUser')->name('admin.add.user');
     Route::post('/updateuser', '\App\Http\Controllers\UserController@updateUser')->name('admin.update.user');
     Route::post('/saveuser', '\App\Http\Controllers\UserController@saveUser')->name('admin.save.user');
+
+    Route::get('/admincalender', '\App\Http\Controllers\BookingController@index')->name('admin.booking.calender');
+
 });
 Route::post('getparentcategory', '\App\Http\Controllers\HelperController@getParentCategory');
 Route::post('getchildcategory', '\App\Http\Controllers\HelperController@getChildCategory');
