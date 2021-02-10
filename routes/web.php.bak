@@ -63,7 +63,7 @@ Route::prefix('admin')->middleware(['admin', 'verified'])->group(function () {
     Route::get('/admincalender', '\App\Http\Controllers\BookingController@index')->name('admin.booking.calender');
     Route::post('/updatebooking', '\App\Http\Controllers\BookingController@editBooking')->name('admin.booking.edit');
     Route::post('/viewbooking', '\App\Http\Controllers\BookingController@viewBooking')->name('admin.booking.view');
-    Route::get('/addbooking', '\App\Http\Controllers\BookingController@addBooking')->name('admin.booking.add');
+    Route::get('/addbooking', '\App\Http\Controllers\BookingController@addBooking')->name('admin.booking.view');
 
 });
 Route::post('getparentcategory', '\App\Http\Controllers\HelperController@getParentCategory');

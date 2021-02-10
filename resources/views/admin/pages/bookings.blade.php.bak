@@ -97,7 +97,7 @@ $('.addbooking').on('click', function () {
             $('#editevent').on('shown.bs.modal', function () {
                 $('#editevent .load_modal_view').html(data);
             });
-            $('#editevent').modal();
+              $('#editevent').modal();
            
         });
     }

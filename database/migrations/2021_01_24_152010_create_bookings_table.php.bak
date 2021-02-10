@@ -21,7 +21,7 @@ class CreateBookingsTable extends Migration
             $table->integer('blockings');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
-            $table->string('booking_ref_no');
+            $table->string('end_date');
             $table->timestamps();
         });
     }
