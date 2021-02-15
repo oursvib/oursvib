@@ -1,10 +1,10 @@
 
-@extends('admin.layouts.default')
+@extends('vendors.layouts.default')
 @section('content')
     <div class="content p-4">
         <h2 class="mb-4">Booking Calendar</h2>
         <div class="mb-4">
-            <!-- <a href="#" class="btn btn-primary addbooking"   data-action="add" data-url="/admin/addbooking" data-toggle="modal" data-target="#editevent">Add booking</a> -->
+            <a href="#" class="btn btn-primary addbooking"   data-action="add" data-url="/vendors/addbooking" data-toggle="modal" data-target="#editevent">Block dates</a>
         </div>
 
 
@@ -31,7 +31,7 @@
             var calendarEl = document.getElementById('calendar');
 
             var calendar = new FullCalendar.Calendar(calendarEl, {
-            
+
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',
@@ -41,18 +41,18 @@
                 navLinks: true, // can click day/week names to navigate views
                 selectable: true,
                 selectMirror: true,
-                select: function(arg) {
-                    var title = prompt('Event Title:');
-                    if (title) {
-                        calendar.addEvent({
-                            title: title,
-                            start: arg.start,
-                            end: arg.end,
-                            allDay: arg.allDay
-                        })
-                    }
-                    calendar.unselect()
-                },
+                // select: function(arg) {
+                //     var title = prompt('Event Title:');
+                //     if (title) {
+                //         calendar.addEvent({
+                //             title: title,
+                //             start: arg.start,
+                //             end: arg.end,
+                //             allDay: arg.allDay
+                //         })
+                //     }
+                //     calendar.unselect()
+                // },
                 eventClick: function(arg) {
                    /* if (confirm('Are you sure you want to delete this event?')) {
                         arg.event.remove()
@@ -64,15 +64,15 @@
                     	dataType: "html",
                     	type: "POST",
                     	success:function(data){
-                    		
+
             						 $('#editevent').on('shown.bs.modal', function() {
                					 		$('#editevent .load_modal_view').html(data);
             						 });
                                     $('#editevent').modal('show');
                     	}
                     })
-                   
-                   
+
+
                 },
                 editable: true,
                 dayMaxEvents: true, // allow "more" link when too many events
@@ -81,7 +81,7 @@
 
             calendar.render();
         });
-	
+
 $('.addbooking').on('click', function () {
     var this_action = $(this).attr('data-action');
     var this_url = $(this).attr('data-url');
@@ -90,7 +90,7 @@ $('.addbooking').on('click', function () {
     if (this_action == 'add') {
 
         $.get(this_url, function (data) {
-          
+
              $('#editevent').on('hidden.bs.modal', function () {
                 $('#editevent .modal-body').html('');
             });
@@ -98,7 +98,7 @@ $('.addbooking').on('click', function () {
                 $('#editevent .load_modal_view').html(data);
             });
             $('#editevent').modal();
-           
+
         });
     }
 });

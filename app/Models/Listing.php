@@ -55,4 +55,17 @@ class Listing extends Model
     public function listingimages(){
         return $this->hasMany('App\Models\Listingimage','listing_id','id');
     }
+
+    public function listingcountry(){
+        return $this->hasOne('App\Models\Country','countryId','country');
+    }
+
+    public function listingstate(){
+        return $this->hasOne('App\Models\State','regionId','state');
+    }
+    public function listingcity(){
+        return $this->hasOne('App\Models\City','cityId','city');
+    }
 }
+
+

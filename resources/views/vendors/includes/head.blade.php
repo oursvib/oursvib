@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="{{asset('vendorsfile/css/select2.css')}}">
     <link rel="stylesheet" href="{{asset('vendorsfile/css/bootstrap-datepicker3.css')}}">
     <link rel="stylesheet" href="{{asset('vendorsfile/css/extra.css')}}">
-
+    <link rel="stylesheet" href="{{asset('/vendorsfile/css/fullcalender.css')}}">
+    <link rel="stylesheet" href="{{asset('/vendorsfile/css/bootstrap-datetimepicker.css')}}">
     <script src="{{asset('vendorsfile/js/jquery.min.js')}}"></script>
     <script src="{{asset('vendorsfile/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('vendorsfile/js/bootadmin.js')}}"></script>
@@ -26,8 +27,12 @@
     <script src="{{asset('vendorsfile/js/bootstrap-datepicker.js')}}"></script>
     <script src="{{asset('vendorsfile/js/jquery.form.min.js')}}"></script>
     <script src="https://cdn.tiny.cloud/1/0v034ksr51j1gcv33vajwyhpotiqf5zpoyruomyc9en8en2s/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script type="text/javascript" src="{{asset('vendorsfile/js/bootstrap-datetimepicker.js')}}"></script>
     <script src="{{asset('vendorsfile/js/category.js')}}"></script>
     <script src="{{asset('vendorsfile/js/listing.js')}}"></script>
+    <script type="text/javascript" src="{{asset('vendorsfile/js/theme-chooser.js')}}"></script>
+    <script type="text/javascript" src="{{asset('vendorsfile/js/fullcalender.js')}}"></script>
+
     <script src="{{asset('vendorsfile/js/editlisting.js')}}"></script>
     <title>Oursvib</title>
 </head>

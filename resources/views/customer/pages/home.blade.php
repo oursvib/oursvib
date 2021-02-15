@@ -29,9 +29,9 @@
                             <div class="col-md-2">
                                <select name="states" id="states" data-placeholder="Any Status" class="utf-chosen-select-single-item" style="display: none;">
                                <option value="" selected="">Filter by state</option>
-                               <?php foreach($region as $state){ ?>
+                               @foreach($region as $state)
                                     <option value="<?php echo $state->regionId; ?>"><?php echo ucwords($state->name); ?></option>
-                                <?php } ?>
+                               @endforeach
                                 </select>
                             </div>
                             <!-- Status -->
@@ -152,7 +152,7 @@
                     <div class="carousel owl-carousel">
                         <!-- Listing Item -->
 
-                        <?php foreach($recentlisting as $recent){?>
+                       @foreach($recentlisting as $recent)
                                 <div class="owl-item">
                                     <div class="utf-carousel-item-area">
                                         <div class="utf-listing-item compact">
@@ -167,7 +167,7 @@
                                         </div>
                                     </div>
                                 </div>
-                        <?php } ?>
+                        @endforeach
 
                     </div>
                         <div class="owl-controls clickable">
@@ -199,7 +199,7 @@
                         <p class="utf-slogan-text">Lorem Ipsum is simply dummy text printing and type setting industry Lorem Ipsum been industry standard dummy text ever since when unknown printer took a galley.</p>
                     </div>
                 </div>
-                <?php foreach($statewise as $s=>$state){?>
+                @foreach($statewise as $s=>$state)
                 <div class="col-md-4 col-sm-6">
                     <a href="{{URL('viewlistingstate', [$state->state])}}" class="img-box">
                         <div class="utf-listing-badges-item"> <span class="featured">Featured</span>
@@ -211,7 +211,7 @@
                         </div>
                     </a>
                 </div>
-                <?php } ?>
+                @endforeach
             </div>
             <div class="utf-centered-button margin-top-10">
                 <a href="{{URL('viewlistingcountry', [$country[0]->countryId])}}" class="button">View all listing in {{ucwords($country[0]->name)}}</a>

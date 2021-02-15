@@ -31,6 +31,7 @@ Route::get('/adminlogin', '\App\Http\Controllers\AdminController@showLoginForm')
 Route::get('/vendorslogin', '\App\Http\Controllers\VendorsController@showLoginForm')->name('vendors.login');
 Route::get('/avendorslogin', '\App\Http\Controllers\AvendorController@showLoginForm')->name('avendors.login');
 Route::get('/vregistration', '\App\Http\Controllers\Auth\RegisterController@showVendorRegistrationForm')->name('vendors.register');
+Route::get('/viewlistingbycategory/{category}', '\App\Http\Controllers\LandingController@viewListingByCategory')->name('viewbycategory');
 
 Route::prefix('admin')->middleware(['admin', 'verified'])->group(function () {
     Route::get('/', '\App\Http\Controllers\AdminController@index')->name('admin.dashboard');
@@ -80,6 +81,11 @@ Route::prefix('vendors')->middleware(['vendors', 'verified'])->group(function ()
     Route::post('/savelisting', '\App\Http\Controllers\VendorsController@saveListing')->name('savelisting');
     Route::get('/editlisting', '\App\Http\Controllers\VendorsController@editListing')->name('vendors.editlisting');
     Route::post('/updatelisting', '\App\Http\Controllers\VendorsController@updateListing')->name('updatelisting');
+
+    Route::get('/vendorcalender', '\App\Http\Controllers\VendorsController@vendorCalender')->name('vendor.booking.calender');
+    Route::post('/viewbooking', '\App\Http\Controllers\VendorsController@viewBooking')->name('vendor.booking.view');
+    Route::get('/addbooking', '\App\Http\Controllers\VendorsController@addBooking')->name('vendor.booking.add');
+    Route::post('/blockbooking', '\App\Http\Controllers\VendorsController@blockBooking')->name('vendor.booking.block');
 
 });
 

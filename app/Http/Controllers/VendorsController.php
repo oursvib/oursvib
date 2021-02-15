@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Acaronlex\LaravelCalendar\Calendar;
 use App\Mail\listingUnapproved;
 use App\Mail\newListing;
 use App\Models\Activity;
 use App\Models\Amenity;
+use App\Models\Booking;
 use App\Models\Category;
 use App\Models\Listing;
 use App\Models\Listingactivity;
@@ -22,6 +24,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Image;
 use Session;
+use function MongoDB\BSON\toJSON;
 
 class VendorsController extends Controller
 {
@@ -509,4 +512,104 @@ class VendorsController extends Controller
 
     }
 
+    public function vendorCalender()
+    {
+        $events = [];
+        $vendorsid = Auth::user()->id;
+        $bookings = DB::table('bookings')
+            ->join('listings', 'bookings.listing_id', '=', 'listings.id')
+            ->join('users', 'users.id', '=', 'bookings.vendor_id')
+            ->select("bookings.id as bookingid", "bookings.*", "listings.*", "users.company_name")
+            ->where('bookings.vendor_id','=',$vendorsid)
+            ->get();
+
+        foreach ($bookings as $key => $booking) {
+
+
+            $events[$key]['title'] = $booking->title . ' - ' . $booking->company_name;
+            $events[$key]['start'] = $booking->start_date;
+            $events[$key]['end'] = $booking->end_date;
+            $events[$key]['id'] = $booking->bookingid;
+            $events[$key]['bookingrefno'] = $booking->booking_ref_no;
+            if ($booking->vendor_id == $booking->user_id && $booking->blockings == '1') {
+                $events[$key]['blockings'] = 'Yes';
+                $events[$key]['classNames'] = 'block';
+
+            } else {
+                $events[$key]['blockings'] = 'No';
+                $events[$key]['classNames'] = 'userbooking';
+            }
+
+        }
+
+        $bookingjson=json_encode($events);
+//echo '<pre>';
+//print_r($bookingjson);exit;
+        return view('vendors.pages.bookings',compact('bookings','bookingjson'));
+    }
+
+    public function editBooking(Request $request){
+
+        $booingid=$request['bookingid'];
+        $bookingrefno=$request['bookingrefno'];
+        return view('admin.pages.bookingedit');
+    }
+
+    public function viewBooking(Request $request){
+
+        $bookingid=$request['bookingid'];
+        $bookingrefno=$request['bookingrefno'];
+        $bookingdetails=DB::table('bookings')
+            ->join('listings','bookings.listing_id','=','listings.id')
+            ->join('users as vendors','vendors.id','=','bookings.vendor_id')
+            ->join('users as user','user.id','=','bookings.user_id')
+            ->select("bookings.id as bookingid","bookings.*","listings.*","vendors.company_name","vendors.email as vendoremail","user.name as bookedusername","user.email as bookeduseremail","bookings.created_at as bookingdate")
+            ->where('bookings.id','=',$bookingid)
+            ->where('bookings.booking_ref_no','=',$bookingrefno)
+            ->first();
+
+        return view('admin.pages.bookingview')->with(compact('bookingdetails'));
+    }
+    public function addBooking(Request $request){
+        $id = Auth::user()->id;
+        $listings = Listing::with('rootCategory', 'parentCategory', 'childCategory', 'nicheCategory', 'user')->whereIn('status', array('1', '2'), 'or')->where('vendor_id',$id)->get();
+        return view('vendors.pages.bookingadd')->with(compact('listings'));
+    }
+
+    public function blockBooking(Request $request)
+    {
+        DB::enableQueryLog();
+//        $selecttbooking=Booking::where('listing_id','=',$request['listing'])
+//            ->whereBetween('start_date'
+//                ,array([date('Y-m-d',strtotime($request['datetimepickerfrom'])),date('Y-m-d',strtotime($request['datetimepickerto']))]))
+//            ->orwhereBetween('end_date',array([date('Y-m-d',strtotime($request['datetimepickerfrom'])),date('Y-m-d',strtotime($request['datetimepickerto']))]))
+//            ->get();
+
+
+        $selectbooking = Booking::where('listing_id', '=', $request['listing'])
+            ->where('start_date', '<', date('Y-m-d H:i:s', strtotime($request['datetimepickerto'])))
+            ->where('end_date', '>', date('Y-m-d H:i:s', strtotime($request['datetimepickerfrom'])))
+            ->count();
+        //dd(DB::getQueryLog());
+        if ($selectbooking == 0) {
+            $characters = 'OURSVIB';
+            $booking_ref_no = $characters[rand(0, 2)] . rand(0, 999999999);
+            $bookingid = Booking::create([
+                'vendor_id' => Auth::user()->id,
+                'listing_id' => $request['listing'],
+                'user_id' => Auth::user()->id,
+                'blockings' => '1',
+                'start_date' => date('Y-m-d H:i:s', strtotime($request['datetimepickerfrom'])),
+                'end_date' => date('Y-m-d H:i:s', strtotime($request['datetimepickerto'])),
+                'booking_ref_no' => $booking_ref_no
+            ]);
+            if ($bookingid->id) {
+                return response()->json(['status' => 'success', 'message' => 'Dates blocked successfully.']);
+            } else {
+                return response()->json(['status' => 'fail', 'message' => 'Dates blocking failed.']);
+            }
+        }else{
+            return response()->json(['status' => 'Overlapping', 'message' => 'Slots are overalapping with existing slots.']);
+        }
+    }
 }
