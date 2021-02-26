@@ -58,7 +58,7 @@
             $countryId=Session::get('countryid');
             $country=DB::table('country')->where('countryId',$countryId)->get();
             $region=DB::table('region')->where('countryId',$countryId)->get();
-            $categorylisting=Listing::with('listingimages','listingprice','listingcountry','listingstate','listingcity')->where('root_category',$categoryid->id)->paginate(5);
+            $categorylisting=Listing::with('listingimages','listingprice','listingcountry','listingstate','listingcity')->where('root_category',$categoryid->id)->paginate(10);
             //print_r(response()->json($categorylisting));exit;
             return view('customer.pages.listing')->with(compact('countries','region','country','category','categorylisting'));
         }

@@ -146,7 +146,7 @@
                 <!-- Listings Container / End -->
 
                 <!-- Pagination -->
-                {{ $categorylisting->links() }}
+                {{ $categorylisting->links('vendor.pagination.bootstrap-4') }}
 {{--                <div class="utf-pagination-container margin-top-20">--}}
 {{--                    <nav class="pagination">--}}
 {{--                        <ul>--}}
