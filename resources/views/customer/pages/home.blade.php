@@ -7,59 +7,14 @@
 		<div class="container">
                 <div class="row">
                     <div class="col-md-12">
+
                         <div class="homesearch-container search-container margin-top-100">
                             <h2>The World of Online Reservation &amp; Booking Marketplace <br></h2>
                             <div class="announce">Zero Subscription Fee | Free Listing </div>
-                            <div class="row with-forms">
-
-                            <!-- Property Type -->
-                            <div class="col-md-2">
-                                <select data-placeholder="Property Type" class="utf-chosen-select-single-item" style="display: none;">
-{{--                                    <option value="" disabled="" selected="">Type of Booking</option>--}}
-                                    <option value="Instant Booking" selected="selected">Instant Booking</option>
-
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="utf-main-search-input-item">
-                                    <input type="text" name="selectdates" class="form-control " value="01/01/2018 - 01/15/2018" />
-
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                               <select name="states" id="states" data-placeholder="Any Status" class="utf-chosen-select-single-item" style="display: none;">
-                               <option value="" selected="">Filter by state</option>
-                               @foreach($region as $state)
-                                    <option value="<?php echo $state->regionId; ?>"><?php echo ucwords($state->name); ?></option>
-                               @endforeach
-                                </select>
-                            </div>
-                            <!-- Status -->
-                            <div class="col-md-2" id="citylistdiv">
-                                <select name="city" id="city" data-placeholder="Any Status"  class="utf-chosen-select-single-item" style="display: none;">
-                                    <option value="" >Filter by city</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-
-                                <div class="utf-main-search-input-item">
-                                    <input class="form-control-lg" type="number" value="25" data-decimals="0" min="25" max="2000000" step="25"/>
-
-                                </div>
-                            </div>
-                            <div class="col-md-1">
-                                <div class="utf-main-search-input-item">
-                                <button class="button"><i class="fa fa-search"></i> Search</button>
-                                </div>
-                            </div>
-
-
-
-
-                            </div>
-
+                            @include('customer.includes.searchmain')
                             <!-- Row With Forms / End -->
                         </div>
+
                     </div>
                 </div>
             </div>

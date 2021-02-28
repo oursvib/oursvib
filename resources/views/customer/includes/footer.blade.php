@@ -24,7 +24,7 @@
 								</li>
 								<li><a class="" href="#">Digital</a>
 									<ul class="sub-drop-main">
-										<li class="menu-item-has-children"><a href="#">Interactive Content</a> 
+										<li class="menu-item-has-children"><a href="#">Interactive Content</a>
 											<ul class="sub-drop-sub">
 												<li><a href="#">3D VR Walkthrough Gallery</a></li>
 												<li><a href="#">Get 3D VR Pricing &amp; Plan</a></li>
@@ -34,15 +34,15 @@
 										</li>
 										<li><a href="#">Digital Marketing</a></li>
 									</ul>
-								</li> 
+								</li>
                         </ul>
                     </div>
-                    
+
                     <div class="col-md-4 col-sm-3 col-xs-6 contactinfosec">
                        <h4>Get in Touch</h4>
 							<div class="partners">
 								<p class="part-icon"><i class="fa fa-map-marker"></i> <span>G-2-3, Boulevard Business Park, off Jalan Kuching, 51200, Kuala Lumpur</span></p>
-								<p class="part-icon"><i class="fa fa-envelope"></i> <span><a href="mailto: sales@oursvib.com">sales@oursvib.com</a> | 
+								<p class="part-icon"><i class="fa fa-envelope"></i> <span><a href="mailto: sales@oursvib.com">sales@oursvib.com</a> |
 									<a href="mailto: support@oursvib.com">support@oursvib.com</a></span></p>
 								 <p class="part-icon"><i class="fa fa-handshake-o"></i> <span><a href="">Be our CSR partner</a></span></p>
 								 <p class="part-icon"><i class="fa fa-cutlery"></i> <span><a href="">Be our Food Bank partner</a></span></p>
@@ -50,9 +50,9 @@
 							</div>
 							<h4 class="widget-title">Follow Us</h4>
 						<p>Follow &amp; Subscribe your email to get new business tips.</p>
-						 <a href="#"><i class="fa-3x fa fa-facebook-square"></i></a> <a href="#"><i class="fa-3x fa fa-twitter-square"></i></a> <a href="#"><i class="fa-3x fa fa-youtube-square"></i></a> 
-					 
-                    </div> 
+						 <a href="#"><i class="fa-3x fa fa-facebook-square"></i></a> <a href="#"><i class="fa-3x fa fa-twitter-square"></i></a> <a href="#"><i class="fa-3x fa fa-youtube-square"></i></a>
+
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
@@ -197,14 +197,9 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src="{{ asset('customerfile/scripts/bootstrap-input-spinner.js')}}"></script>
-<script>
-    $("input[type='number']").inputSpinner()
-</script>
-<script type="text/javascript">
-    $('input[name="selectdates"]').daterangepicker();
-</script>
 <script src="{{asset('customerfile/js/jquery-validation/jquery.validate.js')}}"></script>
 <script src="{{asset('customerfile/js/jquery-validation/additional-methods.js')}}"></script>
+<script src="{{asset('customerfile/js/php.js')}}"></script>
 <script src="{{asset('customerfile/js/myscripts.js')}}"></script>
 </body>
 <div id="tiptip_holder">
@@ -213,5 +208,18 @@
     </div>
     <div id="tiptip_content"></div>
 </div>
+ @if ($states !='')
+     <script type="text/javascript">
 
+         setTimeout(function () {
+            $("#states").trigger('change');
+         },1000);
+         setTimeout(function () {
+             var city="<?php echo $city;?>";
+
+             $("#city").val(city).trigger("chosen:updated");
+         },1500);
+
+     </script>
+  @endif
 </html>

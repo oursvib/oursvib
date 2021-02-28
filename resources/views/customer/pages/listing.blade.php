@@ -27,53 +27,7 @@
             <div class="search-container ">
                 <h2>The World of Online Reservation &amp; Booking Marketplace <br></h2>
                 <div class="announce">Zero Subscription Fee | Free Listing </div>
-                <div class="row with-forms">
-
-                    <!-- Property Type -->
-                    <div class="col-md-2">
-                        <select data-placeholder="Property Type" class="utf-chosen-select-single-item" style="display: none;">
-                            {{--                                    <option value="" disabled="" selected="">Type of Booking</option>--}}
-                            <option value="Instant Booking" selected="selected">Instant Booking</option>
-
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="utf-main-search-input-item">
-                            <input type="text" name="selectdates" class="form-control " value="01/01/2018 - 01/15/2018" />
-
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <select name="states" id="states" data-placeholder="Any Status" class="utf-chosen-select-single-item" style="display: none;">
-                            <option value="" selected="">Filter by state</option>
-                            <?php foreach($region as $state){ ?>
-                            <option value="<?php echo $state->regionId; ?>"><?php echo ucwords($state->name); ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                    <!-- Status -->
-                    <div class="col-md-2" id="citylistdiv">
-                        <select name="city" id="city" data-placeholder="Any Status"  class="utf-chosen-select-single-item" style="display: none;">
-                            <option value="" >Filter by city</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-
-                        <div class="utf-main-search-input-item">
-                            <input class="form-control-lg" type="number" value="25" data-decimals="0" min="25" max="2000000" step="25"/>
-
-                        </div>
-                    </div>
-                    <div class="col-md-1">
-                        <div class="utf-main-search-input-item">
-                            <button class="button"><i class="fa fa-search"></i> Search</button>
-                        </div>
-                    </div>
-
-
-
-
-                </div>
+                @include('customer.includes.searchmain')
             </div>
         </div>
     </div>
@@ -109,7 +63,7 @@
 
                 <!-- Listings -->
                 <div class="utf-listings-container-area grid-layout">
-
+                    @if($categorylisting->count())
                     @foreach($categorylisting as $listing)
                         <div class="utf-listing-item"> <a href="#" class="utf-smt-listing-img-container" >
 {{--                                <div class="utf-listing-badges-item"> <span class="for-rent">For Rent</span> </div>--}}
@@ -142,25 +96,18 @@
 
                     <div class="clearfix"></div>
                 @endforeach
+                    @else
+
+
+                            <div style="width: 97%;padding: 10px;margin:10px;background: white;">No Listing found matching your search criteria.</div>
+
+                    @endif
                 </div>
                 <!-- Listings Container / End -->
 
-                <!-- Pagination -->
+
                 {{ $categorylisting->links('vendor.pagination.bootstrap-4') }}
-{{--                <div class="utf-pagination-container margin-top-20">--}}
-{{--                    <nav class="pagination">--}}
-{{--                        <ul>--}}
-{{--                            <li><a href="#"><i class="fa fa-angle-left"></i></a></li>--}}
-{{--                            <li><a href="#" class="current-page">1</a></li>--}}
-{{--                            <li><a href="#">2</a></li>--}}
-{{--                            <li><a href="#">3</a></li>--}}
-{{--                            <li class="blank">...</li>--}}
-{{--                            <li><a href="#">10</a></li>--}}
-{{--                            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>--}}
-{{--                        </ul>--}}
-{{--                    </nav>--}}
-{{--                </div>--}}
-                <!-- Pagination / End -->
+
             </div>
 
 

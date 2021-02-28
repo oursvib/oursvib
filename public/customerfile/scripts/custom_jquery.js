@@ -148,9 +148,9 @@
                 $('#amount').val(parseInt(propertyPricing));
             });
         }
-        $(document).on('change', function() {
-            $("#interest").val($("#interest").val().replace(/,/g, '.'));
-        });
+        // $(document).on('change', function() {
+        //     $("#interest").val($("#interest").val().replace(/,/g, '.'));
+        // });
 
         function mortgageCalc() {
             var amount = parseFloat($("#amount").val().replace(/[^0-9\.]+/g, "")),
@@ -547,7 +547,7 @@
                 }
             }]
         });
-        
+
         $('.detailpageproperty-slider').slick({
             centerMode: true,
             centerPadding: '10%',
@@ -587,7 +587,7 @@
             type: 'image',
             delegate: 'a.mfp-gallery',
             fixedContentPos: true,
-            fixedBgPos: true, 
+            fixedBgPos: true,
             closeBtnInside: false,
             preloader: true,
             removalDelay: 0,
@@ -623,7 +623,7 @@
             preloader: false,
             fixedContentPos: false
         });
-        
+
 		/*----------------------------------------------------*/
         /*  Tabs
         /*----------------------------------------------------*/
@@ -798,7 +798,7 @@
             var dataMin = $(this).attr('data-min');
             var dataMax = $(this).attr('data-max');
             var dataUnit = $(this).attr('data-unit');
-            $(this).append("<input type='text' class='first-slider-value'disabled/><input type='text' class='second-slider-value' disabled/>");
+           // $(this).append("<input type='text' class='first-slider-value'disabled/><input type='text' class='second-slider-value' disabled/>");
             $(this).slider({
                 range: true,
                 min: dataMin,
@@ -818,7 +818,10 @@
             var dataMin = $(this).attr('data-min');
             var dataMax = $(this).attr('data-max');
             var dataUnit = $(this).attr('data-unit');
-            $(this).append("<input type='text' class='first-slider-value' disabled/><input type='text' class='second-slider-value' disabled/>");
+            console.log(dataMin)
+            console.log(dataMax)
+            console.log(dataUnit)
+           // $(this).append("<input type='text' class='first-slider-value' disabled/><input type='text' class='second-slider-value' disabled/>");
             $(this).slider({
                 range: true,
                 min: dataMin,

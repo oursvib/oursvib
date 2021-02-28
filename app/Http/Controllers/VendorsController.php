@@ -578,7 +578,7 @@ class VendorsController extends Controller
 
     public function blockBooking(Request $request)
     {
-        DB::enableQueryLog();
+       // DB::enableQueryLog();
 //        $selecttbooking=Booking::where('listing_id','=',$request['listing'])
 //            ->whereBetween('start_date'
 //                ,array([date('Y-m-d',strtotime($request['datetimepickerfrom'])),date('Y-m-d',strtotime($request['datetimepickerto']))]))

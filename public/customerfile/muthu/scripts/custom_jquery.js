@@ -148,9 +148,9 @@
                 $('#amount').val(parseInt(propertyPricing));
             });
         }
-        $(document).on('change', function() {
-            $("#interest").val($("#interest").val().replace(/,/g, '.'));
-        });
+//         $(document).on('change', function() {
+// //            $("#interest").val($("#interest").val().replace(/,/g, '.'));
+//         });
 
         function mortgageCalc() {
             var amount = parseFloat($("#amount").val().replace(/[^0-9\.]+/g, "")),
@@ -425,7 +425,7 @@
             itemsTablet: [991, 2],
             itemsMobile: [767, 1]
         });
-		
+
         $('.carouselListing-02').owlCarousel({
             autoPlay: true,
             navigation: true,
@@ -444,7 +444,7 @@
             itemsTablet: [991, 2],
             itemsMobile: [767, 1]
         });
-		
+
         $('.carouselListing-03').owlCarousel({
             autoPlay: true,
             navigation: true,
@@ -463,7 +463,7 @@
             itemsTablet: [991, 2],
             itemsMobile: [767, 1]
         });
-		
+
         $('.carousel').owlCarousel({
             autoPlay: true,
             navigation: true,
@@ -643,7 +643,7 @@
             preloader: false,
             fixedContentPos: false
         });
-        
+
 		/*----------------------------------------------------*/
         /*  Tabs
         /*----------------------------------------------------*/
@@ -838,6 +838,9 @@
             var dataMin = $(this).attr('data-min');
             var dataMax = $(this).attr('data-max');
             var dataUnit = $(this).attr('data-unit');
+            console.log(dataMax)
+            console.log(dataMax)
+            console.log(dataUnit)
             $(this).append("<input type='text' class='first-slider-value' disabled/><input type='text' class='second-slider-value' disabled/>");
             $(this).slider({
                 range: true,

@@ -32,6 +32,7 @@ Route::get('/vendorslogin', '\App\Http\Controllers\VendorsController@showLoginFo
 Route::get('/avendorslogin', '\App\Http\Controllers\AvendorController@showLoginForm')->name('avendors.login');
 Route::get('/vregistration', '\App\Http\Controllers\Auth\RegisterController@showVendorRegistrationForm')->name('vendors.register');
 Route::get('/viewlistingbycategory/{category}', '\App\Http\Controllers\LandingController@viewListingByCategory')->name('viewbycategory');
+Route::post('/searchlisting', '\App\Http\Controllers\LandingController@searchListing')->name('searchlisting');
 
 Route::prefix('admin')->middleware(['admin', 'verified'])->group(function () {
     Route::get('/', '\App\Http\Controllers\AdminController@index')->name('admin.dashboard');

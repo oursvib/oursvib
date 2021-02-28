@@ -124,12 +124,44 @@ $("#states").on('change', function() {
              var htmldata='<select name="city" id="city" data-placeholder="Any Status" >';
             htmldata +='<option>Select</option>';
             $.each(datas, function(data, state) {
-               htmldata+='<option value="' + state.cityId + '">' + state.name + '</option>';
+               htmldata+='<option value="' + state.cityId + '">' + ucfirst(state.name) + '</option>';
             });
-        
+
             $("#citylistdiv").html(htmldata);
             $("#city").chosen({disable_search_threshold: 100,
                 width: "100%"});
         }
     });
+});
+$("input[type='number']").inputSpinner()
+$('input[name="bookingframe"]').daterangepicker();
+$("#searchform").validate({
+    ignore: ":hidden:not(select)",
+    rules: {
+        listingtype: {
+            required: true
+        },
+        bookingframe: {
+            required: true
+        },
+        states: {
+            required: true,
+        },
+        city: {
+            required: true,
+        },
+        paxrange: {
+            required: true,
+        }
+    },
+    errorPlacement: function errorPlacement(error, element) {
+        //element.insertAfter(error);
+         error.appendTo(element.next());
+
+    },
+    submitHandler: function (form) {
+        //event.preventDefault();
+        form.submit();
+
+    }
 });
