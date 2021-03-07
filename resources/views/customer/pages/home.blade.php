@@ -156,7 +156,7 @@
                 </div>
                 @foreach($statewise as $s=>$state)
                 <div class="col-md-4 col-sm-6">
-                    <a href="{{URL('viewlistingstate', [$state->state])}}" class="img-box">
+                    <a href="{{URL('viewlistingbystate', [$state->state])}}" class="img-box">
                         <div class="utf-listing-badges-item"> <span class="featured">Featured</span>
                         </div>
                         <img src="{{asset('customerfile/images/popular-location-'.sprintf("%02d",$s+1).'.jpg')}}" alt="">

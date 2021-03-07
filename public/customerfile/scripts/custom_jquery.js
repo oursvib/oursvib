@@ -549,9 +549,13 @@
         });
 
         $('.detailpageproperty-slider').slick({
+            dots:true,
+            arrows:false,
             centerMode: true,
             centerPadding: '10%',
             slidesToShow: 1,
+            variableWidth:true,
+            adaptiveHeight:true,
             responsive: [{
                 breakpoint: 1367,
                 settings: {

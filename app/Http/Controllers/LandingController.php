@@ -68,6 +68,16 @@
             $states ='';
             $city = '';
             $paxrange = '';
+            $pricingrangelow = 'RM 0';
+            $pricingrangehigh = 'RM 20,000';
+            $pricinglow=(int)str_replace(array('RM',','),'',$pricingrangelow);
+            $pricinghigh=(int)str_replace(array('RM',','),'',$pricingrangehigh);
+            $areabylow = '0 sq ft';
+            $areabyhigh = '10000 sq ft';
+            $arealow=(int)str_replace(array(' sq ft',','),'',$areabylow);
+            $areahigh=(int)str_replace(array(' sq ft',','),'',$areabyhigh);
+            $amenityc =array();
+            $activityc =array();
             $countryId = Session::get('countryid');
             $country = DB::table('country')->where('countryId', $countryId)->get();
             $region = DB::table('region')->where('countryId', $countryId)->get();
@@ -80,7 +90,43 @@
 
             $categorylisting=Listing::with('listingimages','listingprice','listingcountry','listingstate','listingcity')->where('root_category',$categoryid->id)->where('country',$countryId)->paginate(2);
             //print_r(response()->json($categorylisting));exit;
-            return view('customer.pages.listing')->with(compact('countries', 'region', 'country', 'category', 'states', 'city', 'paxrange', 'bookingframe', 'pricingrangelow', 'pricingrangehigh', 'areabylow', 'areabyhigh', 'activities', 'amenities','categorylisting'));
+            //return view('customer.pages.listing')->with(compact('countries', 'region', 'country', 'category', 'states', 'city', 'paxrange', 'bookingframe', 'pricingrangelow', 'pricingrangehigh', 'areabylow', 'areabyhigh', 'activities', 'amenities','categorylisting'));
+            return view('customer.pages.listing')->with(compact('countries', 'region', 'country', 'category', 'states', 'city', 'paxrange', 'bookingframe', 'pricinglow', 'pricinghigh', 'arealow', 'areahigh', 'activities', 'amenities','categorylisting','amenityc','activityc'))->withInput($request->all());
+        }
+
+        public function viewListingByState(Request $request,$state){
+
+            $countries=DB::table('country')->get();
+            $category=DB::table('categories')->get();
+            $listingtype = '';
+            $bookingframe ='';
+            $states ='';
+            $city = '';
+            $paxrange = '';
+            $pricingrangelow = 'RM 0';
+            $pricingrangehigh = 'RM 20,000';
+            $pricinglow=(int)str_replace(array('RM',','),'',$pricingrangelow);
+            $pricinghigh=(int)str_replace(array('RM',','),'',$pricingrangehigh);
+            $areabylow = '0 sq ft';
+            $areabyhigh = '10000 sq ft';
+            $arealow=(int)str_replace(array(' sq ft',','),'',$areabylow);
+            $areahigh=(int)str_replace(array(' sq ft',','),'',$areabyhigh);
+            $amenityc =array();
+            $activityc =array();
+            $countryId = Session::get('countryid');
+            $country = DB::table('country')->where('countryId', $countryId)->get();
+            $region = DB::table('region')->where('countryId', $countryId)->get();
+            $pricingrangelow = Listingprice::min('normal_price');
+            $pricingrangehigh = Listingprice::max('normal_price');
+            $areabylow = Listingcapacity::min('area_by');
+            $areabyhigh = Listingcapacity::max('area_by');
+            $amenities = Amenity::with('subamenity')->where('parent_id', '0')->orderBy('name', 'Asc')->get();
+            $activities = Activity::with('subactivity')->where('parent_id', '0')->orderBy('name', 'Asc')->get();
+
+            $categorylisting=Listing::with('listingimages','listingprice','listingcountry','listingstate','listingcity')->where('country',$countryId)->where('state',$state)->paginate(2);
+            //print_r(response()->json($categorylisting));exit;
+            //return view('customer.pages.listing')->with(compact('countries', 'region', 'country', 'category', 'states', 'city', 'paxrange', 'bookingframe', 'pricingrangelow', 'pricingrangehigh', 'areabylow', 'areabyhigh', 'activities', 'amenities','categorylisting'));
+            return view('customer.pages.listing')->with(compact('countries', 'region', 'country', 'category', 'states', 'city', 'paxrange', 'bookingframe', 'pricinglow', 'pricinghigh', 'arealow', 'areahigh', 'activities', 'amenities','categorylisting','amenityc','activityc'))->withInput($request->all());
         }
 
         public function searchListingold(Request $request){
@@ -128,7 +174,7 @@
         }
 
         public function searchListing(Request $request){
-         //   print_r($request->all());
+            print_r($request->all());
             $listingtype = $request['listingtype'];
             $bookingframe = $request['bookingframe'];
             $states = $request['states'];
@@ -178,7 +224,7 @@
             $areabyhigh = Listingcapacity::max('area_by');
             $amenities = Amenity::with('subamenity')->where('parent_id', '0')->orderBy('name', 'Asc')->get();
             $activities = Activity::with('subactivity')->where('parent_id', '0')->orderBy('name', 'Asc')->get();
-            DB::enableQueryLog();
+            //DB::enableQueryLog();
 
             $querys = Listing::with('listingimages', 'listingprice', 'listingcountry', 'listingstate', 'listingcity', 'listingactivity','listingamenity','listingcapacity');
                 if($paxrange!=''){
@@ -186,12 +232,12 @@
                         $query->where('min_pax', '>=', (int)$paxrange);
                     });
                 }
-                if($areabylow!='' && $areabyhigh!='' && $arealow!='0' && $areahigh!='0'){
+                if($areabylow!='' && $areabyhigh!=''  && $areahigh!='0'){
                     $querys->whereHas('listingcapacity', function (Builder $query) use ($arealow,$areahigh) {
                         $query->whereBetween('area_by',array($arealow,$areahigh));
                     });
                 }
-                if($pricingrangelow!='' && $pricingrangehigh!='' && $pricinglow!='0' && $pricinghigh!='0'){
+                if($pricingrangelow!='' && $pricingrangehigh!=''  && $pricinghigh!='0'){
                     $querys->whereHas('listingprice', function (Builder $query) use ($pricinglow,$pricinghigh) {
                         $query->whereBetween('normal_price',array($pricinglow,$pricinghigh));
                     });
@@ -223,6 +269,17 @@
             return view('customer.pages.listing')->with(compact('countries', 'region', 'country', 'category', 'states', 'city', 'paxrange', 'bookingframe', 'pricinglow', 'pricinghigh', 'arealow', 'areahigh', 'activities', 'amenities','categorylisting','amenityc','activityc'))->withInput($request->all());
         }
 
+        public function viewListingDetails($listingid){
+            $countryId = Session::get('countryid');
+            $countries = DB::table('country')->get();
+            $states ='';
+            $city = '';
+            $listingdetails=Listing::with('listingimages', 'listingprice', 'listingcountry', 'listingstate', 'listingcity', 'listingcapacity')->findOrFail($listingid);
+//            echo '<pre>';
+//            print_r($listingdetails);exit;
+            return view('customer.pages.listingdetail')->with(compact('countries','states','city','listingdetails'));
+        }
+
         public function search(Request $request)
         {
             $listingtype = '';
@@ -244,7 +301,7 @@
             $categorylisting = Listing::with('listingimages', 'listingprice', 'listingcountry', 'listingstate', 'listingcity', 'listingcapacity')
                 ->paginate(10);
 
-    return view('customer.pages.listing')->with(compact('countries', 'region', 'country', 'category', 'states', 'city', 'paxrange', 'bookingframe', 'pricingrangelow', 'pricingrangehigh', 'areabylow', 'areabyhigh', 'activities', 'amenities', 'categorylisting'));
+            return view('customer.pages.listing')->with(compact('countries', 'region', 'country', 'category', 'states', 'city', 'paxrange', 'bookingframe', 'pricingrangelow', 'pricingrangehigh', 'areabylow', 'areabyhigh', 'activities', 'amenities', 'categorylisting'));
         }
 
     }
