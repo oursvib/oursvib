@@ -6,8 +6,8 @@
 
         <div class="col-md-12">
             @foreach($subactive->subactivityitem as $item)
-                <input id="check-{{$item->id}}" type="checkbox" name="check" value="{{$item->id}}">
-                <label for="check-{{$item->id}}">{{$item->name}}</label>
+                <input id="activity-{{$item->id}}" type="checkbox" name="activity[]" value="{{$item->id}}"  @if(in_array($item->id,$activityc)) checked @endif>
+                <label for="activity-{{$item->id}}">{{$item->name}}</label>
 
             @endforeach
             @endif

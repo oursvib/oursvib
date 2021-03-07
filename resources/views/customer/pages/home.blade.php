@@ -11,7 +11,7 @@
                         <div class="homesearch-container search-container margin-top-100">
                             <h2>The World of Online Reservation &amp; Booking Marketplace <br></h2>
                             <div class="announce">Zero Subscription Fee | Free Listing </div>
-                            @include('customer.includes.searchmain')
+                            @include('customer.includes.searchhome')
                             <!-- Row With Forms / End -->
                         </div>
 

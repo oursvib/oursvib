@@ -165,3 +165,32 @@ $("#searchform").validate({
 
     }
 });
+function doAjaxSearch(){
+    $.ajax({
+        url: "/searchlisting",
+        type: "post",
+        data:$("#searchform").serialize(),
+        dataType: "json",
+        success: function(response) {
+            console.log(response)
+            if(response.total>1){
+                listinghtml='';
+                $.each(response.data,function(i,listing){
+                    listinghtml +='<div class="utf-listing-item"> <a href="#" class="utf-smt-listing-img-container" > <div class="utf-listing-img-content-item"> <img class="utf-user-picture d-none" src="https://oursvib.s3.amazonaws.com/medium_image/medium_'+listing.listingimages[0].listing_images+'" alt="user_1" > </div><img src="https://oursvib.s3.amazonaws.com/medium_image/medium_'+listing.listingimages[0].listing_images+'" alt="" > </a> <div class="utf-listing-content"> <div class="utf-listing-title"> <span class="utf-listing-price">Starts from RM '+listing.listingprice[0].normal_price+'</span> <h4><a href="#">'+listing.title+'</a></h4> <span class="utf-listing-address"><i class="icon-material-outline-location-on"></i>'+ucfirst(listing.listingcity.name)+','+ucfirst(listing.listingstate.name)+','+ucfirst(listing.listingcountry.name)+'</span> </div><div class="utf-listing-user-info d-none"><a href="#"><i class="icon-line-awesome-user"></i> John Williams</a> <span>1 Days Ago</span></div></div></div>'
+                })
+
+                var pagelinks='';
+                $.each(response.links,function(j,pages) {
+
+                        pagelinks += '  <li><a href="'+pages.url+'">'+pages.label+'</a></li>';
+
+                });
+                $("#searchresult").html(listinghtml)
+                $("#pagelinks").html(pagelinks)
+            }else{
+
+            }
+
+        }
+    })
+}

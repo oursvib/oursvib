@@ -826,6 +826,7 @@
                 range: true,
                 min: dataMin,
                 max: dataMax,
+                step:10,
                 values: [dataMin, dataMax],
                 slide: function(event, ui) {
                     event = event;

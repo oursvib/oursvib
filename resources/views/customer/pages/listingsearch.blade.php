@@ -62,51 +62,19 @@
                 </div>
 
                 <!-- Listings -->
-                <div class="utf-listings-container-area grid-layout">
-                    @if($categorylisting->count())
-                    @foreach($categorylisting as $listing)
-                        <div class="utf-listing-item"> <a href="/viewlisting/{{$listing->id}}" class="utf-smt-listing-img-container" >
-{{--                                <div class="utf-listing-badges-item"> <span class="for-rent">For Rent</span> </div>--}}
-                                <div class="utf-listing-img-content-item">
-                                    <img class="utf-user-picture d-none" src="https://oursvib.s3.amazonaws.com/medium_image/medium_{{$listing->listingimages->where('listing_id',$listing->id)->pluck('listing_images')->first()}}"  alt="user_1" >
-{{--                                    <span class="like-icon with-tip" data-tip-content="Bookmark"><div class="tip-content">Bookmark</div></span>--}}
-{{--                                    <span class="compare-button with-tip" data-tip-content="Add to Compare"><div class="tip-content">Add to Compare</div></span>--}}
-{{--                                    <span class="video-button with-tip" data-tip-content="Video"><div class="tip-content">Video</div></span>--}}
-                                </div>
-                                <img src="https://oursvib.s3.amazonaws.com/medium_image/medium_{{$listing->listingimages->where('listing_id',$listing->id)->pluck('listing_images')->first()}}"  alt="" > </a>
-                            <div class="utf-listing-content">
-                                <div class="utf-listing-title">
-                                    <span class="utf-listing-price">Starts from RM {{$listing->listingprice->where('listing_id',$listing->id)->min('normal_price')}}</span>
-                                    <h4><a href="/viewlisting/{{$listing->id}}">{{$listing->title}}</a></h4>
-                                    <span class="utf-listing-address"><i class="icon-material-outline-location-on"></i>
-                                        {{ucfirst($listing->listingcity->name)}},  {{ucfirst($listing->listingstate->name)}},  {{ucfirst($listing->listingcountry->name)}}
-                                    </span>
-                                </div>
-{{--                                <ul class="utf-listing-features">--}}
-{{--                                    <li><i class="fa fa-bed"></i> Beds<span>3</span></li>--}}
-{{--                                    <li><i class="icon-feather-codepen"></i> Baths<span>2</span></li>--}}
-{{--                                    <li><i class="fa fa-car"></i> Garages<span>2</span></li>--}}
-{{--                                    <li><i class="icon-line-awesome-arrows"></i> Sq Ft<span>1530</span></li>--}}
-{{--                                </ul>--}}
-                                <div class="utf-listing-user-info d-none"><a href="#"><i class="icon-line-awesome-user"></i> John Williams</a> <span>1 Days Ago</span></div>
-                            </div>
-                        </div><div class="clearfix"></div>
-                    <!-- Listing Item / End -->
+                <div class="utf-listings-container-area grid-layout" id="searchresult">
 
-
-                    <div class="clearfix"></div>
-                @endforeach
-                    @else
-
-
-                            <div style="width: 97%;padding: 10px;margin:10px;background: white;">No Listing found matching your search criteria.</div>
-
-                    @endif
                 </div>
                 <!-- Listings Container / End -->
 
+                <div class="utf-pagination-container margin-top-20">
+                    <nav class="pagination">
+                        <ul id="pagelinks">
 
-                {{ $categorylisting->appends(Request::all())->links('vendor.pagination.bootstrap-4') }}
+                        </ul>
+                    </nav>
+                </div>
+
 
             </div>
 

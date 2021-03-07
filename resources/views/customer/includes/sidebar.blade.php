@@ -10,13 +10,18 @@
             <!-- Price Range -->
             <div class="utf-range-slider-item margin-bottom-10">
                 <label>Price Range</label>
-                <div id="utf-price-range-item" data-min="0" data-max="400000" data-unit="$" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><input type="text" class="first-slider-value" disabled="" name="pricingrangelow" id="pricingrangelow"><input type="text" class="second-slider-value" disabled="" name="pricingrangehigh" id="pricingrangehigh"><div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 0%; width: 100%;"></div><a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;"></a><a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 100%;"></a></div>
+                <div id="utf-price-range-item" data-min="0" data-max="20000" data-unit="RM " class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                    <input type="text" class="first-slider-value" readonly="readonly" name="pricingrangelow" id="pricingrangelow">
+                    <input type="text" class="second-slider-value" readonly="readonly"name="pricingrangehigh" id="pricingrangehigh">
+                    <div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 0%; width: 100%;"></div>
+                    <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;"></a>
+                    <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 100%;"></a></div>
                 <div class="clearfix"></div>
             </div>
             <!-- Area Range -->
             <div class="utf-range-slider-item margin-top-10 margin-bottom-25">
                 <label>Area Range</label>
-                <div id="utf-area-range-item" data-min="0" data-max="10000" data-unit="sq ft" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><input type="text" class="first-slider-value" disabled="" name="areabylow" id="areabylow"><input type="text" class="second-slider-value" disabled="" name="areabyhigh" id="areabyhigh"><div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 0%; width: 100%;"></div><a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;"></a><a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 100%;"></a></div>
+                <div id="utf-area-range-item" data-min="0" data-max="10000" data-unit="sq ft" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><input type="text" class="first-slider-value"readonly="readonly" name="areabylow" id="areabylow"><input type="text" class="second-slider-value" readonly="readonly" name="areabyhigh" id="areabyhigh"><div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 0%; width: 100%;"></div><a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;"></a><a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 100%;"></a></div>
                 <div class="clearfix"></div>
             </div>
             <h5>Amenities</h5>
@@ -55,17 +60,10 @@
 
             <!-- More Search Options -->
             <a href="#" class="utf-utf-more-search-options-area-button margin-bottom-10 margin-top-20" data-open-title="More Search Option" data-close-title="Less Search Option"></a>
-            <div class="utf-more-search-options-area relative">
-                <div class="checkboxes one-in-row margin-bottom-10">
-                    @foreach($amenities  as $amenity)
-                    <input id="check-2" type="checkbox" name="check" name="amenity[]" >
-                    <label for="check-2">{{$amenity->name}}</label>
-                    @endforeach
-                </div>
-                <!-- Checkboxes / End -->
-            </div>
+
             <!-- More Search Options / End -->
-            <button class="button fullwidth margin-top-10">Search</button>
+
+            <button type="submit" class="button fullwidth margin-top-10">Search</button>
         </div>
         <!-- Widget / End -->
 
@@ -74,3 +72,4 @@
         <div class="clearfix"></div>
     </div>
 </div>
+</form>

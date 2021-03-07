@@ -198,7 +198,7 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src="{{ asset('customerfile/scripts/bootstrap-input-spinner.js')}}"></script>
 <script src="{{asset('customerfile/js/jquery-validation/jquery.validate.js')}}"></script>
-<script src="{{asset('customerfile/js/jquery-validation/additional-methods.js')}}"></script>
+<script src="{{asset('customerfile/js/lodash.min.js')}}"></script>d
 <script src="{{asset('customerfile/js/php.js')}}"></script>
 <script src="{{asset('customerfile/js/myscripts.js')}}"></script>
 </body>
@@ -210,15 +210,22 @@
 </div>
  @if ($states !='')
      <script type="text/javascript">
-
          setTimeout(function () {
             $("#states").trigger('change');
          },1000);
          setTimeout(function () {
              var city="<?php echo $city;?>";
-
              $("#city").val(city).trigger("chosen:updated");
          },1500);
+        $(document).ready(function(){
+            $( "#utf-price-range-item" ).slider( "option", "values", [ <?php echo $pricinglow; ?>, <?php echo $pricinghigh; ?> ] );
+            $("#pricingrangelow").val("RM <?php echo $pricinglow; ?>")
+            $("#pricingrangehigh").val("RM <?php echo $pricinghigh; ?>")
+
+            $("#utf-area-range-item" ).slider( "option", "values", [ <?php echo $arealow; ?>, <?php echo $areahigh; ?> ] );
+            $("#areabylow").val("<?php echo $arealow; ?> sq ft")
+            $("#areabyhigh").val("<?php echo $areahigh; ?> sq ft")
+        })
 
      </script>
   @endif
