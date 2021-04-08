@@ -8,7 +8,9 @@
         </div>
 
 
-
+        @if (Session::has('message'))
+            <div class="alert alert-info">{{ Session::get('message') }}</div>
+        @endif
         <div class="card mb-4">
             <div class="card-body">
                <div id="calendar"></div>
@@ -17,6 +19,15 @@
         </div>
     </div>
     <div class="modal fade" id="editevent">
+        <div class="modal-dialog">
+            <div class="modal-content load_modal_view">
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div class="modal fade" id="updateevent">
         <div class="modal-dialog">
             <div class="modal-content load_modal_view">
 
@@ -74,7 +85,7 @@
 
 
                 },
-                editable: true,
+                             editable: true,
                 dayMaxEvents: true, // allow "more" link when too many events
                 events:{!! $bookingjson !!}
             });

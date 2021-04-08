@@ -10,13 +10,13 @@
 
             </select>
         </div>
-        <div class="col-md-3">
-            <div class="utf-main-search-input-item">
-                <input type="text" name="bookingframe" id="bookingframe" class="form-control" value="{{$bookingframe}}"/>
+{{--        <div class="col-md-3">--}}
+{{--            <div class="utf-main-search-input-item">--}}
+{{--                <input type="text" name="bookingframe" id="bookingframe" class="form-control" value="{{$bookingframe}}"/>--}}
 
-            </div>
-        </div>
-        <div class="col-md-2">
+{{--            </div>--}}
+{{--        </div>--}}
+        <div class="col-md-3">
 
             <select name="states" id="states" data-placeholder="Any Status" class="utf-chosen-select-single-item" style="display: none;">
                 <option value="" selected="">Filter by state</option>
@@ -26,7 +26,7 @@
             </select>
         </div>
         <!-- Status -->
-        <div class="col-md-2" id="citylistdiv">
+        <div class="col-md-3" id="citylistdiv">
             <select name="city" id="city" data-placeholder="Any Status"  class="utf-chosen-select-single-item" style="display: none;">
                 <option value="" >Filter by city</option>
             </select>

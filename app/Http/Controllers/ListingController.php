@@ -96,6 +96,7 @@ class ListingController extends Controller
             'zipcode'           => $request['zipcode'],
             'capacity_by'       => $request['capacity_by'],
             'video'             => $request['videolink'],
+            'dvrlink'             => $request['dvrlink'],
         ]);
         if ($listingid->id) {
 
@@ -347,6 +348,7 @@ class ListingController extends Controller
                 'country'           => $request->country,
                 'zipcode'           => $request->zipcode,
                 'video'             => $request->videolink,
+                'dvrlink'             => $request->dvrlink
             ]);
 
             //near by

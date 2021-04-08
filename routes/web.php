@@ -37,6 +37,7 @@ Route::get('/viewlisting/{listingid}', '\App\Http\Controllers\LandingController@
 //Route::get('/searchlisting', '\App\Http\Controllers\LandingController@search')->name('searchlisting');
 Route::get('/searchlisting', '\App\Http\Controllers\LandingController@searchListing')->name('searchlisting');
 Route::post('/searchlisting', '\App\Http\Controllers\LandingController@searchListing')->name('searchlisting');
+Route::post('/checkavailability', '\App\Http\Controllers\LandingController@checkAvailability')->name('checkavailability');
 //Route::get('/search', '\App\Http\Controllers\LandingController@search')->name('search');
 
 Route::prefix('admin')->middleware(['admin', 'verified'])->group(function () {
@@ -91,7 +92,10 @@ Route::prefix('vendors')->middleware(['vendors', 'verified'])->group(function ()
     Route::get('/vendorcalender', '\App\Http\Controllers\VendorsController@vendorCalender')->name('vendor.booking.calender');
     Route::post('/viewbooking', '\App\Http\Controllers\VendorsController@viewBooking')->name('vendor.booking.view');
     Route::get('/addbooking', '\App\Http\Controllers\VendorsController@addBooking')->name('vendor.booking.add');
+    Route::get('/editbooking/{bookingid}', '\App\Http\Controllers\VendorsController@editBooking')->name('vendor.booking.edit');
+    Route::post('/updateblockbooking', '\App\Http\Controllers\VendorsController@updateBooking')->name('vendor.booking.update');
     Route::post('/blockbooking', '\App\Http\Controllers\VendorsController@blockBooking')->name('vendor.booking.block');
+    Route::post('/deletebooking', '\App\Http\Controllers\VendorsController@deleteBooking')->name('vendor.booking.delete');
 
 });
 

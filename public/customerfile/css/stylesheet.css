@@ -14928,3 +14928,20 @@ img{max-width:100%}
     overflow: initial !important;}
 #footer .contactinfosec a {
     color: #deb859;}
+
+
+ul.property-main-features li {
+    font-size: 15px;
+    color: #888;
+    display: inline-block;
+    margin-right: 10px;
+    padding: 5px 10px;
+    line-height: 22px;
+    font-weight: 600;
+    background: #fff;
+    border-radius: 4px;
+    border:1px solid rgba(0, 0, 0, 0.06);
+    margin-top: 10px;
+}
+
+

@@ -198,6 +198,8 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src="{{ asset('customerfile/scripts/bootstrap-input-spinner.js')}}"></script>
 <script src="{{asset('customerfile/js/jquery-validation/jquery.validate.js')}}"></script>
+ <script type="text/javascript" src="{{asset('customerfile/js/bootstrap-datetimepicker.js')}}"></script>
+ <script type="text/javascript" src="{{asset('customerfile/js/moment.min.js')}}"></script>
 <script src="{{asset('customerfile/js/lodash.min.js')}}"></script>d
 <script src="{{asset('customerfile/js/php.js')}}"></script>
 <script src="{{asset('customerfile/js/myscripts.js')}}"></script>

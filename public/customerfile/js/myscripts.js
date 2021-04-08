@@ -194,3 +194,38 @@ function doAjaxSearch(){
         }
     })
 }
+$("#bookingfrom").datetimepicker({
+    startDate:new Date(),
+    autoClose:true,
+    minuteStep:10
+}).on('changeDate',function (selected) {
+    var minDate = new Date(selected.date.valueOf());
+    var startdate= moment(minDate).format( "YYYY-MM-DD");
+    $('#bookingto').datetimepicker({'startDate':startdate,'todayHighlight':false});
+})
+
+$("#checkavailability").on('click',function () {
+    var startdate=$("#bookingfrom").val();
+    var enddate=$("#bookingto").val();
+    var listingid=$("#listing").val();
+    $.ajax({
+        url: "/checkavailability",
+        type: "post",
+        data:$("#checkavailabilityform").serialize(),
+        dataType: "json",
+        success:function(data){
+            if(data.status=="failure"){
+                $("#proceedbooking").hide();
+                $("#messagecenter").addClass('alert alert-danger')
+                $("#messagecenter").text(data.message)
+            }
+            if(data.status=="success"){
+                $("#messagecenter").removeClass('alert alert-danger')
+                $("#messagecenter").addClass('alert alert-success')
+                $("#messagecenter").text(data.message);
+                $("#proceedbooking").show();
+            }
+
+        }
+    })
+});

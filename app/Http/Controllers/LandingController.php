@@ -5,8 +5,10 @@
     use Acaronlex\LaravelCalendar\Calendar;
     use App\Models\Activity;
     use App\Models\Amenity;
+    use App\Models\Booking;
     use App\Models\Category;
     use App\Models\Listing;
+    use App\Models\Listingamenity;
     use App\Models\Listingcapacity;
     use App\Models\Listingprice;
     use Illuminate\Http\Request;
@@ -174,7 +176,7 @@
         }
 
         public function searchListing(Request $request){
-            print_r($request->all());
+          //  print_r($request->all());
             $listingtype = $request['listingtype'];
             $bookingframe = $request['bookingframe'];
             $states = $request['states'];
@@ -274,10 +276,16 @@
             $countries = DB::table('country')->get();
             $states ='';
             $city = '';
-            $listingdetails=Listing::with('listingimages', 'listingprice', 'listingcountry', 'listingstate', 'listingcity', 'listingcapacity')->findOrFail($listingid);
+            $listingdetails=Listing::with('listingimages', 'listingprice', 'listingcountry', 'listingstate', 'listingcity', 'listingcapacity','listingamenity','listingactivity')->findOrFail($listingid);
 //            echo '<pre>';
-//            print_r($listingdetails);exit;
-            return view('customer.pages.listingdetail')->with(compact('countries','states','city','listingdetails'));
+            $amenities=$listingdetails->listingamenity->pluck('amenity_id')->toArray();
+            $activities=$listingdetails->listingactivity->pluck('activity_id')->toArray();
+            $amenity=DB::table('amenities')->whereIn('id',$amenities)->get();
+            $activity=DB::table('activity')->whereIn('id',$activities)->get();
+            //print_r($amenity);exit;
+//exit;
+
+            return view('customer.pages.listingdetail')->with(compact('countries','states','city','listingdetails','amenity','activity'));
         }
 
         public function search(Request $request)
@@ -304,5 +312,38 @@
             return view('customer.pages.listing')->with(compact('countries', 'region', 'country', 'category', 'states', 'city', 'paxrange', 'bookingframe', 'pricingrangelow', 'pricingrangehigh', 'areabylow', 'areabyhigh', 'activities', 'amenities', 'categorylisting'));
         }
 
+        public function checkAvailability(Request $request){
+            $startdate=$request['bookingfrom'];
+            $enddate=$request['bookingto'];
+            $listing=$request['listing'];
+            // chekcing from and to
+
+
+            if($startdate!='' && $enddate!='') {
+                $from=strtotime($startdate);
+                $to=strtotime($enddate);
+                if ($to < $from) {
+                    return response()->json(['status' => 'failure', 'message' => 'Booking To date cannot be less than Booking From date']);
+                }
+                if ($from == $to) {
+                    return response()->json(['status' => 'failure', 'message' => 'Booking To date and Booking From date cannot be same']);
+                }
+
+                if($from<$to){
+                    $selectbooking=Booking::where('listing_id', '=', $request['listing'])
+                        ->where('start_date', '<', date('Y-m-d H:i:s', strtotime($request['bookingfrom'])))
+                        ->where('end_date', '>', date('Y-m-d H:i:s', strtotime($request['bookingto'])))
+                        ->count();
+                    if($selectbooking==0){
+                        return response()->json(['status' => 'success', 'message' => 'Wow,Listing is available over the mentioned time, please click on proceed with booking to go through the booking process']);
+                    }else{
+                        return response()->json(['status' => 'failure', 'message' =>'This listing is not available for booking over the mentioned time frame, please try booking at some other dates.']);
+                    }
+
+                }
+            }else{
+                return response()->json(['status' => 'failure', 'message' => 'Booking From date or Booking To date cannot be empty' ]);
+            }
+        }
     }
 

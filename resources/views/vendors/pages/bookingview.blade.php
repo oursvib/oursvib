@@ -66,10 +66,14 @@
     </div>
     <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
+        @if($bookingdetails->blockings==1)
+        <button type="button" class="btn btn-default" id="{{$bookingdetails->bookingid}}" onclick="deleteBooking({{$bookingdetails->bookingid}})">Delete</button>
+        <button type="button" class="btn btn-default addbooking"  data-action="edit" data-url="/vendors/editbooking/{{$bookingdetails->bookingid}}" id="{{$bookingdetails->bookingid}}" >Edit</button>
+        @endif
        <!-- <input type="submit" class="btn btn-primary" value="Save changes">-->
     </div>
 </form>
+
 <script>
 
     $("#role").change(function(){
@@ -80,64 +84,46 @@
         }
     })
 
+    function deleteBooking(bookingid){
 
-    $("#adduser").validate({
-        rules: {
-            role: {
-                required: true
-            },
-            name: {
-                required: true
-            },
-            email: {
-                required: true,
-                email: true,
-                remote: {
-                    url: "/validate_email_add",
-                    type: "post",
-                    data: {
-                        "_token": $('#csrf-token')[0].content
-                    },
 
-                }
-            },
-            passwordr: {
-                required: true
-            },
-            company_name: {
-                required: true
-            },
-            phone_number: {
-                required: true
-            }
-        },
-        messages:{
-            email:{
-                remote:"This email already exists"
-            }
-        },
-        submitHandler: function (form) {
-            //event.preventDefault();
+        if(confirm("Are you sure to delete this booking? deleting this booking will make the listing available for the user to book this listing.")){
             $.ajax({
-                url: "{{url('/admin/saveuser')}}" ,
+                url: "deletebooking" ,
                 type: "POST",
-                data: $('#adduser').serialize(),
-                success: function( response ) {
-                    //  $('#send_form').html('Submit');
-                    $('#res_message').show();
-                    $('#res_message').html(response.message);
-                    $('#msg_div').removeClass('d-none');
-
-                    $("#adduser")[0].reset();
-                    setTimeout(function(){
-                        $('#res_message').hide();
-                        $('#msg_div').hide();
-                        $("#manageusermodal").modal('hide');
-                        window.location.reload();
-                    },3000);
-
+                data:{
+                    "_token": $('#csrf-token')[0].content,
+                    "bookingid":bookingid
+                },
+                dataType:"json",
+                success:function () {
+                    window.location.reload();
                 }
+            })
+        }
+    }
+
+    function editBooking(bookingid){
+
+    }
+
+    $('.addbooking').on('click', function () {
+        var this_action = $(this).attr('data-action');
+        var this_url = $(this).attr('data-url');
+
+
+
+        if (this_action == 'edit') {
+            $('#editevent').modal('hide');
+            $.get(this_url, function (data) {
+
+                $('#updateevent').on('shown.bs.modal', function () {
+                    $('#updateevent .load_modal_view').html(data);
+                });
+                $('#updateevent').modal();
+
             });
         }
-    })
+    });
+
 </script>

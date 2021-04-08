@@ -716,10 +716,17 @@
                                     Video link
                                 </label>
                                 <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1">https://youtu.be/</span>
-                                    </div>
                                 <input type="text" name="videolink" id="videolink"  class="form-control required" value="{{$listinginfo->video}}">
+
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <label>
+                                    3D VR video link
+                                </label>
+                                <div class="input-group">
+
+                                    <input type="text" name="dvrlink" id="dvrlink"  class="form-control" value="{{$listinginfo->dvrlink}}">
 
                                 </div>
                             </div>

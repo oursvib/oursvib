@@ -42,6 +42,7 @@ class CreateListingsTable extends Migration
             $table->string('zipcode');
             $table->longText('video');
             $table->longText('supporting_document')->nullable();
+            $table->longText('dvrlink')->nullable();
             $table->timestamps();
         });
     }

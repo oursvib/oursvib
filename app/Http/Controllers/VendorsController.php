@@ -548,11 +548,38 @@ class VendorsController extends Controller
         return view('vendors.pages.bookings',compact('bookings','bookingjson'));
     }
 
-    public function editBooking(Request $request){
+    public function editBooking(Request $request,$bookingid){
 
-        $booingid=$request['bookingid'];
-        $bookingrefno=$request['bookingrefno'];
-        return view('admin.pages.bookingedit');
+        $id = Auth::user()->id;
+        $listings = Listing::with('rootCategory', 'parentCategory', 'childCategory', 'nicheCategory', 'user')->whereIn('status', array('1', '2'), 'or')->where('vendor_id',$id)->get();
+        $bookings=Booking::findorfail($bookingid);
+        //print_r($bookings);
+        //print_r($listings);exit;
+        return view('vendors.pages.bookingedit')->with(compact('listings','bookings'));
+    }
+
+    public function updateBooking(Request $request){
+        $selectbooking = Booking::where('listing_id', '=', $request['listing'])
+            ->where('start_date', '<', date('Y-m-d H:i:s', strtotime($request['datetimepickerto'])))
+            ->where('end_date', '>', date('Y-m-d H:i:s', strtotime($request['datetimepickerfrom'])))
+            ->where('id','!=',$request['bookingid'])
+            ->count();
+        //dd(DB::getQueryLog());
+        if ($selectbooking == 0) {
+                $booking=Booking::where('id',$request['bookingid'])->update([
+                    'listing_id' => $request['listing'],
+                    'start_date' => date('Y-m-d H:i:s', strtotime($request['datetimepickerfrom'])),
+                    'end_date' => date('Y-m-d H:i:s', strtotime($request['datetimepickerto'])),
+                ]);
+            if ($booking) {
+                Session::flash('message', 'Dates blocking updated successfully.');
+                return response()->json(['status' => 'success', 'message' => 'Dates blocking updated successfully.']);
+            } else {
+                return response()->json(['status' => 'fail', 'message' => 'Dates blocking updated failed.']);
+            }
+        }else{
+            return response()->json(['status' => 'Overlapping', 'message' => 'Slots are overalapping with existing slots.']);
+        }
     }
 
     public function viewBooking(Request $request){
@@ -568,12 +595,28 @@ class VendorsController extends Controller
             ->where('bookings.booking_ref_no','=',$bookingrefno)
             ->first();
 
-        return view('admin.pages.bookingview')->with(compact('bookingdetails'));
+        return view('vendors.pages.bookingview')->with(compact('bookingdetails'));
     }
     public function addBooking(Request $request){
         $id = Auth::user()->id;
         $listings = Listing::with('rootCategory', 'parentCategory', 'childCategory', 'nicheCategory', 'user')->whereIn('status', array('1', '2'), 'or')->where('vendor_id',$id)->get();
         return view('vendors.pages.bookingadd')->with(compact('listings'));
+    }
+
+
+    public function deleteBooking(Request $request){
+        $id = $request['bookingid'];
+        $booking = Booking::find($id);
+        if($booking){
+            if($booking->delete()){
+                Session::flash('message', 'Blocked dates released successfully.');
+                return response()->json(['status' => 'success', 'message' => 'Blocked dates released successfully.']);
+            }else{
+                Session::flash('message', 'Blocked dates release failed.');
+                return response()->json(['status' => 'failure', 'message' => 'Blocked dates release failed.']);
+            }
+        }
+
     }
 
     public function blockBooking(Request $request)

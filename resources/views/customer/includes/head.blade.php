@@ -13,7 +13,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="{{asset('/customerfile/css/stylesheet.css')}}">
     <link rel="stylesheet" href="{{asset('/customerfile/css/extra.css')}}">
-
+    <link rel="stylesheet" href="{{asset('/customerfile/css/bootstrap-datetimepicker.css')}}">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800&amp;display=swap" rel="stylesheet">

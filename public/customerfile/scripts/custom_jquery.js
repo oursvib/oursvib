@@ -386,9 +386,17 @@
             $(this).toggleClass('liked');
             $(this).children('.like-icon').toggleClass('liked');
         });
-        $('.show-more-button').on('click', function(e) {
+        $('#show-more-button').on('click', function(e) {
             e.preventDefault();
-            $('.show-more').toggleClass('visible');
+            $('#show-more').toggleClass('visible');
+        });
+        $('#show-more-button-team').on('click', function(e) {
+            e.preventDefault();
+            $('#show-more-team').toggleClass('visible');
+        });
+        $('#show-more-button-about').on('click', function(e) {
+            e.preventDefault();
+            $('#show-more-about').toggleClass('visible');
         });
         var pxShow = 800;
         var fadeInTime = 300;
