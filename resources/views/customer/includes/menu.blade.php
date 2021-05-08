@@ -44,8 +44,15 @@
 
                     <!-- Right Side Content / End -->
                     <div class="right-side">
-                        <div class="header-widget">
-                            <a href="#utf-signin-dialog-block" class="popup-with-zoom-anim log-in-button sign-in"><i class="icon-line-awesome-user"></i> <span>Signin / Signup</span></a>
-                             </div>
+                        @if(Auth::check())
+                            <div class="header-widget">
+                                <a href="/logout" class="log-in-button sign-in"><i class="icon-line-awesome-user"></i> <span>Logout</span></a>
+                            </div>
+                        @else
+                            <div class="header-widget">
+                                <a href="#utf-signin-dialog-block" class="popup-with-zoom-anim log-in-button sign-in"><i class="icon-line-awesome-user"></i> <span>Signin / Signup</span></a>
+                            </div>
+
+                        @endif
                     </div>
                     <!-- Right Side Content / End -->

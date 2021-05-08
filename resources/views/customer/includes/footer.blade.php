@@ -203,6 +203,7 @@
 <script src="{{asset('customerfile/js/lodash.min.js')}}"></script>d
 <script src="{{asset('customerfile/js/php.js')}}"></script>
 <script src="{{asset('customerfile/js/myscripts.js')}}"></script>
+<script type="text/javascript" src="{{asset('customerfile/js/payment.js')}}"></script>
 </body>
 <div id="tiptip_holder">
     <div id="tiptip_arrow">

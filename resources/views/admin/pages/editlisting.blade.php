@@ -698,7 +698,7 @@
                             <div class="form-row">
                                 <div id="image_preview">
                                     @foreach($listinginfo->listingimages as $listingimages)
-                                        <img src="https://oursvib.s3.amazonaws.com/thumbnail/thumbnail_{{$listingimages->listing_images}}" height='160px' width='160px' style='margin:10px;'>
+                                        <img src="{{URL::asset('storage/listing_images/thumbnail/thumbnail_'.$listingimages->listing_images)}}" height='160px' width='160px' style='margin:10px;'>
                                     @endforeach
                                 </div>
                             </div>

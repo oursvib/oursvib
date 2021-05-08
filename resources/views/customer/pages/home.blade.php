@@ -116,7 +116,7 @@
                                                 <div class="utf-listing-img-content-item">
                                                     <span class="utf-listing-compact-title-item"> {{$recent->title}}<i>Starts from RM {{$recent->listingprice->where('listing_id',$recent->id)->min('normal_price')}}</i></span>
                                                 </div>
-                                                <img src="https://oursvib.s3.amazonaws.com/medium_image/medium_{{$recent->listingimages->where('listing_id',$recent->id)->pluck('listing_images')->first()}}" width="268" height="205">
+                                                <img src="{{URL::asset('storage/listing_images/thumbnail/medium_'.$recent->listingimages->where('listing_id',$recent->id)->pluck('listing_images')->first())}}" width="268" height="205">
 
                                             </a>
                                         </div>

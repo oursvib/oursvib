@@ -197,11 +197,12 @@ function doAjaxSearch(){
 $("#bookingfrom").datetimepicker({
     startDate:new Date(),
     autoClose:true,
-    minuteStep:10
+    minuteStep:15
 }).on('changeDate',function (selected) {
     var minDate = new Date(selected.date.valueOf());
     var startdate= moment(minDate).format( "YYYY-MM-DD");
-    $('#bookingto').datetimepicker({'startDate':startdate,'todayHighlight':false});
+    $('#bookingto').datetimepicker({'startDate':startdate,'todayHighlight':false,autoClose:true,
+        minuteStep:15});
 })
 
 $("#checkavailability").on('click',function () {
@@ -218,14 +219,52 @@ $("#checkavailability").on('click',function () {
                 $("#proceedbooking").hide();
                 $("#messagecenter").addClass('alert alert-danger')
                 $("#messagecenter").text(data.message)
+                $(".additionaladdon").hide();
             }
-            if(data.status=="success"){
+            if(data.status=="successaddon"){
                 $("#messagecenter").removeClass('alert alert-danger')
                 $("#messagecenter").addClass('alert alert-success')
                 $("#messagecenter").text(data.message);
-                $("#proceedbooking").show();
+                $("#proceedbookingfar").show();
+                $(".additionaladdon").show();
+            }
+
+            if(data.status=="successnoaddon"){
+                $("#messagecenter").removeClass('alert alert-danger')
+                $("#messagecenter").addClass('alert alert-success')
+                $("#messagecenter").text(data.message);
+                $("#proceedbookingnear").show();
+                $(".additionaladdon").hide();
             }
 
         }
     })
 });
+
+
+$("#proceedbookingfar,#proceedbookingnear").on('click',function () {
+
+    $.ajax({
+        url: "/initialblocking",
+        type: "post",
+        data:$("#checkavailabilityform").serialize(),
+        dataType: "json",
+        success:function(data){
+            if(data.status=="failure"){
+                $("#proceedbooking").hide();
+                $("#messagecenter").addClass('alert alert-danger')
+                $("#messagecenter").text(data.message)
+                $(".additionaladdon").hide();
+            }
+            if(data.status=="success"){
+                window.location.href="/"+data.message;
+            }
+
+
+        }
+    })
+});
+
+$("#placeorder").click(function () {
+
+})

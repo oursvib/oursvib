@@ -9,7 +9,8 @@
     <!-- Content -->
     <div class="detailpageproperty-slider fullwidth-property-slider margin-bottom-65" style="height: 450px;">
         @foreach($listingdetails->listingimages as $listingimages)
-        <a href="https://oursvib.s3.amazonaws.com/large_image/large_{{$listingimages->listing_images}}" class="item mfp-gallery slick-slide"  data-slick-index="0" aria-hidden="false" tabindex="0"><img src="https://oursvib.s3.amazonaws.com/large_image/large_{{$listingimages->listing_images}}"></a>
+
+        <a href=" {{URL::asset('storage/listing_images/thumbnail/large_'.$listingimages->listing_images)}}" class="item mfp-gallery slick-slide"  data-slick-index="0" aria-hidden="false" tabindex="0"><img src=" {{URL::asset('storage/listing_images/thumbnail/large_'.$listingimages->listing_images)}}"></a>
         @endforeach
 
     </div>
@@ -73,35 +74,62 @@
                         <iframe width="100%" height="450" src="{{$listingdetails->video}}" allowfullscreen=""></iframe>
                     </div>
                 @endif
+                <form name="checkavailabilityform" id="checkavailabilityform">
                 <div class="utf-desc-headline-item margin-bottom-0">
                     <h3>Check Availability</h3>
                 </div>
-                <form name="checkavailabilityform" id="checkavailabilityform">
+
                 <div class="container-fluid bg-white padding-top-20 padding-bottom-20">
                     <div class="row">
                     <div class="col-md-3">
                         <input type="hidden" name="listing" id="listing" value="{{$listingdetails->id}}">
-                            <input type="text" name="bookingfrom" id="bookingfrom" class="form-control"  placeholder="From" value="" readonly/>
+                            <input type="text" name="bookingfrom" id="bookingfrom" class="form-control"  placeholder="From" value="{{$from}}" readonly/>
 
                     </div>
                      <div class="col-md-3">
-                            <input type="text" name="bookingto" id="bookingto" class="form-control" placeholder="To"  value="" readonly/>
+                            <input type="text" name="bookingto" id="bookingto" class="form-control" placeholder="To"  value="{{$to}}" readonly/>
                      </div>
                      <div class="col-md-3">
                             <input type="button" id="checkavailability" class="form-control"  value="Check availabilty"/>
                      </div>
                      <div class="col-md-3">
-                            <input type="button" id="proceedbooking" class="form-control"  value="Proceed with booking" style="display: none;"/>
+                            <input type="button" id="proceedbookingnear" class="form-control"  value="Proceed with booking" style="display: none;"/>
                      </div>
                     </div>
                     <br>
-                    <div class="row">
-                        <div id="messagecenter" class="col-md-12" >
+                    <div class="row ">
+                        <div class="col-md-12">
+                        <div id="messagecenter">
 
+                        </div>
                         </div>
                     </div>
                 </div>
                     @csrf
+                    <div class="utf-desc-headline-item margin-bottom-0 additionaladdon">
+                        <h3>Addditional Addon</h3>
+                    </div>
+                    <div class="container-fluid bg-white padding-top-20 padding-bottom-20 additionaladdon">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                           <table class="table table-striped table-bordered" width="98" align="center">
+                            <thead><td>Addon</td><td>Additonal cost</td><td>Action</td></thead>
+                            @foreach($additinaladdon as $additional)
+                                   <tr>
+                                      <td>{{$additional->name}}</td>
+                                      <td>@if($additional->type=="1") Free @else RM {{$additional->amount}} @endif </td>
+                                      <td><input type="checkbox" name="additionaladdon[]" value="{{$additional->id}}"></td>
+                                   </tr>
+                            @endforeach
+                           </table>
+                            </div>
+                            <div class="col-md-9">&nbsp;</div>
+                            <div class="col-md-3">
+                                <input type="button" id="proceedbookingfar" class="form-control"  value="Proceed with booking" style="display: none;"/>
+                            </div>
+                        </div>
+                    </div>
                 </form>
                 <div class="utf-desc-headline-item margin-bottom-0">
                     <h3>Pricing</h3>
@@ -114,6 +142,11 @@
                             <div class="pricing-list-container" howu-index="416">
 
                                 <ul class="" howu-index="414">
+                                    <li>
+                                        <h5>&nbsp;</h5>
+                                        <span><strong>Off peak price</strong></span>
+                                        <span class="peak"><strong>Peak season price</strong><br><small>({{date('M', mktime(0, 0, 0, $listingdetails->listingprice->pluck('peak_start')->first(), 10))}} to {{date('M', mktime(0, 0, 0, $listingdetails->listingprice->pluck('peak_end')->first(), 10))}})</small></span>
+                                    </li>
                                 @foreach($listingdetails->listingprice->sortBy('billing_type') as $pricing)
                                     <li howu-index="413">
                                         <h5 howu-index="412">
@@ -124,6 +157,8 @@
 {{--                                            Per Hour RM 200--}}
 {{--                                        </p>--}}
                                         <span howu-index="410">RM {{$pricing->normal_price}} </span>
+                                        <span class="peak" howu-index="410"> RM {{$pricing->peak_price}}</span>
+
                                     </li>
                                 @endforeach
                                 </ul>
@@ -143,7 +178,7 @@
                         <h3>Broucher</h3>
                     </div>
                     <div class="">
-                        <iframe width="100%" height="450" src="https://oursvib.s3.amazonaws.com/supporting_documents/{{$listingdetails->supporting_document}}" allowfullscreen=""></iframe>
+                        <iframe width="100%" height="450" src="{{URL::asset('storage/supporting_documents/'. $listingdetails->supporting_document)}}" allowfullscreen=""></iframe>
                     </div>
                 @endif
 

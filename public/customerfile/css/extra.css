@@ -17,3 +17,20 @@
 .homeslidercarousel  .owl-item img{
     width:100%;
 }
+.additionaladdon{
+    display: none;
+}
+.pricing-list-container span{
+    right:20%!important;
+
+}
+.pricing-list-container .peak{
+    right: 2% !important;
+    text-align: center;
+}
+input[type='radio']{
+    display: none;
+}
+#logo img{
+    visibility: visible;
+}

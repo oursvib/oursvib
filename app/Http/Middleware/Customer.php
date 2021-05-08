@@ -10,17 +10,21 @@ class Customer
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
         if (!Auth::check()) {
+           // $url = url()->previous();
+          //  $route = app('router')->getRoutes($url)->match(app('request')->create($url))->getName();
             return redirect()->route('login');
+
         }
 
         if (Auth::user()->role == 4) {
+
             return $next($request);
         }
 

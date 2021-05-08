@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Session;
 
 class VerificationController extends Controller
 {
@@ -38,5 +41,17 @@ class VerificationController extends Controller
         $this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
+    }
+
+    public function show(Request $request)
+    {
+        if (!Session::has('countryid'))
+        {
+            Session::put('countryid','148');
+        }
+
+        $countries=DB::table('country')->get();
+        $states='';
+        return view('auth.verify')->with(compact('countries','states'));
     }
 }

@@ -174,7 +174,7 @@ class ListingController extends Controller
 
             //for images
             foreach ($request->file('images') as $key => $value) {
-                $s3                    = \Storage::disk('s3');
+               // $s3                    = \Storage::disk('s3');
                 $filenamewithextension = $value->getClientOriginalName();
 
                 //get filename without extension
@@ -213,25 +213,25 @@ class ListingController extends Controller
                 $mediumpath = public_path('storage/listing_images/thumbnail/' . $mediumthumbnail);
                 $this->createThumbnail($mediumpath, 520, 397,'hard');
 
-                $s3filePathlargeimage     = '/large_image/' . $largethumbnail;
-                $s3filePaththumbnailimage = '/thumbnail/' . $thumbnail;
-                $s3filePathorigiinalimage = '/original/' . $filenametostore;
-                $s3filePathmediumimage = '/medium_image/' . $mediumthumbnail;
-
-                $s3->put($s3filePathlargeimage, file_get_contents($largethumbnailpath), 'public');
-                $s3->put($s3filePaththumbnailimage, file_get_contents($thumbnailpath), 'public');
-                $s3->put($s3filePathorigiinalimage, file_get_contents($originalpath), 'public');
-                $s3->put($s3filePathmediumimage, file_get_contents($mediumpath), 'public');
+//                $s3filePathlargeimage     = '/large_image/' . $largethumbnail;
+//                $s3filePaththumbnailimage = '/thumbnail/' . $thumbnail;
+//                $s3filePathorigiinalimage = '/original/' . $filenametostore;
+//                $s3filePathmediumimage = '/medium_image/' . $mediumthumbnail;
+//
+//                $s3->put($s3filePathlargeimage, file_get_contents($largethumbnailpath), 'public');
+//                $s3->put($s3filePaththumbnailimage, file_get_contents($thumbnailpath), 'public');
+//                $s3->put($s3filePathorigiinalimage, file_get_contents($originalpath), 'public');
+//                $s3->put($s3filePathmediumimage, file_get_contents($mediumpath), 'public');
 
                 Listingimage::create([
                     'listing_id'     => $listingid->id,
                     'listing_images' => $filenametostore,
                 ]);
 
-                unlink($largethumbnailpath);
-                unlink($thumbnailpath);
-                unlink($originalpath);
-                unlink($mediumpath);
+//                unlink($largethumbnailpath);
+//                unlink($thumbnailpath);
+//                unlink($originalpath);
+//                unlink($mediumpath);
             }
 
             if ($request->file('supporting_document')) {
@@ -248,13 +248,13 @@ class ListingController extends Controller
                 $filenametostore = $filename . '_' . time() . '.' . $extension;
                 $originalpath    = public_path('storage/supporting_documents/' . $filenametostore);
                 $request->file('supporting_document')->storeAs('public/supporting_documents', $filenametostore);
-                $s3filesupportingdocuments = '/supporting_documents/' . $filenametostore;
-                $s3->put($s3filesupportingdocuments, file_get_contents($originalpath), 'public');
+//                $s3filesupportingdocuments = '/supporting_documents/' . $filenametostore;
+//                $s3->put($s3filesupportingdocuments, file_get_contents($originalpath), 'public');
 
                 if (DB::table('listings')
                     ->where('id', $listingid->id)
                     ->update(['supporting_document' => $filenametostore])) {
-                    unlink($originalpath);
+                   // unlink($originalpath);
                 }
 
             }

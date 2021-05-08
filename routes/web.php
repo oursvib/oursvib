@@ -38,6 +38,9 @@ Route::get('/viewlisting/{listingid}', '\App\Http\Controllers\LandingController@
 Route::get('/searchlisting', '\App\Http\Controllers\LandingController@searchListing')->name('searchlisting');
 Route::post('/searchlisting', '\App\Http\Controllers\LandingController@searchListing')->name('searchlisting');
 Route::post('/checkavailability', '\App\Http\Controllers\LandingController@checkAvailability')->name('checkavailability');
+Route::post('/initialblocking', '\App\Http\Controllers\LandingController@initialBlocking')->name('blocklisting');
+Route::get('/previewbooking', '\App\Http\Controllers\LandingController@previewBooking')->name('previewbooking');
+Route::get('/modifybooking/{listingid}', '\App\Http\Controllers\LandingController@viewListingDetails')->name('modifybooking');
 //Route::get('/search', '\App\Http\Controllers\LandingController@search')->name('search');
 
 Route::prefix('admin')->middleware(['admin', 'verified'])->group(function () {
@@ -103,8 +106,15 @@ Route::prefix('avendors')->middleware(['avendors', 'verified'])->group(function 
     Route::get('/', '\App\Http\Controllers\AvendorController@index')->name('avendors.dashboard');
 
 });
+Route::prefix('customer')->middleware(['customer', 'verified'])->group(function () {
+    Route::get('/', '\App\Http\Controllers\CustomerController@index')->name('customer.dashboard');
+   // Route::get('/home', '\App\Http\Controllers\CustomerController@index')->name('customer.dashboard');
+    Route::get('/orderconfirmation', '\App\Http\Controllers\CustomerController@orderConfirmation')->name('orderconfirmation');
+    Route::get('/paymentprocess', '\App\Http\Controllers\CustomerController@processPayment')->name('paymentprocess');
+    Route::post('/paymentsresponse', '\App\Http\Controllers\CustomerController@paymentResponse')->name('paymentsresponse');
 
-Route::get('/customer', '\App\Http\Controllers\CustomerController@index')->name('customer')->middleware('customer');
+});
+//Route::get('/customer', '\App\Http\Controllers\CustomerController@index')->name('customer')->middleware('customer');
 
 Route::get('/email', function(){
     return view('email.newlisting');

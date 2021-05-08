@@ -68,12 +68,13 @@
                         <div class="utf-listing-item"> <a href="/viewlisting/{{$listing->id}}" class="utf-smt-listing-img-container" >
 {{--                                <div class="utf-listing-badges-item"> <span class="for-rent">For Rent</span> </div>--}}
                                 <div class="utf-listing-img-content-item">
-                                    <img class="utf-user-picture d-none" src="https://oursvib.s3.amazonaws.com/medium_image/medium_{{$listing->listingimages->where('listing_id',$listing->id)->pluck('listing_images')->first()}}"  alt="user_1" >
+
+                                    <img class="utf-user-picture d-none" src=" {{URL::asset('storage/listing_images/thumbnail/medium_'.$listing->listingimages->where('listing_id',$listing->id)->pluck('listing_images')->first())}}"  alt="user_1" >
 {{--                                    <span class="like-icon with-tip" data-tip-content="Bookmark"><div class="tip-content">Bookmark</div></span>--}}
 {{--                                    <span class="compare-button with-tip" data-tip-content="Add to Compare"><div class="tip-content">Add to Compare</div></span>--}}
 {{--                                    <span class="video-button with-tip" data-tip-content="Video"><div class="tip-content">Video</div></span>--}}
                                 </div>
-                                <img src="https://oursvib.s3.amazonaws.com/medium_image/medium_{{$listing->listingimages->where('listing_id',$listing->id)->pluck('listing_images')->first()}}"  alt="" > </a>
+                                <img src="{{URL::asset('storage/listing_images/thumbnail/medium_'.$listing->listingimages->where('listing_id',$listing->id)->pluck('listing_images')->first())}}"  alt="" > </a>
                             <div class="utf-listing-content">
                                 <div class="utf-listing-title">
                                     <span class="utf-listing-price">Starts from RM {{$listing->listingprice->where('listing_id',$listing->id)->min('normal_price')}}</span>
