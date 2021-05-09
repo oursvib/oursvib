@@ -112,6 +112,13 @@ Route::prefix('customer')->middleware(['customer', 'verified'])->group(function 
     Route::get('/orderconfirmation', '\App\Http\Controllers\CustomerController@orderConfirmation')->name('orderconfirmation');
     Route::get('/paymentprocess', '\App\Http\Controllers\CustomerController@processPayment')->name('paymentprocess');
     Route::post('/paymentsresponse', '\App\Http\Controllers\CustomerController@paymentResponse')->name('paymentsresponse');
+    Route::post('/initiatebooking', '\App\Http\Controllers\CustomerController@initiateBooking')->name('initiatebooking');
+    Route::get('/testpage', '\App\Http\Controllers\CustomerController@testpage')->name('testpage');
+    Route::get('/ordersuccess', '\App\Http\Controllers\CustomerController@orderSuccess')->name('ordersuccess');
+    Route::get('/orderfailure', '\App\Http\Controllers\CustomerController@orderFailure')->name('orderfailure');
+    Route::get('/dashboard', '\App\Http\Controllers\CustomerController@dashboard')->name('dashboard');
+    Route::get('/changepassword', '\App\Http\Controllers\CustomerController@changePassword')->name('changepassword');
+    Route::post('/updatepassword', '\App\Http\Controllers\CustomerController@updatePassword')->name('updatepassword');
 
 });
 //Route::get('/customer', '\App\Http\Controllers\CustomerController@index')->name('customer')->middleware('customer');

@@ -180,7 +180,7 @@ class VendorsController extends Controller
 
             //for images
             foreach ($request->file('images') as $key => $value) {
-                $s3                    = \Storage::disk('s3');
+                // $s3                    = \Storage::disk('s3');
                 $filenamewithextension = $value->getClientOriginalName();
 
                 //get filename without extension
@@ -194,6 +194,7 @@ class VendorsController extends Controller
 
                 //thumbnail name
                 $thumbnail = 'thumbnail_' . $filename . '_' . time() . '.' . $extension;
+                $mediumthumbnail = 'medium_' . $filename . '_' . time() . '.' . $extension;
 
                 //large thumbnail name
                 $largethumbnail = 'large_' . $filename . '_' . time() . '.' . $extension;
@@ -202,32 +203,41 @@ class VendorsController extends Controller
                 $value->storeAs('public/listing_images', $filenametostore);
                 $value->storeAs('public/listing_images/thumbnail', $thumbnail);
                 $value->storeAs('public/listing_images/thumbnail', $largethumbnail);
+                $value->storeAs('public/listing_images/thumbnail', $mediumthumbnail);
 
                 //create small thumbnail
                 $thumbnailpath = public_path('storage/listing_images/thumbnail/' . $thumbnail);
-                $this->createThumbnail($thumbnailpath, 160, 160);
+
+                $this->createThumbnail($thumbnailpath, 268, 205);
 
                 //create large thumbnail
                 $largethumbnailpath = public_path('storage/listing_images/thumbnail/' . $largethumbnail);
                 $originalpath       = public_path('storage/listing_images/' . $filenametostore);
 
                 $this->createThumbnail($largethumbnailpath, 900, 500);
-                $s3filePathlargeimage     = '/large_image/' . $largethumbnail;
-                $s3filePaththumbnailimage = '/thumbnail/' . $thumbnail;
-                $s3filePathorigiinalimage = '/original/' . $filenametostore;
 
-                $s3->put($s3filePathlargeimage, file_get_contents($largethumbnailpath), 'public');
-                $s3->put($s3filePaththumbnailimage, file_get_contents($thumbnailpath), 'public');
-                $s3->put($s3filePathorigiinalimage, file_get_contents($originalpath), 'public');
+                $mediumpath = public_path('storage/listing_images/thumbnail/' . $mediumthumbnail);
+                $this->createThumbnail($mediumpath, 520, 397,'hard');
+
+//                $s3filePathlargeimage     = '/large_image/' . $largethumbnail;
+//                $s3filePaththumbnailimage = '/thumbnail/' . $thumbnail;
+//                $s3filePathorigiinalimage = '/original/' . $filenametostore;
+//                $s3filePathmediumimage = '/medium_image/' . $mediumthumbnail;
+//
+//                $s3->put($s3filePathlargeimage, file_get_contents($largethumbnailpath), 'public');
+//                $s3->put($s3filePaththumbnailimage, file_get_contents($thumbnailpath), 'public');
+//                $s3->put($s3filePathorigiinalimage, file_get_contents($originalpath), 'public');
+//                $s3->put($s3filePathmediumimage, file_get_contents($mediumpath), 'public');
 
                 Listingimage::create([
                     'listing_id'     => $listingid->id,
                     'listing_images' => $filenametostore,
                 ]);
 
-                unlink($largethumbnailpath);
-                unlink($thumbnailpath);
-                unlink($originalpath);
+//                unlink($largethumbnailpath);
+//                unlink($thumbnailpath);
+//                unlink($originalpath);
+//                unlink($mediumpath);
             }
 
             if ($request->file('supporting_document')) {
@@ -426,7 +436,7 @@ class VendorsController extends Controller
             if ($request->file('images')) {
                 Listingimage::where('listing_id', $listing->id)->delete();
                 foreach ($request->file('images') as $key => $value) {
-                    $s3                    = \Storage::disk('s3');
+                    // $s3                    = \Storage::disk('s3');
                     $filenamewithextension = $value->getClientOriginalName();
 
                     //get filename without extension
@@ -440,6 +450,7 @@ class VendorsController extends Controller
 
                     //thumbnail name
                     $thumbnail = 'thumbnail_' . $filename . '_' . time() . '.' . $extension;
+                    $mediumthumbnail = 'medium_' . $filename . '_' . time() . '.' . $extension;
 
                     //large thumbnail name
                     $largethumbnail = 'large_' . $filename . '_' . time() . '.' . $extension;
@@ -448,32 +459,41 @@ class VendorsController extends Controller
                     $value->storeAs('public/listing_images', $filenametostore);
                     $value->storeAs('public/listing_images/thumbnail', $thumbnail);
                     $value->storeAs('public/listing_images/thumbnail', $largethumbnail);
+                    $value->storeAs('public/listing_images/thumbnail', $mediumthumbnail);
 
                     //create small thumbnail
                     $thumbnailpath = public_path('storage/listing_images/thumbnail/' . $thumbnail);
-                    $this->createThumbnail($thumbnailpath, 160, 160);
+
+                    $this->createThumbnail($thumbnailpath, 268, 205);
 
                     //create large thumbnail
                     $largethumbnailpath = public_path('storage/listing_images/thumbnail/' . $largethumbnail);
                     $originalpath       = public_path('storage/listing_images/' . $filenametostore);
 
                     $this->createThumbnail($largethumbnailpath, 900, 500);
-                    $s3filePathlargeimage     = '/large_image/' . $largethumbnail;
-                    $s3filePaththumbnailimage = '/thumbnail/' . $thumbnail;
-                    $s3filePathorigiinalimage = '/original/' . $filenametostore;
 
-                    $s3->put($s3filePathlargeimage, file_get_contents($largethumbnailpath), 'public');
-                    $s3->put($s3filePaththumbnailimage, file_get_contents($thumbnailpath), 'public');
-                    $s3->put($s3filePathorigiinalimage, file_get_contents($originalpath), 'public');
+                    $mediumpath = public_path('storage/listing_images/thumbnail/' . $mediumthumbnail);
+                    $this->createThumbnail($mediumpath, 520, 397,'hard');
+
+//                $s3filePathlargeimage     = '/large_image/' . $largethumbnail;
+//                $s3filePaththumbnailimage = '/thumbnail/' . $thumbnail;
+//                $s3filePathorigiinalimage = '/original/' . $filenametostore;
+//                $s3filePathmediumimage = '/medium_image/' . $mediumthumbnail;
+//
+//                $s3->put($s3filePathlargeimage, file_get_contents($largethumbnailpath), 'public');
+//                $s3->put($s3filePaththumbnailimage, file_get_contents($thumbnailpath), 'public');
+//                $s3->put($s3filePathorigiinalimage, file_get_contents($originalpath), 'public');
+//                $s3->put($s3filePathmediumimage, file_get_contents($mediumpath), 'public');
 
                     Listingimage::create([
                         'listing_id'     => $listing->id,
                         'listing_images' => $filenametostore,
                     ]);
 
-                    unlink($largethumbnailpath);
-                    unlink($thumbnailpath);
-                    unlink($originalpath);
+//                unlink($largethumbnailpath);
+//                unlink($thumbnailpath);
+//                unlink($originalpath);
+//                unlink($mediumpath);
                 }
             }
             //listing document
@@ -644,7 +664,9 @@ class VendorsController extends Controller
                 'blockings' => '1',
                 'start_date' => date('Y-m-d H:i:s', strtotime($request['datetimepickerfrom'])),
                 'end_date' => date('Y-m-d H:i:s', strtotime($request['datetimepickerto'])),
-                'booking_ref_no' => $booking_ref_no
+                'booking_ref_no' => $booking_ref_no,
+                'booking_progress' => 0,
+                'amountpaid' => 0,
             ]);
             if ($bookingid->id) {
                 return response()->json(['status' => 'success', 'message' => 'Dates blocked successfully.']);

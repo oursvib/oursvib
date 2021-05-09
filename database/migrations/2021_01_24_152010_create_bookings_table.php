@@ -22,6 +22,8 @@ class CreateBookingsTable extends Migration
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->string('booking_ref_no');
+            $table->integer('booking_progress')->default('0')->comment('1=>bookinginprogress,2=>bookedsuccessfully,0=>blocked by vendors');
+            $table->string('amountpaid')->default('0');
             $table->timestamps();
         });
     }

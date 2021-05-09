@@ -101,11 +101,20 @@
                                 <div class="clearfix mt-2">
                                     <button type="submit" class="btn btn--lg w-100 button" id="placeorder">Place Order</button>
                                 </div>
+                                <div class="clearfix mt-2">
+                                <div id="messagecenter">
+
+                                </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
             </div>
+            <input type="hidden" name="listing_id" id="listing_id" value="{{$bookinginformation['listing_id']}}">
+            <input type="hidden" name="starttime" id="starttime" value="{{$bookinginformation['startingtime']}}">
+            <input type="hidden" name="endtime" id="endtime" value="{{$bookinginformation['endtime']}}">
+            <input type="hidden" name="vendorid" id="vendorid" value="{{$listings->vendor_id}}">
             <!--Order Summary-->
 
 

@@ -340,8 +340,8 @@
 
                 if($from<$to){
                     $selectbooking=Booking::where('listing_id', '=', $request['listing'])
-                        ->where('start_date', '<', date('Y-m-d H:i:s', strtotime($request['bookingfrom'])))
-                        ->where('end_date', '>', date('Y-m-d H:i:s', strtotime($request['bookingto'])))
+                        ->where('start_date', '<=', date('Y-m-d H:i:s', strtotime($request['bookingfrom'])))
+                        ->where('end_date', '>=', date('Y-m-d H:i:s', strtotime($request['bookingto'])))
                         ->count();
                     if($selectbooking==0){
                          $additinaladdon=DB::table('listing_additional as a')->select('b.name','a.*')->join('additonal_fee as b','b.id','=','a.additional_id')->where('a.listing_id',$request['listing'])->whereIn('a.type',array('1','2'))->orderBy('type','desc')->count();
@@ -363,8 +363,8 @@
 
         public function checkBookingSlot($fromdate,$todate,$listing){
             $selectbooking=Booking::where('listing_id', '=',$listing)
-                ->where('start_date', '<', date('Y-m-d H:i:s', strtotime($fromdate)))
-                ->where('end_date', '>', date('Y-m-d H:i:s', strtotime($todate)))
+                ->where('start_date', '<=', date('Y-m-d H:i:s', strtotime($fromdate)))
+                ->where('end_date', '>=', date('Y-m-d H:i:s', strtotime($todate)))
                 ->count();
             return $selectbooking;
         }
@@ -382,10 +382,11 @@
             //print_r(Session::get('initialblocking'));exit;
             if(Session::has('initialblocking')){
                 $bookinginfo=Session::get('initialblocking');
-                //print_r($bookinginfo);
+               // print_r($bookinginfo);
+
                 $selectbooking=Booking::where('listing_id', '=',$bookinginfo['listing'])
-                    ->where('start_date', '<', date('Y-m-d H:i:s', strtotime($bookinginfo['bookingfrom'])))
-                    ->where('end_date', '>', date('Y-m-d H:i:s', strtotime($bookinginfo['bookingto'])))
+                    ->where('start_date', '<=', date('Y-m-d H:i:s', strtotime($bookinginfo['bookingfrom'])))
+                    ->where('end_date', '>=', date('Y-m-d H:i:s', strtotime($bookinginfo['bookingto'])))
                     ->count();
                if($selectbooking==0){
                    $countries=DB::table('country')->get();
@@ -394,8 +395,13 @@
                    $country=DB::table('country')->where('countryId',$countryId)->get();
                     $listings=Listing::with('listingimages', 'listingprice', 'listingcountry', 'listingstate', 'listingcity', 'listingcapacity','listingimages')->findorfail($bookinginfo['listing']);
                     //echo '<pre>';print_r($listings);exit;
-                    $additinaladdon=DB::table('listing_additional as a')->select('b.name','a.*')->join('additonal_fee as b','b.id','=','a.additional_id')->where('a.listing_id',$bookinginfo['listing'])->whereIn('a.type',array('1','2'))->whereIn('a.id',$bookinginfo['additionaladdon'])->orderBy('type','desc')->get();
-                     $additinaladdonsum=DB::table('listing_additional as a')->select('b.name','a.*')->join('additonal_fee as b','b.id','=','a.additional_id')->where('a.listing_id',$bookinginfo['listing'])->whereIn('a.type',array('1','2'))->whereIn('a.id',$bookinginfo['additionaladdon'])->orderBy('type','desc')->sum('amount');
+                   if(key_exists('additionaladdon',$bookinginfo)) {
+                       $additinaladdon = DB::table('listing_additional as a')->select('b.name', 'a.*')->join('additonal_fee as b', 'b.id', '=', 'a.additional_id')->where('a.listing_id', $bookinginfo['listing'])->whereIn('a.type', array('1', '2'))->whereIn('a.id', $bookinginfo['additionaladdon'])->orderBy('type', 'desc')->get();
+                       $additinaladdonsum = DB::table('listing_additional as a')->select('b.name', 'a.*')->join('additonal_fee as b', 'b.id', '=', 'a.additional_id')->where('a.listing_id', $bookinginfo['listing'])->whereIn('a.type', array('1', '2'))->whereIn('a.id', $bookinginfo['additionaladdon'])->orderBy('type', 'desc')->sum('amount');
+                   }else{
+                       $additinaladdon=array();
+                       $additinaladdonsum=0;
+                   }
                     $bookinginformation['startingtime']= date('d-m-Y H:i',strtotime($bookinginfo['bookingfrom']));
                     $bookinginformation['endtime']= date('d-m-Y H:i',strtotime($bookinginfo['bookingto']));
                     //echo $bookinginfo['bookingfrom'];echo $bookinginfo['bookingto'];exit;

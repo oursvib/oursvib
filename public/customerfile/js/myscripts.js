@@ -265,6 +265,49 @@ $("#proceedbookingfar,#proceedbookingnear").on('click',function () {
     })
 });
 
-$("#placeorder").click(function () {
 
-})
+$("#f").validate({
+    ignore: ":hidden:not(select)",
+    rules: {
+        cardtype: {
+            required: true
+        },
+        PAN: {
+            required: true,
+            digits:true,
+            maxlength:16
+        },
+        expiryDate: {
+            required: true,
+            digits:true,
+            maxlength: 4
+        },
+        CVV2: {
+            required: true,
+            minlength:3,
+            maxlength:4,
+            digits:true
+        }
+    },
+
+    submitHandler: function (form) {
+        //event.preventDefault();
+        $.ajax({
+            url:"initiatebooking",
+            type: "post",
+            data:{startime:$("#starttime").val(),endtime:$("#endtime").val(),listing:$("#listing_id").val(),vendorid:$("#vendorid").val(),bookingrefid:$("#invoiceNo").val(),amountpaid:$("#amount").val(),_token:  $('meta[name="_token"]').attr('content')},
+            dataType:"json",
+            success:function(data){
+                if(data.status=="gothrough"){
+                    $("#invoiceNo").val(data.message);
+                    form.submit();
+                }else{
+                    $("#messagecenter").addClass('alert alert-danger')
+                    $("#messagecenter").text(data.message)
+                    return false;
+                }
+            }
+        })
+
+    }
+});

@@ -66,6 +66,10 @@ class Listing extends Model
     public function listingcity(){
         return $this->hasOne('App\Models\City','cityId','city');
     }
+
+    public function booking(){
+        return $this->hasMany('App\Models\Booking','listing_id','id');
+    }
 }
 
 

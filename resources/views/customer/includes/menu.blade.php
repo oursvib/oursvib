@@ -29,6 +29,7 @@
 										<li><a href="#">Digital Marketing</a></li>
 									</ul>
 								</li>
+
                               <li>
             <select name="countrylist" id="countrylist" class="countrylist">
             <?php foreach($countries as $country){?>
@@ -36,6 +37,7 @@
             <?php } ?>
             </select>
         </li>
+
                             </ul>
                         </nav>
                         <div class="clearfix"></div>
@@ -47,6 +49,10 @@
                         @if(Auth::check())
                             <div class="header-widget">
                                 <a href="/logout" class="log-in-button sign-in"><i class="icon-line-awesome-user"></i> <span>Logout</span></a>
+{{--                                <ul class="sub-drop-main">--}}
+{{--                                    <li><a href="#">Events Ticket</a></li>--}}
+{{--                                    <li><a href="#">Activity Ticket</a></li>--}}
+{{--                                </ul>--}}
                             </div>
                         @else
                             <div class="header-widget">

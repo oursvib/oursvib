@@ -72,6 +72,7 @@
                                         <div class="cart-table-prd-price">&nbsp;</div>
                                     </div>
                                 </div>
+                                @if(count($additinaladdon))
                                 @foreach($additinaladdon as $addon)
                                     <div class="cart-table-prd">
                                         <div class="cart-table-prd-image">
@@ -91,6 +92,7 @@
                                         </div>
                                     </div>
                                 @endforeach
+                                @endif
                             </div>
                         </div>
                     </div>

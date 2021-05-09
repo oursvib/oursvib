@@ -49,4 +49,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function listing(){
         return $this->belongsToMany('App\Models\Listing','listing');
     }
+
+//    public function booking(){
+//        return $this->belongsToMany('App\Models\Booking','listing','');
+//    }
+
+
 }
