@@ -67,8 +67,13 @@ class CustomerController extends Controller
                 $country=DB::table('country')->where('countryId',$countryId)->get();
                 $listings=Listing::with('listingimages', 'listingprice', 'listingcountry', 'listingstate', 'listingcity', 'listingcapacity','listingimages')->findorfail($bookinginfo['listing']);
                 //echo '<pre>';print_r($listings);exit;
+                if(key_exists('additionaladdon',$bookinginfo)) {
                 $additinaladdon=DB::table('listing_additional as a')->select('b.name','a.*')->join('additonal_fee as b','b.id','=','a.additional_id')->where('a.listing_id',$bookinginfo['listing'])->whereIn('a.type',array('1','2'))->whereIn('a.id',$bookinginfo['additionaladdon'])->orderBy('type','desc')->get();
                 $additinaladdonsum=DB::table('listing_additional as a')->select('b.name','a.*')->join('additonal_fee as b','b.id','=','a.additional_id')->where('a.listing_id',$bookinginfo['listing'])->whereIn('a.type',array('1','2'))->whereIn('a.id',$bookinginfo['additionaladdon'])->orderBy('type','desc')->sum('amount');
+                }else{
+                    $additinaladdon=array();
+                    $additinaladdonsum=0;
+                }
                 $bookinginformation['startingtime']= date('d-m-Y H:i',strtotime($bookinginfo['bookingfrom']));
                 $bookinginformation['endtime']= date('d-m-Y H:i',strtotime($bookinginfo['bookingto']));
                 //echo $bookinginfo['bookingfrom'];echo $bookinginfo['bookingto'];exit;
@@ -160,8 +165,13 @@ class CustomerController extends Controller
                 $country=DB::table('country')->where('countryId',$countryId)->get();
                 $listings=Listing::with('listingimages', 'listingprice', 'listingcountry', 'listingstate', 'listingcity', 'listingcapacity','listingimages')->findorfail($bookinginfo['listing']);
                 //echo '<pre>';print_r($listings);exit;
+                if(key_exists('additionaladdon',$bookinginfo)) {
                 $additinaladdon=DB::table('listing_additional as a')->select('b.name','a.*')->join('additonal_fee as b','b.id','=','a.additional_id')->where('a.listing_id',$bookinginfo['listing'])->whereIn('a.type',array('1','2'))->whereIn('a.id',$bookinginfo['additionaladdon'])->orderBy('type','desc')->get();
                 $additinaladdonsum=DB::table('listing_additional as a')->select('b.name','a.*')->join('additonal_fee as b','b.id','=','a.additional_id')->where('a.listing_id',$bookinginfo['listing'])->whereIn('a.type',array('1','2'))->whereIn('a.id',$bookinginfo['additionaladdon'])->orderBy('type','desc')->sum('amount');
+                }else{
+                    $additinaladdon=array();
+                    $additinaladdonsum=0;
+                }
                 $bookinginformation['startingtime']= date('d-m-Y H:i',strtotime($bookinginfo['bookingfrom']));
                 $bookinginformation['endtime']= date('d-m-Y H:i',strtotime($bookinginfo['bookingto']));
                 $bookinginformation['listing_id']= $bookinginfo['listing'];
